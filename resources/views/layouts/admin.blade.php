@@ -2,11 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield("title") E-Posyandu Kebon Jayanti</title>
-    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/css/app.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}" />
+    @include("includes.head")
 </head>
 
 <body>
@@ -16,7 +12,7 @@
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-between">
                     <a href="./index.html" class="text-nowrap logo-img">
-                        <img src="{{ asset('assets/images/logo_posyandu.png') }}" width="180" alt="logo posyandu" />
+                        <img src="{{ asset('assets/images/posyandu_full.png') }}" width="180" alt="logo posyandu" />
                     </a>
                     <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                         <i class="ti ti-x fs-8"></i>
@@ -90,7 +86,7 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('assets/js/app.js') }}"></script>
+    @include("includes.script")
     @stack("script")
 </body>
 
