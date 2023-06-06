@@ -61,7 +61,12 @@
                     </ul>
                     <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
                         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown d-flex align-items-center">
+                                @if(Auth::user()->user_information && Auth::user()->user_information->nama)
+                                {{ Auth::user()->user_information->nama }}
+                                @else
+                                Kang Admin
+                                @endif
                                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="ti ti-user-circle fs-8" style="font-size: 18px;"></i>
                                 </a>
