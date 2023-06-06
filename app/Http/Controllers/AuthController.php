@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Alert;
 use App\Models\Kader;
+use App\Models\PetugasKesehatan;
 
 class AuthController extends Controller
 {
@@ -24,12 +25,16 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $kaderInformation = Kader::where('user_id', $user->id)->first();
+            $petugasKesehatanInformation = PetugasKesehatan::where('user_id', $user->id)->first();
 
             if ($kaderInformation) {
                 $user->user_information = $kaderInformation;
+            } else if ($petugasKesehatanInformation) {
+                $user->user_information = $petugasKesehatanInformation;
             } else {
-                $user->user_information = ['nama' => 'Kang Admin'];
+                $user->user_information = null;
             }
+
             return redirect()->intended('/dashboard');
         } else {
             Alert::error('Gagal masuk', 'Pastikan username dan password yang anda ketikan sudah benar')->autoclose(5000);
