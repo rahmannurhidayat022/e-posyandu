@@ -5,28 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kader extends Model
+class LingkupPosko extends Model
 {
     use HasFactory;
-
-    protected $table = 'kader';
+    protected $table = 'lingkup_posko';
 
     protected $fillable = [
-        'user_id',
         'posko_id',
-        'nama',
-        'nik',
-        'telp',
-        'jabatan',
-        'jalan',
         'rt',
-        'rw',
     ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 
     public function posko()
     {
