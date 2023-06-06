@@ -11,10 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pos_pemeriksaan', function (Blueprint $table) {
+        Schema::create('kader', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('jalan');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+
+            $table->string('nama');
+            $table->string('nik')->unique();
+            $table->string('telp');
+            $table->text('jalan');
             $table->string('rt', 2);
             $table->string('rw', 2);
             $table->timestamps();
@@ -26,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pos_pemeriksaan');
+        Schema::dropIfExists('kader');
     }
 };

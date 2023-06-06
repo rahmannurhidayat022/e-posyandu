@@ -11,19 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kader', function (Blueprint $table) {
+        Schema::create('petugas_kesehatan', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->string('nik')->unique();
-            $table->string('name');
-            $table->string('telp');
-            $table->text('alamat');
-            $table->timestamps();
 
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
-                ->onDelete('cascade');
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+
+            $table->string('nama');
+            $table->string('telp');
+            $table->string('puskesmas');
+            $table->text('alamat_puskesmas');
+            $table->timestamps();
         });
     }
 
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kader');
+        Schema::dropIfExists('petugas_kesehatan');
     }
 };

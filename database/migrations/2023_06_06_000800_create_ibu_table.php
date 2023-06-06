@@ -13,21 +13,24 @@ return new class extends Migration
     {
         Schema::create('ibu', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('keluarga_id');
-            $table->string('nik')->unique();
-            $table->string('nama');
-            $table->string('tempat_lahir');
-            $table->date('tanggal_lahir');
-            $table->string('telp');
-            $table->string('golongan_darah', 5)->nullable();
-            $table->string('no_medic')->nullable();
-            $table->string('nrki')->nullable();
-            $table->timestamps();
 
-            $table->foreign('keluarga_id')
+            $table->unsignedBigInteger('posko_id');
+            $table->foreign('posko_id')
                 ->references('id')
-                ->on('keluarga')
-                ->onDelete('cascade');
+                ->on('posko')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+
+            $table->string('nama');
+            $table->string('nik')->unique();
+            $table->string('telp');
+            $table->date('tanggal_lahir');
+            $table->string('jalan');
+            $table->string('rt', 2);
+            $table->string('rw', 2);
+            $table->string('ayah');
+            $table->string('darah', 5);
+            $table->timestamps();
         });
     }
 
