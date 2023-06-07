@@ -17,6 +17,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
         Route::post('/logout', 'AuthController@logout')->name('auth.logout');
 
+        Route::get('/posko', 'PoskoController@index')->name('posko.index');
+        Route::post('/posko/store', 'PoskoController@store')->name('posko.store');
+
         Route::get('/admin', 'AdminController@index')->name('admin.index');
 
         Route::get('/kader', 'KaderController@index')->name('kader.index');

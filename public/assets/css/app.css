@@ -12245,6 +12245,60 @@
   content: "\f440";
 }
 
+:root {
+    --badge-primary: #009988;
+    --border-radius: 3px;
+    --primary-color: #098db3;
+    --secondary-color: #6c757d;
+    --white-color: #f3f3f3;
+}
+
+.card, .modal-content, .form-control, .form-select, .btn, .sidebar-link {
+    border-radius: var(--border-radius) !important;
+}
+.form-control:focus, .form-select:focus {
+    border: 1px solid var(--primary-color) !important;
+}
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+.btn-secondary {
+    background-color: var(--secondary-color) !important;
+    border-color: var(--secondary-color) !important;
+}
+.btn-outline-primary {
+    border-color: var(--primary-color) !important;
+    color: var(--primary-color) !important;
+}
+.btn-outline-primary:hover {
+    background-color: var(--primary-color) !important;
+    color: var(--white-color) !important;
+}
+.modal-title {
+    color: var(--primary-color) !important;
+}
+.form-label {
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+.sidebar-link.active {
+    background-color: var(--primary-color) !important;
+}
+
+.badge-circle {
+    padding: 5px;
+    overflow: hidden;
+    background-color: var(--badge-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.badge-circle i {
+    color: #fff;
+    font-size: 18px;
+}
 
 @charset "UTF-8";
 /*!
