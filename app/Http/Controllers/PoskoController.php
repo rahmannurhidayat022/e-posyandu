@@ -68,6 +68,40 @@ class PoskoController extends Controller
     {
         $data = Posko::findOrFail($id);
         $lingkup = LingkupPosko::where('posko_id', $id)->get();
-        return view('posko.edit')->with(["posko" => $data, "lingkup" => $lingkup]);
+        return view('posko.edit')->with(["id" => $id, "posko" => $data, "lingkup" => $lingkup]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'nama' => 'required',
+            'jalan' => 'required',
+            'rw' => 'required',
+        ]);
+
+        try {
+            $data = Posko::findOrFail($id);
+            $data->nama = $validated['nama'];
+            $data->jalan = $validated['jalan'];
+            $data->rw = $validated['rw'];
+            $data->save();
+
+            LingkupPosko::where('posko_id', $data->id)->delete();
+
+            $rt = [];
+            foreach ($request->rt as $item) {
+                $rt[] = [
+                    "posko_id" => $data->id,
+                    "rt" => $item,
+                ];
+            }
+            LingkupPosko::insert($rt);
+
+            Alert::success('success', 'Berhasil update data posko');
+            return redirect()->route('posko.index');
+        } catch (\Throwable $th) {
+            Alert::error('error', 'Gagal update data posko')->autoclose(3000);
+            return redirect()->back()->withInput($request->all());
+        }
     }
 }

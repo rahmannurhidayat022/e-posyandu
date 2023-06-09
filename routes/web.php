@@ -20,6 +20,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/posko', 'PoskoController@index')->name('posko.index');
         Route::get('/posko/create', 'PoskoController@create')->name('posko.create');
         Route::get('/posko/{id}/edit', 'PoskoController@edit')->name('posko.edit');
+        Route::put('/posko/{id}/update', 'PoskoController@update')->name('posko.update');
         Route::post('/posko/store', 'PoskoController@store')->name('posko.store');
 
         Route::get('/admin', 'AdminController@index')->name('admin.index');

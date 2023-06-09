@@ -21,8 +21,9 @@
                         </div>
                     </h2>
                     <div class="mt-4">
-                        <form class="form" method="post" action="{{ route('posko.store') }}">
+                        <form class="form" method="post" action="{{ route('posko.update', ['id' => $id]) }}">
                             @csrf
+                            @method('PUT')
                             <div class="modal-body">
                                 <input hidden type="text" value="{{ $posko->id }}">
                                 <div class="mb-2">
