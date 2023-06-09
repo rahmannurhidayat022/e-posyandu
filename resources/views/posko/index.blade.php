@@ -21,6 +21,7 @@
                                     <td>Jalan / Gang</td>
                                     <td>RW</td>
                                     <td>RT</td>
+                                    <td>Action</td>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -139,6 +140,18 @@
                             elements += `<span class="badge rounded-pill text-bg-secondary me-1">${rt}</span>`;
                         })
                         return elements;
+                    }
+                },
+                {
+                    data: null,
+                    name: 'action',
+                    sortable: false,
+                    orderable: false,
+                    searchable: false,
+                    render: (data, type, row) => {
+                        return `<a class="btn btn-sm btn-success" href="/posko/${row.id}/edit"><i class="ti ti-edit"></i></a>
+<button class="btn btn-sm btn-danger"><i class="ti ti-trash"></i></button>
+`
                     }
                 }
             ]

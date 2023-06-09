@@ -63,4 +63,11 @@ class PoskoController extends Controller
             return redirect()->back()->withInput($request->all());
         }
     }
+
+    public function edit($id)
+    {
+        $data = Posko::findOrFail($id);
+        $lingkup = LingkupPosko::where('posko_id', $id)->get();
+        return view('posko.edit')->with(["posko" => $data, "lingkup" => $lingkup]);
+    }
 }
