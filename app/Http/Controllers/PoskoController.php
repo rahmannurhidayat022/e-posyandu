@@ -4,13 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Posko;
+use App\Models\LingkupPosko;
 use Alert;
+use Yajra\DataTables\DataTables;
 
 class PoskoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('posko');
+        if ($request->ajax()) {
+            $data = Posko::select('*');
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('rt', function ($row) {
+                    return LingkupPosko::where('posko_id', $row->id)->select('rt')->get();
+                })
+                ->make(true);
+        }
+        return view('posko.index');
+    }
+
+    public function create()
+    {
+        return view('posko.create');
     }
 
     public function store(Request $request)
@@ -29,8 +45,19 @@ class PoskoController extends Controller
 
             $data->save();
 
+            if ($request->rt) {
+                $rt = [];
+                foreach ($request->rt as $item) {
+                    $rt[] = [
+                        "posko_id" => $data->id,
+                        "rt" => $item,
+                    ];
+                }
+                LingkupPosko::insert($rt);
+            }
+
             Alert::success('success', 'Berhasil menambahkan data posko');
-            return redirect()->back();
+            return redirect()->route('posko.index');
         } catch (\Throwable $th) {
             Alert::error('error', 'Gagal menambahkan data posko')->autoclose(3000);
             return redirect()->back()->withInput($request->all());

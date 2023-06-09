@@ -52,3 +52,46 @@
     color: #fff;
     font-size: 18px;
 }
+
+.swal2-popup {
+  background-color: #ffffff;
+  color: #333333;
+    border-radius: 3px !important;
+    padding: 3px;
+}
+.swal2-confirm {
+  background-color: var(--primary-color) !important;
+  color: #ffffff;
+}
+.swal2-confirm:hover {
+  background-color: #0056b3;
+}
+.swal2-title {
+    font-size: 16px !important;
+}
+.swal2-html-container {
+    font-size: 14px !important;
+}
+.swal2-icon {
+    font-size: 12px !important;
+}
+
+.form {
+    width: 100%;
+    max-width: 350px;
+}
+
+.breadcrumb-item a {
+    color: var(--primary-color) !important;
+}
+.select2-results__option--highlighted {
+    background-color: var(--primary-color) !important;
+}
+.select2-results__option:hover {
+    background-color: var(--primary-color) !important;
+    color: #fff !important;
+}
+
+.dataTables_paginate .paginate_button:hover {
+  color: var(--primary-color) !important;
+}

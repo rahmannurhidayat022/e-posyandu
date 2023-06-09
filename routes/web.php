@@ -18,6 +18,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::post('/logout', 'AuthController@logout')->name('auth.logout');
 
         Route::get('/posko', 'PoskoController@index')->name('posko.index');
+        Route::get('/posko/create', 'PoskoController@create')->name('posko.create');
         Route::post('/posko/store', 'PoskoController@store')->name('posko.store');
 
         Route::get('/admin', 'AdminController@index')->name('admin.index');
