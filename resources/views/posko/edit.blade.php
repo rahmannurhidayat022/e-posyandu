@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                             <div class="d-flex gap-2 mt-4">
-                                <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Reset</button>
+                                <button type="reset" class="btn btn-secondary disabled" data-bs-dismiss="modal" disabled>Reset</button>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form>

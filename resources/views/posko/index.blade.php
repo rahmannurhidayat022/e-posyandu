@@ -99,6 +99,31 @@
                     }
                 },
                 {
+                    text: '<i class="ti ti-printer fs-4"></i>',
+                    className: 'btn btn-secondary',
+                    attr: {
+                        'title': 'Print Data'
+                    },
+                    extend: 'print',
+                    orientation: 'potrait',
+                    pageSize: 'A4',
+                    exportOptions: {
+                        stripHtml: true,
+                        columns: [0, 1, 2, 3, 4],
+                    },
+                    customize: function(win) {
+                        $(win.document.body)
+                            .css('font-size', '10pt')
+                            .prepend(
+                                '<img width="350" src="https://1.bp.blogspot.com/-7q_IogOnUHo/YNHgD0ioCSI/AAAAAAAAInM/MXO6tYZM5J0PGzV7a9Wa6oJMaRRuxHD6gCLcBGAsYHQ/s1300/logo-posyandu.png" style="position:absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.3;" />'
+                            );
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                },
+                {
                     text: '<i class="ti ti-file-spreadsheet fs-4"></i>',
                     className: 'btn btn-secondary',
                     extend: 'excelHtml5',
@@ -172,7 +197,7 @@
                     data: 'rw',
                     name: 'rw',
                     render: (data, type, row) => {
-                        return `<span class="badge rounded-pill text-bg-secondary">${data}</span>`;
+                        return `<span class="badge rounded-pill text-bg-info">${data}</span>`;
                     }
                 },
                 {
@@ -185,7 +210,7 @@
                         temp.forEach(({
                             rt
                         }) => {
-                            elements += `<span class="badge rounded-pill text-bg-secondary me-1">${rt}</span>`;
+                            elements += `<span class="badge rounded-pill text-bg-info me-1">${rt}</span>`;
                         })
                         return elements;
                     }

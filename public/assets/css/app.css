@@ -12249,7 +12249,10 @@
     --badge-primary: #009988;
     --border-radius: 3px;
     --primary-color: #098db3;
+    --primary-low-opacity: rgba(9, 141, 179, .2);
+    --primary-hover: #22b8e3;
     --secondary-color: #6c757d;
+    --secondary-hover: #9da8b3;
     --white-color: #f3f3f3;
 }
 
@@ -12263,9 +12266,17 @@
     background-color: var(--primary-color) !important;
     border-color: var(--primary-color) !important;
 }
+.btn-primary:hover {
+    background-color: var(--primary-hover) !important;
+    border-color: var(--primary-hover) !important;
+}
 .btn-secondary, .badge.text-bg-secondary {
     background-color: var(--secondary-color) !important;
     border-color: var(--secondary-color) !important;
+}
+.btn-secondary:hover, .badge.text-bg-secondary:hover {
+    background-color: var(--secondary-hover) !important;
+    border-color: var(--secondary-hover) !important;
 }
 .btn-outline-primary {
     border-color: var(--primary-color) !important;
@@ -12285,12 +12296,12 @@
 .sidebar-nav ul .sidebar-item.selected > .sidebar-link,
 .sidebar-nav ul .sidebar-item.selected > .sidebar-link.active,
 .sidebar-nav ul .sidebar-item > .sidebar-link.active {
-    background-color: var(--primary-color) !important;
-    color: var(--white-color) !important;
+    background-color: var(--primary-low-opacity) !important;
+    color: var(--primary-color) !important;
 }
 .sidebar-link:hover, .sidebar-link.active {
-    background-color: var(--primary-color) !important;
-    color: var(--white-color) !important;
+    background-color: var(--primary-low-opacity) !important;
+    color: var(--primary-color) !important;
 }
 
 .badge-circle {
