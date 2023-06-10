@@ -8,15 +8,11 @@
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title fw-semibold mb-4">Posko Pelayanan Posyandu</h2>
-                    <a href="{{ route('posko.create') }}" class="btn btn-primary">
-                        <i class="ti ti-pencil-plus"></i>
-                        Tambah Data
-                    </a>
                     <div class="mt-4">
                         <table id="posko-table" class="display nowrap" style="width:100%">
                             <thead>
                                 <tr>
-                                    <td>#</td>
+                                    <td>No</td>
                                     <td>Nama Posko</td>
                                     <td>Jalan / Gang</td>
                                     <td>RW</td>
@@ -68,7 +64,88 @@
             theme: 'bootstrap-5'
         });
 
+        const exportFormat = {
+            exportOptions: {
+                format: {
+                    body: function(data, row, column, node) {
+                        return column === 4 ?
+                            data.replace(/(\d{2})(?=\d)/g, '$1/') :
+                            data;
+                    }
+                }
+            }
+        };
+
+        const getCurrentDate = () => {
+            const currentDate = new Date();
+
+            const day = String(currentDate.getDate()).padStart(2, '0');
+            const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+            const year = currentDate.getFullYear();
+
+            return day + '-' + month + '-' + year;
+        }
+
         const table = $("#posko-table").DataTable({
+            dom: 'Bfrtip',
+            buttons: [{
+                    text: '<i class="ti ti-pencil-plus fs-4"></i>',
+                    className: 'btn btn-primary',
+                    attr: {
+                        'title': 'Tambah Data'
+                    },
+                    action: function(e, dt, node, config) {
+                        window.location = '/posko/create';
+                    }
+                },
+                {
+                    text: '<i class="ti ti-file-spreadsheet fs-4"></i>',
+                    className: 'btn btn-secondary',
+                    extend: 'excelHtml5',
+                    attr: {
+                        'title': 'Export Excel'
+                    },
+                    autoFilter: true,
+                    filename: `Laporan Data Posko ${getCurrentDate()}`,
+                    title: `Laporan Data Posko ${getCurrentDate()}`,
+                    exportOptions: {
+                        stripHtml: true,
+                        columns: [0, 1, 2, 3, 4],
+                    }
+                },
+                {
+                    text: '<i class="ti ti-file-lambda fs-4"></i>',
+                    className: 'btn btn-secondary',
+                    extend: 'pdfHtml5',
+                    attr: {
+                        'title': 'Export PDF'
+                    },
+                    download: 'open',
+                    orientation: 'potrait',
+                    pageSize: 'A4',
+                    exportOptions: {
+                        stripHtml: true,
+                        columns: [1, 2, 3, 4],
+                        modifier: 'formatted',
+                        orthogonal: 'display',
+                        format: {
+                            body: function(data, row, column, node) {
+                                var stripedData = data.toString().replace(/<[^>]+>/g, '');
+                                if (column === 3) {
+                                    stripedData = stripedData.replace(/(\d{2})(?=\d)/g, '$1/');
+                                }
+                                return stripedData;
+                            }
+                        },
+                    },
+                    customize: function(doc) {
+                        doc.defaultStyle.tableWidth = 'auto';
+                        doc.styles.tableHeader.alignment = 'left';
+                        doc.content[0].text = '';
+                        doc.content[1].table.widths = Array(doc.content[1].table.body[2].length + 1).join('*').split('');
+                    }
+                }
+            ],
             processing: true,
             serverSide: true,
             rowReorder: {
@@ -95,7 +172,7 @@
                     data: 'rw',
                     name: 'rw',
                     render: (data, type, row) => {
-                        return `<span class="badge rounded-pill text-bg-info">${data}</span>`;
+                        return `<span class="badge rounded-pill text-bg-secondary">${data}</span>`;
                     }
                 },
                 {
@@ -120,8 +197,8 @@
                     orderable: false,
                     searchable: false,
                     render: (data, type, row) => {
-                        return `<a class="btn btn-sm btn-success" href="/posko/${row.id}/edit"><i class="ti ti-edit"></i></a>
-<button type="button" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" class="btn btn-sm btn-danger" data-id="${row.id}" onclick="confirmAlert(this)"><i class="ti ti-trash"></i></button>
+                        return `<a class="btn btn-sm btn-success" title="Edit Data" href="/posko/${row.id}/edit"><i class="ti ti-edit"></i></a>
+<button type="button" title="Hapus Data" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" class="btn btn-sm btn-danger" data-id="${row.id}" onclick="confirmAlert(this)"><i class="ti ti-trash"></i></button>
 `
                     }
                 }
@@ -131,6 +208,10 @@
                 targets: "_all"
             }, ],
         })
+
+        table.on('draw.dt', function() {
+            $('.dt-buttons').addClass('btn-group');
+        });
     })
 </script>
 @endpush

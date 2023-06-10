@@ -12263,7 +12263,7 @@
     background-color: var(--primary-color) !important;
     border-color: var(--primary-color) !important;
 }
-.btn-secondary {
+.btn-secondary, .badge.text-bg-secondary {
     background-color: var(--secondary-color) !important;
     border-color: var(--secondary-color) !important;
 }
@@ -12353,6 +12353,18 @@
 .modal .modal-dialog.modal-confirmation {
     width: 100% !important;
     max-width: 350px !important;
+}
+
+.btn-group button {
+    border-radius: 0px !important;
+}
+.btn-group button:first-child {
+    border-top-left-radius: 5px !important;
+    border-bottom-left-radius: 5px !important;
+}
+.btn-group button:last-child {
+    border-top-right-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
 }
 
 /*!

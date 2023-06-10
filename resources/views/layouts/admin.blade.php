@@ -119,6 +119,11 @@
         </div>
     </div>
     @include("includes.script")
+    <script>
+        $(document).ready(function() {
+            $('.tooltip').tooltipster();
+        });
+    </script>
     @stack("script")
 </body>
 
