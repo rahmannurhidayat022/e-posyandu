@@ -26,11 +26,11 @@
                             <div class="modal-body">
                                 <div class="mb-2">
                                     <label class="form-label" for="nama">Nama Posko</label>
-                                    <input id="nama" class="form-control" name="nama" type="text" required>
+                                    <input id="nama" class="form-control" name="nama" type="text" value="{{ old('nama') }}" required>
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label" for="jalan">Alamat (Jalan/gang)</label>
-                                    <input id="jalan" class="form-control" name="jalan" type="text" required>
+                                    <input id="jalan" class="form-control" name="jalan" type="text" value="{{ old('nama') }}" required>
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label" for="rw">Rukun Warga (RW)</label>

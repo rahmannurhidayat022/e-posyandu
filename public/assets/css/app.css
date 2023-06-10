@@ -12343,6 +12343,11 @@
   color: var(--primary-color) !important;
 }
 
+.modal .modal-dialog.modal-confirmation {
+    width: 100% !important;
+    max-width: 350px !important;
+}
+
 /*!
  * Bootstrap Icons v1.10.5 (https://icons.getbootstrap.com/)
  * Copyright 2019-2023 The Bootstrap Authors

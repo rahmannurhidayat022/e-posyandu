@@ -95,3 +95,8 @@
 .dataTables_paginate .paginate_button:hover {
   color: var(--primary-color) !important;
 }
+
+.modal .modal-dialog.modal-confirmation {
+    width: 100% !important;
+    max-width: 350px !important;
+}

@@ -7,6 +7,7 @@ use App\Models\Posko;
 use App\Models\LingkupPosko;
 use Alert;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Validator;
 
 class PoskoController extends Controller
 {
@@ -21,6 +22,7 @@ class PoskoController extends Controller
                 })
                 ->make(true);
         }
+
         return view('posko.index');
     }
 
@@ -31,17 +33,26 @@ class PoskoController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $validated = Validator::make($request->all(), [
             'nama' => 'required',
             'jalan' => 'required',
-            'rw' => 'required',
+            'rw' => 'required|unique:posko',
+        ], [
+            'rw.unique' => 'RW tersebut sudah terdaftar di posko lain',
         ]);
+
+        if ($validated->fails()) {
+            $errors = $validated->errors();
+            Alert::error('Gagal', $errors->first())->autoclose(3000);
+            return redirect()->back()->withInput($request->all());
+        }
 
         try {
             $data = new Posko();
-            $data->nama = $validated['nama'];
-            $data->jalan = $validated['jalan'];
-            $data->rw = $validated['rw'];
+            $data->nama = $request->nama;
+            $data->jalan = $request->jalan;
+            $data->rw = $request->rw;
+            $data->save();
 
             $data->save();
 
@@ -56,10 +67,10 @@ class PoskoController extends Controller
                 LingkupPosko::insert($rt);
             }
 
-            Alert::success('success', 'Berhasil menambahkan data posko');
+            Alert::success('Berhasil', 'Berhasil menambahkan data posko');
             return redirect()->route('posko.index');
         } catch (\Throwable $th) {
-            Alert::error('error', 'Gagal menambahkan data posko')->autoclose(3000);
+            Alert::error('Gagal', 'Gagal menambahkan data posko')->autoclose(3000);
             return redirect()->back()->withInput($request->all());
         }
     }
@@ -73,17 +84,37 @@ class PoskoController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
+        $validated = Validator::make($request->all(), [
             'nama' => 'required',
             'jalan' => 'required',
-            'rw' => 'required',
+            'rw' => [
+                'required',
+                function ($attribute, $value, $fail) use ($id) {
+                    $posko = Posko::findOrFail($id);
+
+                    if ($posko->rw === $value) {
+                        return;
+                    }
+
+                    $exists = Posko::where('rw', $value)->where('id', '!=', $id)->exists();
+                    if ($exists) {
+                        $fail('RW tersebut sudah digunakan di posko lain');
+                    }
+                },
+            ],
         ]);
+
+        if ($validated->fails()) {
+            $errors = $validated->errors();
+            Alert::error('Gagal', $errors->first())->autoclose(3000);
+            return redirect()->back()->withInput($request->all());
+        }
 
         try {
             $data = Posko::findOrFail($id);
-            $data->nama = $validated['nama'];
-            $data->jalan = $validated['jalan'];
-            $data->rw = $validated['rw'];
+            $data->nama = $request->nama;
+            $data->jalan = $request->jalan;
+            $data->rw = $request->rw;
             $data->save();
 
             LingkupPosko::where('posko_id', $data->id)->delete();
@@ -97,11 +128,26 @@ class PoskoController extends Controller
             }
             LingkupPosko::insert($rt);
 
-            Alert::success('success', 'Berhasil update data posko');
+            Alert::success('Berhasil', 'Berhasil update data posko');
             return redirect()->route('posko.index');
         } catch (\Throwable $th) {
-            Alert::error('error', 'Gagal update data posko')->autoclose(3000);
+            Alert::error('Gagal', 'Gagal update data posko')->autoclose(3000);
             return redirect()->back()->withInput($request->all());
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $posko = Posko::findOrFail($id);
+            LingkupPosko::where('posko_id', $posko->id)->delete();
+            $posko->delete();
+
+            Alert::success('Berhasil', 'Berhasil update data posko');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            Alert::error('Gagal', 'Gagal update data posko')->autoclose(3000);
+            return redirect()->back();
         }
     }
 }
