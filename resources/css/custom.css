@@ -1,0 +1,102 @@
+:root {
+    --badge-primary: #009988;
+    --border-radius: 3px;
+    --primary-color: #098db3;
+    --secondary-color: #6c757d;
+    --white-color: #f3f3f3;
+}
+
+.card, .modal-content, .form-control, .form-select, .btn, .sidebar-link {
+    border-radius: var(--border-radius) !important;
+}
+.form-control:focus, .form-select:focus {
+    border: 1px solid var(--primary-color) !important;
+}
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+.btn-secondary {
+    background-color: var(--secondary-color) !important;
+    border-color: var(--secondary-color) !important;
+}
+.btn-outline-primary {
+    border-color: var(--primary-color) !important;
+    color: var(--primary-color) !important;
+}
+.btn-outline-primary:hover {
+    background-color: var(--primary-color) !important;
+    color: var(--white-color) !important;
+}
+.modal-title {
+    color: var(--primary-color) !important;
+}
+.form-label {
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+.sidebar-link.active {
+    background-color: var(--primary-color) !important;
+}
+
+.badge-circle {
+    padding: 5px;
+    overflow: hidden;
+    background-color: var(--badge-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.badge-circle i {
+    color: #fff;
+    font-size: 18px;
+}
+
+.swal2-popup {
+  background-color: #ffffff;
+  color: #333333;
+    border-radius: 3px !important;
+    padding: 3px;
+}
+.swal2-confirm {
+  background-color: var(--primary-color) !important;
+  color: #ffffff;
+}
+.swal2-confirm:hover {
+  background-color: #0056b3;
+}
+.swal2-title {
+    font-size: 16px !important;
+}
+.swal2-html-container {
+    font-size: 14px !important;
+}
+.swal2-icon {
+    font-size: 12px !important;
+}
+
+.form {
+    width: 100%;
+    max-width: 350px;
+}
+
+.breadcrumb-item a {
+    color: var(--primary-color) !important;
+}
+.select2-results__option--highlighted {
+    background-color: var(--primary-color) !important;
+}
+.select2-results__option:hover {
+    background-color: var(--primary-color) !important;
+    color: #fff !important;
+}
+
+.dataTables_paginate .paginate_button:hover {
+  color: var(--primary-color) !important;
+}
+
+.modal .modal-dialog.modal-confirmation {
+    width: 100% !important;
+    max-width: 350px !important;
+}

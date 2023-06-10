@@ -20,14 +20,22 @@ return new class extends Migration
                 ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
+            $table->unsignedBigInteger('posko_id');
 
             $table->string('nama');
             $table->string('nik')->unique();
             $table->string('telp');
+            $table->string('jabatan');
             $table->text('jalan');
             $table->string('rt', 2);
             $table->string('rw', 2);
             $table->timestamps();
+
+            $table->foreign('posko_id')
+                ->references('id')
+                ->on('posko')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
         });
     }
 
