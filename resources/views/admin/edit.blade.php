@@ -21,8 +21,9 @@
                         </div>
                     </h2>
                     <div class="mt-4">
-                        <form class="form" method="post" action="{{ route('admin.store') }}">
+                        <form class="form" method="post" action="{{ route('admin.update', $id) }}">
                             @csrf
+                            @method('PUT')
                             <div class="modal-body">
                                 <input type="text" value="{{ $user->id }}" hidden>
                                 <div class="mb-2">
@@ -39,7 +40,7 @@
                                 </div>
                             </div>
                             <div class="d-flex gap-2 mt-4">
-                                <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Reset</button>
+                                <button type="reset" class="btn btn-secondary disabled" data-bs-dismiss="modal" disabled>Reset</button>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form>

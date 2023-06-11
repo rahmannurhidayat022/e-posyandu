@@ -141,10 +141,10 @@ class PoskoController extends Controller
             LingkupPosko::where('posko_id', $posko->id)->delete();
             $posko->delete();
 
-            Alert::success('Berhasil', 'Berhasil update data posko');
+            Alert::success('Berhasil', 'Berhasil menghapus data posko');
             return redirect()->back();
         } catch (\Throwable $th) {
-            Alert::error('Gagal', 'Gagal update data posko')->autoclose(3000);
+            Alert::error('Gagal', 'Gagal menghapus data posko')->autoclose(3000);
             return redirect()->back();
         }
     }

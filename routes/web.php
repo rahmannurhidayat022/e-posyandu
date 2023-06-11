@@ -37,6 +37,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/create', 'AdminController@create')->name('admin.create');
             Route::get('/{id}/edit', 'AdminController@edit')->name('admin.edit');
             Route::post('/store', 'AdminController@store')->name('admin.store');
+            Route::put('/{id}/update', 'AdminController@update')->name('admin.update');
+            Route::delete('/{id}/destroy', 'AdminController@destroy')->name('admin.destroy');
         });
 
         Route::get('/kader', 'KaderController@index')->name('kader.index');

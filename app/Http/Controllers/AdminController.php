@@ -41,7 +41,7 @@ class AdminController extends Controller
             'username' => 'required|unique:users',
             'password' => 'required|min:6|required_with:password_confirmation|confirmed',
         ], [
-            'username.unique' => 'Username sudah terpakai',
+            'username.unique' => 'Username sudah digunakan',
             'password.min' => 'Password minimal 6 digit',
             'password.confirmed' => 'Password tidak sama',
         ]);
@@ -70,6 +70,60 @@ class AdminController extends Controller
     public function edit($id)
     {
         $data = User::select('id', 'username')->findOrFail($id);
-        return view('admin.edit', ["user" => $data]);
+        return view('admin.edit', ["user" => $data, 'id' => $id]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = Validator::make($request->all(), [
+            'username' => ['required', function ($attribute, $value, $fail) use ($id) {
+                $user = User::findOrFail($id);
+
+                if ($user->username === $value) {
+                    return;
+                }
+
+                $exists = User::where('username', $value)->where('id', '!=', $id)->exists();
+                if ($exists) {
+                    $fail('Username telah digunakan');
+                }
+            }],
+            'password' => 'required|min:6|required_with:password_confirmation|confirmed',
+        ], [
+            'password.min' => 'Password minimal 6 digit',
+            'password.confirmed' => 'Password tidak sama',
+        ]);
+
+        if ($validated->fails()) {
+            $errors = $validated->errors();
+            Alert::error('Gagal', $errors->first())->autoclose(3000);
+            return redirect()->back()->withInput($request->only('username'));
+        }
+
+        try {
+            $data = User::findOrFail($id);
+            $data->username = $request->username;
+            $data->password = Hash::make($request->password);
+            $data->role = 'admin';
+            $data->save();
+
+            Alert::success('Berhasil', 'Berhasil memperbaharui data akun admin');
+            return redirect()->route('admin.index');
+        } catch (\Throwable $th) {
+            Alert::error('Gagal', 'Gagal memperbaharui data akun admin')->autoclose(3000);
+            return redirect()->back()->withInput($request->all());
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            User::findOrFail($id)->delete();
+            Alert::success('Berhasil', 'Berhasil menghapus data posko');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            Alert::error('Gagal', 'Gagal menghapus data posko')->autoclose(3000);
+            return redirect()->back();
+        }
     }
 }
