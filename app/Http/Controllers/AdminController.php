@@ -39,23 +39,23 @@ class AdminController extends Controller
     {
         $validated = Validator::make($request->all(), [
             'username' => 'required|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:6|required_with:password_confirmation|confirmed',
         ], [
             'username.unique' => 'Username sudah terpakai',
-            'password.min:6' => 'Password minimal 6 digit',
+            'password.min' => 'Password minimal 6 digit',
             'password.confirmed' => 'Password tidak sama',
         ]);
 
         if ($validated->fails()) {
             $errors = $validated->errors();
             Alert::error('Gagal', $errors->first())->autoclose(3000);
-            return redirect()->back()->withInput($request->all());
+            return redirect()->back()->withInput($request->only('username'));
         }
 
         try {
             $data = new User();
             $data->username = $request->username;
-            $data->jalan = Hash::make($request->password);
+            $data->password = Hash::make($request->password);
             $data->role = 'admin';
             $data->save();
 

@@ -101,7 +101,10 @@
                                     <div class="message-body">
                                         <form class="d-flex" method="post" action="{{ route('auth.logout') }}">
                                             @csrf
-                                            <button type="submit" class="btn btn-outline-primary w-100">Keluar</button>
+                                            <button type="submit" class="btn btn-outline-primary w-100 d-flex align-items-center justify-content-center gap-1">
+                                                Keluar
+                                                <i class="ti ti-logout fs-4"></i>
+                                            </button>
                                         </form>
                                     </div>
                                 </div>
