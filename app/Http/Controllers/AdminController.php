@@ -66,4 +66,10 @@ class AdminController extends Controller
             return redirect()->back()->withInput($request->all());
         }
     }
+
+    public function edit($id)
+    {
+        $data = User::select('id', 'username')->findOrFail($id);
+        return view('admin.edit', ["user" => $data]);
+    }
 }

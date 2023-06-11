@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <title>@yield("title") E-Posyandu Kebon Jayanti</title>
     @include("includes.head")
 </head>
 

@@ -1,5 +1,5 @@
 @extends("layouts.admin")
-@section("title", "Create Posko")
+@section("title", "Create Admin Account")
 @section("content")
 <section>
     <div class="row">

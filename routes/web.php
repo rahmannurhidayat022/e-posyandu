@@ -35,6 +35,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::prefix('admin')->group(function () {
             Route::get('/', 'AdminController@index')->name('admin.index');
             Route::get('/create', 'AdminController@create')->name('admin.create');
+            Route::get('/{id}/edit', 'AdminController@edit')->name('admin.edit');
             Route::post('/store', 'AdminController@store')->name('admin.store');
         });
 
