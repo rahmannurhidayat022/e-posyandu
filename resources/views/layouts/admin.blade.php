@@ -133,7 +133,7 @@
                 pdfConfiguration
             }) => {
                 const table = $(`#${tableConfiguration.container}`).DataTable({
-                    dom: 'Bfrtip',
+                    dom: '<"btn-group w-100 mb-3" B>lfrtip',
                     buttons: [{
                             text: '<i class="ti ti-pencil-plus fs-4"></i>',
                             className: 'btn btn-primary',
@@ -245,8 +245,8 @@
                                 const editUrl = replaceStringWithObjectValues(tableConfiguration.editPageUrl, row);
                                 const deleteUrl = replaceStringWithObjectValues(tableConfiguration.deleteActionUrl, row);
 
-                                return `<a class="btn btn-sm btn-success" title="Edit Data" href="${editUrl}"><i class="ti ti-edit"></i></a>
-<button type="button" title="Hapus Data" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" class="btn btn-sm btn-danger" onclick="confirmAlert({ formId: 'form-delete', deleteUrl: '${deleteUrl}' })"><i class="ti ti-trash"></i></button>
+                                return `<a class="btn btn-success" title="Edit Data" href="${editUrl}"><i class="ti ti-edit"></i></a>
+<button type="button" title="Hapus Data" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" class="btn btn-danger" onclick="confirmAlert({ formId: 'form-delete', deleteUrl: '${deleteUrl}' })"><i class="ti ti-trash"></i></button>
 `
                             }
                         }
@@ -256,10 +256,6 @@
                         targets: "_all"
                     }, ],
                 })
-
-                table.on('draw.dt', function() {
-                    $('.dt-buttons').addClass('btn-group');
-                });
 
                 return table;
             }
