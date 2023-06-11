@@ -79,9 +79,9 @@
                 name: 'admin',
                 container: 'admin-table',
                 ajax: "{{ route('admin.index') }}",
-                createPageUrl: '/posko/create',
-                editPageUrl: '/posko/{id}/edit',
-                deleteActionUrl: '/posko/{id}/destroy',
+                createPageUrl: '/admin/create',
+                editPageUrl: '/admin/{id}/edit',
+                deleteActionUrl: '/admin/{id}/destroy',
                 columns: [{
                         data: 'username',
                         name: 'username'

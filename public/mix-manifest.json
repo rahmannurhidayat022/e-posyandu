@@ -1,6 +1,8 @@
 {
     "/assets/js/app.js": "/assets/js/app.js",
     "/assets/css/app.css": "/assets/css/app.css",
+    "/assets/images/403.png": "/assets/images/403.png",
+    "/assets/images/404.png": "/assets/images/404.png",
     "/assets/images/posyandu.png": "/assets/images/posyandu.png",
     "/assets/images/posyandu_full.png": "/assets/images/posyandu_full.png"
 }
