@@ -122,6 +122,147 @@
     <script>
         $(document).ready(function() {
             $('.tooltip').tooltipster();
+            $('.select2').select2({
+                theme: 'bootstrap-5'
+            });
+
+            window.initialDataTable = ({
+                tableConfiguration,
+                printConfiguration,
+                excelConfiguration,
+                pdfConfiguration
+            }) => {
+                const table = $(`#${tableConfiguration.container}`).DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [{
+                            text: '<i class="ti ti-pencil-plus fs-4"></i>',
+                            className: 'btn btn-primary',
+                            attr: {
+                                'title': 'Tambah Data'
+                            },
+                            action: function() {
+                                window.location = tableConfiguration.createPageUrl;
+                            }
+                        },
+                        {
+                            text: '<i class="ti ti-printer fs-4"></i>',
+                            className: 'btn btn-secondary',
+                            attr: {
+                                'title': 'Print Data'
+                            },
+                            extend: 'print',
+                            orientation: printConfiguration.orientation,
+                            pageSize: printConfiguration.pageSize,
+                            filename: `${excelConfiguration.filename} ${getCurrentDate()}`,
+                            title: `${excelConfiguration.title} ${getCurrentDate()}`,
+                            exportOptions: {
+                                stripHtml: true,
+                                columns: printConfiguration.columns,
+                            },
+                            customize: function(win) {
+                                $(win.document.body)
+                                    .css('font-size', '10pt')
+                                    .prepend(
+                                        '<img width="350" src="https://1.bp.blogspot.com/-7q_IogOnUHo/YNHgD0ioCSI/AAAAAAAAInM/MXO6tYZM5J0PGzV7a9Wa6oJMaRRuxHD6gCLcBGAsYHQ/s1300/logo-posyandu.png" style="position:absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.3;" />'
+                                    );
+
+                                $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                            }
+                        },
+                        {
+                            text: '<i class="ti ti-file-spreadsheet fs-4"></i>',
+                            className: 'btn btn-secondary',
+                            extend: 'excelHtml5',
+                            attr: {
+                                'title': 'Export Excel'
+                            },
+                            autoFilter: true,
+                            filename: `${excelConfiguration.filename} ${getCurrentDate()}`,
+                            title: `${excelConfiguration.title} ${getCurrentDate()}`,
+                            exportOptions: {
+                                stripHtml: true,
+                                columns: excelConfiguration.columns,
+                            }
+                        },
+                        {
+                            text: '<i class="ti ti-file-lambda fs-4"></i>',
+                            className: 'btn btn-secondary',
+                            extend: 'pdfHtml5',
+                            attr: {
+                                'title': 'Export PDF'
+                            },
+                            download: 'open',
+                            orientation: pdfConfiguration.orientation,
+                            pageSize: pdfConfiguration.pageSize,
+                            filename: `${excelConfiguration.filename} ${getCurrentDate()}`,
+                            exportOptions: {
+                                stripHtml: true,
+                                columns: pdfConfiguration.columns,
+                                modifier: 'formatted',
+                                orthogonal: 'display',
+                                format: {
+                                    body: function(data, row, column, node) {
+                                        var stripedData = data.toString().replace(/<[^>]+>/g, '');
+                                        if (tableConfiguration.name === "posko" && column === 3) {
+                                            stripedData = stripedData.replace(/(\d{2})(?=\d)/g, '$1/');
+                                        }
+                                        return stripedData;
+                                    }
+                                },
+                            },
+                            customize: function(doc) {
+                                doc.defaultStyle.tableWidth = 'auto';
+                                doc.styles.tableHeader.alignment = 'left';
+                                doc.content[0].text = '';
+                                doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                            }
+                        }
+                    ],
+                    processing: true,
+                    serverSide: true,
+                    rowReorder: {
+                        selector: 'td:nth-child(2)'
+                    },
+                    responsive: true,
+                    ajax: tableConfiguration.ajax,
+                    columns: [{
+                            data: "DT_RowIndex",
+                            name: "DT_RowIndex",
+                            orderable: false,
+                            searchable: false,
+                            width: '10px',
+                        },
+                        ...tableConfiguration.columns,
+                        {
+                            data: null,
+                            name: 'action',
+                            sortable: false,
+                            orderable: false,
+                            searchable: false,
+                            render: (data, type, row) => {
+                                const editUrl = replaceStringWithObjectValues(tableConfiguration.editPageUrl, row);
+                                const deleteUrl = replaceStringWithObjectValues(tableConfiguration.deleteActionUrl, row);
+
+                                return `<a class="btn btn-sm btn-success" title="Edit Data" href="${editUrl}"><i class="ti ti-edit"></i></a>
+<button type="button" title="Hapus Data" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" class="btn btn-sm btn-danger" onclick="confirmAlert({ formId: 'form-delete', deleteUrl: '${deleteUrl}' })"><i class="ti ti-trash"></i></button>
+`
+                            }
+                        }
+                    ],
+                    columnDefs: [{
+                        defaultContent: "-",
+                        targets: "_all"
+                    }, ],
+                })
+
+                table.on('draw.dt', function() {
+                    $('.dt-buttons').addClass('btn-group');
+                });
+
+                return table;
+            }
         });
     </script>
     @stack("script")

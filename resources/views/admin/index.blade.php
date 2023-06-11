@@ -1,5 +1,5 @@
 @extends("layouts.admin")
-@section("title", "Posko")
+@section("title", "Dashboard")
 
 @section("content")
 <section>
@@ -7,16 +7,16 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title fw-semibold mb-4">Posko Pelayanan Posyandu</h2>
+                    <h2 class="card-title fw-semibold mb-4">Manajemen akun admin</h2>
                     <div class="mt-4">
-                        <table id="posko-table" class="display nowrap" style="width:100%">
+                        <table id="admin-table" class="display nowrap" style="width:100%">
                             <thead>
                                 <tr>
                                     <td>No</td>
-                                    <td>Nama Posko</td>
-                                    <td>Jalan / Gang</td>
-                                    <td>RW</td>
-                                    <td>RT</td>
+                                    <td>Username</td>
+                                    <td>Role</td>
+                                    <td>Dibuat</td>
+                                    <td>Diperbaharui</td>
                                     <td>Aksi</td>
                                 </tr>
                             </thead>
@@ -39,7 +39,29 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <form id="form-delete" method="POST" action="">
+                    <form id="deleteForm" method="POST" action="">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Hapus</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-confirmation">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteConfirmationModalLabel">Kofirmasi Hapus</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Apakah Anda yakin ingin menghapus data ini?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <form id="deleteForm" method="POST" action="">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Hapus</button>
@@ -54,41 +76,27 @@
     $(document).ready(function() {
         const table = window.initialDataTable({
             tableConfiguration: {
-                name: 'posko',
-                container: 'posko-table',
-                ajax: "{{ route('posko.index') }}",
+                name: 'admin',
+                container: 'admin-table',
+                ajax: "{{ route('admin.index') }}",
                 createPageUrl: '/posko/create',
                 editPageUrl: '/posko/{id}/edit',
                 deleteActionUrl: '/posko/{id}/destroy',
                 columns: [{
-                        data: 'nama',
-                        name: 'nama'
+                        data: 'username',
+                        name: 'username'
                     },
                     {
-                        data: 'jalan',
-                        name: 'jalan',
+                        data: 'role',
+                        name: 'role',
                     },
                     {
-                        data: 'rw',
-                        name: 'rw',
-                        render: (data, type, row) => {
-                            return `<span class="badge badge-sm rounded-pill text-bg-info">${data}</span>`;
-                        }
+                        data: 'created_at',
+                        name: 'created_at',
                     },
                     {
-                        data: 'rt',
-                        name: 'rt',
-                        sortable: false,
-                        render: (data, type, row) => {
-                            const temp = JSON.parse(data);
-                            let elements = temp.length ? '' : '-';
-                            temp.forEach(({
-                                rt
-                            }) => {
-                                elements += `<span class="badge badge-sm rounded-pill text-bg-info me-1">${rt}</span>`;
-                            })
-                            return elements;
-                        }
+                        data: 'updated_at',
+                        name: 'updated_at',
                     },
                 ]
             },
@@ -96,24 +104,24 @@
                 orientation: 'potrait',
                 pageSize: 'A4',
                 columns: [0, 1, 2, 3, 4],
-                filename: 'Laporan Data Posko',
-                title: 'Laporan Data Posko',
+                filename: 'Laporan Data Admin',
+                title: 'Laporan Data Admin',
             },
             excelConfiguration: {
                 columns: [0, 1, 2, 3, 4],
-                filename: 'Laporan Data Posko',
-                title: 'Laporan Data Posko',
+                filename: 'Laporan Data Admin',
+                title: 'Laporan Data Admin',
             },
             pdfConfiguration: {
                 orientation: 'potrait',
                 pageSize: 'A4',
                 columns: [1, 2, 3, 4],
-                filename: 'Laporan Data Posko',
-                title: 'Laporan Data Posko',
-                isRt: true,
+                filename: 'Laporan Data Admin',
+                title: 'Laporan Data Admin',
+                isRt: false,
             },
         })
-    })
+    });
 </script>
 @endpush
 @endsection

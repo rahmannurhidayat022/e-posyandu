@@ -130,3 +130,7 @@
     border-top-right-radius: 5px !important;
     border-bottom-right-radius: 5px !important;
 }
+
+.badge.badge-sm {
+    font-size: 10px;
+}

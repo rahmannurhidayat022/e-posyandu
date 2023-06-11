@@ -54,8 +54,6 @@ class PoskoController extends Controller
             $data->rw = $request->rw;
             $data->save();
 
-            $data->save();
-
             if ($request->rt) {
                 $rt = [];
                 foreach ($request->rt as $item) {
