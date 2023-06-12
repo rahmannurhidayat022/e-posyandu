@@ -41,7 +41,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::delete('/{id}/destroy', 'AdminController@destroy')->name('admin.destroy');
         });
 
-        Route::get('/kader', 'KaderController@index')->name('kader.index');
+        Route::prefix('kader')->group(function () {
+            Route::get('/', 'KaderController@index')->name('kader.index');
+            Route::get('/create', 'KaderController@create')->name('kader.create');
+        });
 
         Route::get('/petugas-kesehatan', 'PetugasController@index')->name('petugas.index');
     });
