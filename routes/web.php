@@ -45,6 +45,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::prefix('kader')->group(function () {
             Route::get('/', 'KaderController@index')->name('kader.index');
             Route::get('/create', 'KaderController@create')->name('kader.create');
+            Route::post('/store', 'KaderController@store')->name('kader.store');
         });
 
         Route::get('/petugas-kesehatan', 'PetugasController@index')->name('petugas.index');

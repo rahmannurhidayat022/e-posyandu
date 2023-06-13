@@ -15,4 +15,9 @@ class Posko extends Model
         'jalan',
         'rw',
     ];
+
+    public function kaders()
+    {
+        return $this->hasMany(Kader::class, 'posko_id');
+    }
 }

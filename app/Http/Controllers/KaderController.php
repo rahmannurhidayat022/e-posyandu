@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Kader;
 use Alert;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
@@ -14,7 +15,7 @@ class KaderController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Kader::select('*');
+            $data = Kader::select('*')->with('posko');
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->make(true);
@@ -33,8 +34,16 @@ class KaderController extends Controller
         $validated = Validator::make($request->all(), [
             'username' => 'required|unique:users',
             'password' => 'required|min:6|required_with:password_confirmation|confirmed',
+            'nama' => 'required',
+            'nik' => 'required|unique:kader',
+            'telp' => 'required',
+            'jalan' => 'required',
+            'rt' => 'required',
+            'rw' => 'required',
+            'posko_id' => 'required',
         ], [
             'username.unique' => 'Username sudah digunakan',
+            'nik.unique' => 'NIK sudah digunakan',
             'password.min' => 'Password minimal 6 digit',
             'password.confirmed' => 'Password tidak sama',
         ]);
@@ -42,20 +51,33 @@ class KaderController extends Controller
         if ($validated->fails()) {
             $errors = $validated->errors();
             Alert::error('Gagal', $errors->first())->autoclose(3000);
-            return redirect()->back()->withInput($request->only('username'));
+            return redirect()->back()->withInput($request->all());
         }
 
         try {
-            $data = new User();
-            $data->username = $request->username;
-            $data->password = Hash::make($request->password);
-            $data->role = 'admin';
-            $data->save();
+            $user = new User();
+            $user->username = $request->nama;
+            $user->password = $request->jalan;
+            $user->role = 'operator';
+            $user->save();
 
-            Alert::success('Berhasil', 'Berhasil menambahkan data akun admin');
-            return redirect()->route('admin.index');
+            if ($user) {
+                $kader = new Kader();
+                $kader->user_id = $user->id;
+                $kader->nama = $request->nama;
+                $kader->nik = $request->nik;
+                $kader->telp = $request->telp;
+                $kader->jalan = $request->jalan;
+                $kader->rw = $request->rw;
+                $kader->rt = $request->rt;
+                $kader->posko_id = $request->posko_id;
+                $kader->save();
+            }
+
+            Alert::success('Berhasil', 'Berhasil menambahkan data kader');
+            return redirect()->route('kader.index');
         } catch (\Throwable $th) {
-            Alert::error('Gagal', 'Gagal menambahkan data akun admin')->autoclose(3000);
+            Alert::error('Gagal', 'Gagal menambahkan data kader')->autoclose(3000);
             return redirect()->back()->withInput($request->all());
         }
     }

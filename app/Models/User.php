@@ -42,4 +42,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function kaders()
+    {
+        return $this->hasOne(Kader::class, 'posko_id');
+    }
 }

@@ -48,7 +48,7 @@
                         name: 'nik',
                     },
                     {
-                        data: 'posko',
+                        data: 'posko.nama',
                         name: 'posko',
                     },
                     {

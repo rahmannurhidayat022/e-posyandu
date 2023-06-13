@@ -21,7 +21,7 @@
                         </div>
                     </h2>
                     <div class="mt-4">
-                        <form class="" method="post" action="{{ route('admin.store') }}">
+                        <form class="" method="post" action="{{ route('kader.store') }}">
                             @csrf
                             <div class="modal-body">
                                 <div class="row mb-3">
@@ -61,7 +61,7 @@
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label" for="rt">Rukun Tetangga (RT)</label>
                                         <select class="form-select" id="rt" name="rt">
-                                            <option value="01">RT 01</option>
+                                            <option value="01" selected>RT 01</option>
                                             <option value="02">RT 02</option>
                                             <option value="03">RT 03</option>
                                             <option value="04">RT 04</option>
