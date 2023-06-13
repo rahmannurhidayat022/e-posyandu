@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Kader;
 use Alert;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
@@ -60,6 +61,7 @@ class KaderController extends Controller
             $user->password = $request->password;
             $user->role = 'operator';
             $user->save();
+            DB::beginTransaction();
 
             if ($user) {
                 $kader = new Kader();
@@ -72,6 +74,7 @@ class KaderController extends Controller
                 $kader->rt = $request->rt;
                 $kader->posko_id = $request->posko_id;
                 $kader->save();
+                DB::commit();
             }
 
             Alert::success('Berhasil', 'Berhasil menambahkan data kader');
@@ -143,6 +146,7 @@ class KaderController extends Controller
                 $user->password = Hash::make($request->password);
             }
             $user->save();
+            DB::beginTransaction();
 
             $kader = Kader::findOrFail($id);
             $kader->nama = $request->nama;
@@ -153,6 +157,7 @@ class KaderController extends Controller
             $kader->rt = $request->rt;
             $kader->posko_id = $request->posko_id;
             $kader->save();
+            DB::commit();
 
             Alert::success('Berhasil', 'Berhasil memperbaharui data kader');
             return redirect()->route('kader.index');
@@ -162,14 +167,17 @@ class KaderController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy($id, $user_id)
     {
         try {
-            User::findOrFail($id)->delete();
-            Alert::success('Berhasil', 'Berhasil menghapus data posko');
+            DB::beginTransaction();
+            Kader::findOrFail($id)->delete();
+            User::findOrFail($user_id)->delete();
+            DB::commit();
+            Alert::success('Berhasil', 'Berhasil menghapus data kader');
             return redirect()->back();
         } catch (\Throwable $th) {
-            Alert::error('Gagal', 'Gagal menghapus data posko')->autoclose(3000);
+            Alert::error('Gagal', 'Gagal menghapus data kader')->autoclose(3000);
             return redirect()->back();
         }
     }

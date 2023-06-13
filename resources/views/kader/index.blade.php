@@ -40,7 +40,7 @@
                 ajax: "{{ route('kader.index') }}",
                 createPageUrl: '/kader/create',
                 editPageUrl: '/kader/{id}/edit',
-                deleteActionUrl: '/kader/{id}/destroy',
+                deleteActionUrl: '/kader/{id}/{user_id}/destroy',
                 isChild: true,
                 isNumber: false,
                 formatChildRow: function(d) {

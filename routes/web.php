@@ -48,6 +48,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/{id}/edit', 'KaderController@edit')->name('kader.edit');
             Route::post('/store', 'KaderController@store')->name('kader.store');
             Route::put('/{id}/{user_id}/update', 'KaderController@update')->name('kader.update');
+            Route::delete('/{id}/{user_id}/destroy', 'KaderController@destroy')->name('kader.destroy');
         });
 
         Route::get('/petugas-kesehatan', 'PetugasController@index')->name('petugas.index');
