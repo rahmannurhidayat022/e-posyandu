@@ -14,6 +14,7 @@
                                 <tr>
                                     <th></th>
                                     <th>No</th>
+                                    <th>Username</th>
                                     <th>Nama</th>
                                     <th>NIK</th>
                                     <th>Posko</th>
@@ -41,29 +42,30 @@
                 editPageUrl: '/kader/{id}/edit',
                 deleteActionUrl: '/kader/{id}/destroy',
                 isChild: true,
+                isNumber: false,
                 formatChildRow: function(d) {
                     return (
                         '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
                         '<tr>' +
-                        '<td>Full name:</td>' +
+                        '<td><i class="ti ti-mailbox fs-6 text-info"></i></td>' +
                         '<td>' +
-                        d.jalan +
+                        `Posko ${d.posko.nama} ${d.posko.jalan} RW${d.posko.rw}` +
+                        '</td>' +
+                        '<td><i class="ti ti-home-link fs-6 text-info"></i></td>' +
+                        '<td>' +
+                        `${d.jalan} RT${d.rt} RW${d.rw}` +
                         '</td>' +
                         '</tr>' +
                         '<tr>' +
-                        '<td>Extension number:</td>' +
-                        '<td>' +
-                        d.rw +
-                        '</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                        '<td>Extra info:</td>' +
-                        '<td>And any further details here (images etc)...</td>' +
                         '</tr>' +
                         '</table>'
                     );
                 },
                 columns: [{
+                        data: 'user.username',
+                        name: 'username'
+                    },
+                    {
                         data: 'nama',
                         name: 'nama'
                     },
@@ -74,6 +76,9 @@
                     {
                         data: 'posko.nama',
                         name: 'posko',
+                        render: (data, type, row) => {
+                            return `<span class="badge badge-sm rounded-pill text-bg-info text-uppercase">${data}</span> <span class="badge badge-sm rounded-pill text-bg-info">RW ${row.posko.rw}</span>`;
+                        }
                     },
                     {
                         data: 'telp',

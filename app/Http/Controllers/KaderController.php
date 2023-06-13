@@ -15,7 +15,7 @@ class KaderController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Kader::select('*')->with('posko');
+            $data = Kader::select('*')->with('posko')->with('user');
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->make(true);
@@ -56,8 +56,8 @@ class KaderController extends Controller
 
         try {
             $user = new User();
-            $user->username = $request->nama;
-            $user->password = $request->jalan;
+            $user->username = $request->username;
+            $user->password = $request->password;
             $user->role = 'operator';
             $user->save();
 
