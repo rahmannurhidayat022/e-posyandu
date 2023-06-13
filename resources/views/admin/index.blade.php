@@ -12,12 +12,13 @@
                         <table id="admin-table" class="display nowrap" style="width:100%">
                             <thead>
                                 <tr>
-                                    <td>No</td>
-                                    <td>Username</td>
-                                    <td>Role</td>
-                                    <td>Dibuat</td>
-                                    <td>Diperbaharui</td>
-                                    <td>Aksi</td>
+                                    <th></th>
+                                    <th>No</th>
+                                    <th>Username</th>
+                                    <th>Role</th>
+                                    <th>Dibuat</th>
+                                    <th>Diperbaharui</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -39,6 +40,8 @@
                 createPageUrl: '/admin/create',
                 editPageUrl: '/admin/{id}/edit',
                 deleteActionUrl: '/admin/{id}/destroy',
+                isNumber: true,
+                isChild: false,
                 columns: [{
                         data: 'username',
                         name: 'username'

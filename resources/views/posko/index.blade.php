@@ -12,12 +12,13 @@
                         <table id="posko-table" class="display nowrap" style="width:100%">
                             <thead>
                                 <tr>
-                                    <td>No</td>
-                                    <td>Nama Posko</td>
-                                    <td>Jalan / Gang</td>
-                                    <td>RW</td>
-                                    <td>RT</td>
-                                    <td>Aksi</td>
+                                    <th></th>
+                                    <th>No</th>
+                                    <th>Nama Posko</th>
+                                    <th>Jalan / Gang</th>
+                                    <th>RW</th>
+                                    <th>RT</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -39,6 +40,8 @@
                 createPageUrl: '/posko/create',
                 editPageUrl: '/posko/{id}/edit',
                 deleteActionUrl: '/posko/{id}/destroy',
+                isNumber: true,
+                isChild: false,
                 columns: [{
                         data: 'nama',
                         name: 'nama'

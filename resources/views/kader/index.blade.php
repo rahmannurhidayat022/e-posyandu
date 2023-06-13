@@ -9,15 +9,16 @@
                 <div class="card-body">
                     <h2 class="card-title fw-semibold mb-4">Manajemen Kader</h2>
                     <div class="mt-4">
-                        <table id="kader-table" class="display nowrap" style="width:100%">
+                        <table id="kader-table" class="display" style="width:100%">
                             <thead>
                                 <tr>
-                                    <td>No</td>
-                                    <td>Nama</td>
-                                    <td>NIK</td>
-                                    <td>Posko</td>
-                                    <td>Telepon</td>
-                                    <td>Aksi</td>
+                                    <th></th>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>NIK</th>
+                                    <th>Posko</th>
+                                    <th>Telepon</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -39,6 +40,29 @@
                 createPageUrl: '/kader/create',
                 editPageUrl: '/kader/{id}/edit',
                 deleteActionUrl: '/kader/{id}/destroy',
+                isChild: true,
+                formatChildRow: function(d) {
+                    return (
+                        '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+                        '<tr>' +
+                        '<td>Full name:</td>' +
+                        '<td>' +
+                        d.jalan +
+                        '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Extension number:</td>' +
+                        '<td>' +
+                        d.rw +
+                        '</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                        '<td>Extra info:</td>' +
+                        '<td>And any further details here (images etc)...</td>' +
+                        '</tr>' +
+                        '</table>'
+                    );
+                },
                 columns: [{
                         data: 'nama',
                         name: 'nama'

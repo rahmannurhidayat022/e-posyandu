@@ -247,17 +247,24 @@
                     ],
                     processing: true,
                     serverSide: true,
-                    rowReorder: {
-                        selector: 'td:nth-child(2)'
-                    },
                     responsive: true,
                     ajax: tableConfiguration.ajax,
                     columns: [{
+                            data: null,
+                            defaultContent: '',
+                            orderable: false,
+                            sortable: false,
+                            searchable: false,
+                            visible: tableConfiguration.isChild,
+                        },
+                        {
                             data: "DT_RowIndex",
                             name: "DT_RowIndex",
                             orderable: false,
                             searchable: false,
+                            sortable: false,
                             width: '10px',
+                            visible: tableConfiguration.isNumber,
                         },
                         ...tableConfiguration.columns,
                         {
@@ -276,14 +283,45 @@
                             }
                         }
                     ],
+                    rowReorder: {
+                        selector: 'td:nth-child(2)'
+                    },
                     columnDefs: [{
-                        defaultContent: "-",
-                        targets: "_all"
-                    }, ],
+                            defaultContent: "-",
+                            targets: "_all"
+                        },
+                        {
+                            targets: 0,
+                            className: 'dt-control',
+                            orderable: false,
+                            searchable: false,
+                            sortable: false,
+                            data: null,
+                            defaultContent: '',
+                        },
+                    ],
                     language: {
                         url: "https://cdn.datatables.net/plug-ins/1.11.4/i18n/id.json"
                     },
-                })
+                    initComplete: function() {
+                        // $(`#${tableConfiguration.container} thead tr td`).removeClass('dt-control');
+                    }
+                });
+
+                if (tableConfiguration.isChild) {
+                    $(`#${tableConfiguration.container} tbody`).on('click', 'td.dt-control', function() {
+                        const tr = $(this).closest('tr');
+                        const row = table.row(tr);
+
+                        if (row.child.isShown()) {
+                            row.child.hide();
+                            tr.removeClass('shown');
+                        } else {
+                            row.child(tableConfiguration.formatChildRow(row.data())).show();
+                            tr.addClass('shown');
+                        }
+                    });
+                }
 
                 return table;
             }
