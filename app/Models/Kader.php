@@ -17,7 +17,6 @@ class Kader extends Model
         'nama',
         'nik',
         'telp',
-        'jabatan',
         'jalan',
         'rt',
         'rw',

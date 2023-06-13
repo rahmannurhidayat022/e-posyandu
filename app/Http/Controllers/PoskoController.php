@@ -6,11 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\Posko;
 use App\Models\LingkupPosko;
 use Alert;
+use Illuminate\Http\JsonResponse;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
 
 class PoskoController extends Controller
 {
+    public function getPosko(): JsonResponse
+    {
+        $data = Posko::select('id', 'nama', 'rw')->orderBy('rw', 'asc')->get();
+        return response()->json($data);
+    }
+
     public function index(Request $request)
     {
         if ($request->ajax()) {

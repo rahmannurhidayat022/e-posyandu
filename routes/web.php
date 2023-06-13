@@ -30,6 +30,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::put('/{id}/update', 'PoskoController@update')->name('posko.update');
             Route::post('/store', 'PoskoController@store')->name('posko.store');
             Route::delete('/{id}/destroy', 'PoskoController@destroy')->name('posko.destroy');
+            Route::get('/get-posko', 'PoskoController@getPosko')->name('getPosko');
         });
 
         Route::prefix('admin')->group(function () {

@@ -25,7 +25,6 @@ return new class extends Migration
             $table->string('nama');
             $table->string('nik')->unique();
             $table->string('telp');
-            $table->string('jabatan');
             $table->text('jalan');
             $table->string('rt', 2);
             $table->string('rw', 2);

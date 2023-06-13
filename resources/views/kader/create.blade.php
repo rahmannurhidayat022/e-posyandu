@@ -59,26 +59,39 @@
                                         <input id="jalan" class="form-control" name="jalan" type="text" value="{{ old('jalan') }}" required>
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
-                                        <label class="form-label" for="rt">RT</label>
-                                        <input id="rt" class="form-control form-sm" name="rt" type="text" value="{{ old('rt') }}" required>
+                                        <label class="form-label" for="rt">Rukun Tetangga (RT)</label>
+                                        <select class="form-select" id="rt" name="rt">
+                                            <option value="01">RT 01</option>
+                                            <option value="02">RT 02</option>
+                                            <option value="03">RT 03</option>
+                                            <option value="04">RT 04</option>
+                                            <option value="05">RT 06</option>
+                                            <option value="07">RT 07</option>
+                                            <option value="08">RT 08</option>
+                                            <option value="09">RT 09</option>
+                                            <option value="10">RT 10</option>
+                                        </select>
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
-                                        <label class="form-label" for="rw">RW</label>
-                                        <input id="rw" class="form-control form-sm" name="rw" type="text" value="{{ old('rw') }}" required>
+                                        <label class="form-label" for="rw">Rukun Warga (RW)</label>
+                                        <select class="form-select" id="rw" name="rw" required>
+                                            <option value="01" selected>RW 01</option>
+                                            <option value="02">RW 02</option>
+                                            <option value="03">RW 03</option>
+                                            <option value="04">RW 04</option>
+                                            <option value="05">RW 06</option>
+                                            <option value="07">RW 07</option>
+                                            <option value="08">RW 08</option>
+                                            <option value="09">RW 09</option>
+                                            <option value="10">RW 10</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <h6><b>Pelayanan</b></h6>
                                     <div class="col-sm-12 col-md-6 col-lg-4">
                                         <label class="form-label" for="posko_id">Posko</label>
-                                        <select class="form-select" id="posko_id" name="posko_id" required>
-                                            <option selected>Pilih</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-4">
-                                        <label class="form-label" for="jabatan">Jabatan</label>
-                                        <select class="form-select" id="jabatan" name="jabatan" required>
-                                            <option selected>Pilih</option>
+                                        <select id="list-posko" class="form-select" id="posko_id" name="posko_id" required>
                                         </select>
                                     </div>
                                 </div>
@@ -95,5 +108,21 @@
     </div>
 </section>
 @push('script')
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: "{{ route('getPosko') }}",
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                let html = '<option selected>Pilih</option>';
+                $.each(response, function(index, data) {
+                    html += `<option value="${data.id}">RW ${data.rw} - ${data.nama}</option>`
+                });
+                $('#list-posko').html(html);
+            }
+        })
+    });
+</script>
 @endpush
 @endsection
