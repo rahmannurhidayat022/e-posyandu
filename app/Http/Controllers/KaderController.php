@@ -84,48 +84,80 @@ class KaderController extends Controller
 
     public function edit($id)
     {
-        $data = User::select('id', 'username')->findOrFail($id);
-        return view('admin.edit', ["user" => $data, 'id' => $id]);
+        $kader = Kader::with(['user:id,username', 'posko:id'])->findOrFail($id);
+        return view('kader.edit', compact('kader'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $user_id)
     {
         $validated = Validator::make($request->all(), [
-            'username' => ['required', function ($attribute, $value, $fail) use ($id) {
-                $user = User::findOrFail($id);
+            'username' => ['required', function ($attribute, $value, $fail) use ($user_id) {
+                $user = User::findOrFail($user_id);
 
                 if ($user->username === $value) {
                     return;
                 }
 
-                $exists = User::where('username', $value)->where('id', '!=', $id)->exists();
+                $exists = User::where('username', $value)->where('id', '!=', $user_id)->exists();
                 if ($exists) {
                     $fail('Username telah digunakan');
                 }
             }],
-            'password' => 'required|min:6|required_with:password_confirmation|confirmed',
+            'password' => 'nullable|min:6|confirmed',
+            // 'password_confirmation' => 'required_if:password,!=,|confirmed',
+            'nama' => 'required',
+            'nik' => ['required', function ($attribute, $value, $fail) use ($id) {
+                $kader = Kader::findOrFail($id);
+
+                if ($kader->nik === $value) {
+                    return;
+                }
+
+                $exists = Kader::where('nik', $value)->where('id', '!=', $id)->exists();
+                if ($exists) {
+                    $fail('NIK telah digunakan');
+                }
+            }],
+            'telp' => 'required',
+            'jalan' => 'required',
+            'rt' => 'required',
+            'rw' => 'required',
+            'posko_id' => 'required',
         ], [
+            'nik.unique' => 'NIK sudah digunakan',
+            'password_confirmation.min' => 'Password minimal 6 digit',
             'password.min' => 'Password minimal 6 digit',
-            'password.confirmed' => 'Password tidak sama',
+            'password_confirmation.confirmed' => 'Password tidak sama',
         ]);
 
         if ($validated->fails()) {
             $errors = $validated->errors();
             Alert::error('Gagal', $errors->first())->autoclose(3000);
-            return redirect()->back()->withInput($request->only('username'));
+            return redirect()->back()->withInput($request->all());
         }
 
         try {
-            $data = User::findOrFail($id);
-            $data->username = $request->username;
-            $data->password = Hash::make($request->password);
-            $data->role = 'admin';
-            $data->save();
+            $user = User::findOrFail($user_id);
+            $user->username = $request->username;
+            if ($request->has('password')) {
+                $user->password = Hash::make($request->password);
+            }
+            $user->save();
 
-            Alert::success('Berhasil', 'Berhasil memperbaharui data akun admin');
-            return redirect()->route('admin.index');
+            $kader = Kader::findOrFail($id);
+            $kader->nama = $request->nama;
+            $kader->nik = $request->nik;
+            $kader->telp = $request->telp;
+            $kader->jalan = $request->jalan;
+            $kader->rw = $request->rw;
+            $kader->rt = $request->rt;
+            $kader->posko_id = $request->posko_id;
+            $kader->save();
+
+            Alert::success('Berhasil', 'Berhasil memperbaharui data kader');
+            return redirect()->route('kader.index');
         } catch (\Throwable $th) {
-            Alert::error('Gagal', 'Gagal memperbaharui data akun admin')->autoclose(3000);
+            Alert::error('Gagal', 'Gagal memperbaharui data kader')->autoclose(3000);
             return redirect()->back()->withInput($request->all());
         }
     }

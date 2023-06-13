@@ -9,7 +9,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="{{ route('kader.index') }}">Kader</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Create</li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit</li>
                         </ol>
                     </nav>
                     <h2 class="card-title fw-semibold mb-4">
@@ -17,26 +17,28 @@
                             <span class="badge-circle">
                                 <i class="ti ti-users"></i>
                             </span>
-                            Tambah Data Kader
+                            Edit Data Kader
                         </div>
                     </h2>
                     <div class="mt-4">
-                        <form class="" method="post" action="{{ route('kader.store') }}">
+                        <form class="" method="post" action="{{ route('kader.update', ['id' => $kader->id, 'user_id' => $kader->user->id]) }}">
                             @csrf
+                            @method('PUT')
                             <div class="modal-body">
                                 <div class="row mb-3">
                                     <h6><b>Pembuatan Akun</b></h6>
+                                    <input type="text" hidden name="user_id" value="{{ $kader->user->id }}">
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label" for="username">Username</label>
-                                        <input id="username" class="form-control form-sm" name="username" type="text" value="{{ old('username') }}" required>
+                                        <input id="username" class="form-control form-sm" name="username" type="text" value="{{ $kader->user->username }}">
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
-                                        <label class="form-label" for="password">Password</label>
-                                        <input id="password" class="form-control form-sm" name="password" type="password" min="6" required>
+                                        <label class="form-label" for="password">New Password</label>
+                                        <input id="password" class="form-control form-sm" name="password" type="password" min="6">
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label" for="password_confirmation">Konfirmasi Password</label>
-                                        <input id="password_confirmation" class="form-control form-sm" name="password_confirmation" type="password" required>
+                                        <input id="password_confirmation" class="form-control form-sm" name="password_confirmation" type="password">
                                     </div>
 
                                 </div>
@@ -44,46 +46,32 @@
                                     <h6><b>Identitas Kader</b></h6>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label" for="nama">Nama Lengkap</label>
-                                        <input id="nama" class="form-control form-sm" name="nama" type="text" value="{{ old('nama') }}" required>
+                                        <input id="nama" class="form-control form-sm" name="nama" type="text" value="{{ $kader->nama }}" required>
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label" for="nik">NIK</label>
-                                        <input id="nik" class="form-control form-sm" name="nik" type="text" value="{{ old('nik') }}" required>
+                                        <input id="nik" class="form-control form-sm" name="nik" type="text" value="{{ $kader->nik }}" required>
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label" for="telp">Telepon</label>
-                                        <input id="telp" class="form-control form-sm" name="telp" type="text" value="{{ old('telp') }}" required>
+                                        <input id="telp" class="form-control form-sm" name="telp" type="text" value="{{ $kader->telp }}" required>
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label" for="jalan">Alamat (Jalan / Gang)</label>
-                                        <input id="jalan" class="form-control" name="jalan" type="text" value="{{ old('jalan') }}" required>
+                                        <input id="jalan" class="form-control" name="jalan" type="text" value="{{ $kader->jalan }}" required>
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label" for="rt">Rukun Tetangga (RT)</label>
-                                        <select class="form-select" id="rt" name="rt">
-                                            <option value="01" selected>RT 01</option>
-                                            <option value="02">RT 02</option>
-                                            <option value="03">RT 03</option>
-                                            <option value="04">RT 04</option>
-                                            <option value="05">RT 06</option>
-                                            <option value="07">RT 07</option>
-                                            <option value="08">RT 08</option>
-                                            <option value="09">RT 09</option>
-                                            <option value="10">RT 10</option>
+                                        <select class="form-select" id="rt" name="rt" required>
+                                            @for ($i = 1; $i <= 54; $i++) @php $formattedValue=str_pad($i, 2, '0' , STR_PAD_LEFT); @endphp <option value="{{ $formattedValue }}" {{ $kader->rt == $formattedValue ? 'selected' : '' }}>RT {{ $formattedValue }}</option>
+                                                @endfor
                                         </select>
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label" for="rw">Rukun Warga (RW)</label>
                                         <select class="form-select" id="rw" name="rw" required>
-                                            <option value="01" selected>RW 01</option>
-                                            <option value="02">RW 02</option>
-                                            <option value="03">RW 03</option>
-                                            <option value="04">RW 04</option>
-                                            <option value="05">RW 06</option>
-                                            <option value="07">RW 07</option>
-                                            <option value="08">RW 08</option>
-                                            <option value="09">RW 09</option>
-                                            <option value="10">RW 10</option>
+                                            @for ($i = 1; $i <= 14; $i++) @php $formattedValue=str_pad($i, 2, '0' , STR_PAD_LEFT); @endphp <option value="{{ $formattedValue }}" {{ $kader->rw == $formattedValue ? 'selected' : '' }}>RW {{ $formattedValue }}</option>
+                                                @endfor
                                         </select>
                                     </div>
                                 </div>
@@ -97,7 +85,7 @@
                                 </div>
                             </div>
                             <div class="d-flex gap-2 mt-4">
-                                <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Reset</button>
+                                <button type="reset" class="btn btn-secondary disabled" data-bs-dismiss="modal" disabled>Reset</button>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form>
@@ -117,11 +105,15 @@
             success: function(response) {
                 let html = '<option selected>Pilih</option>';
                 $.each(response, function(index, data) {
-                    html += `<option value="${data.id}">RW ${data.rw} - ${data.nama}</option>`
+                    let selected = '';
+                    if (data.id == '{{ $kader->posko->id }}') {
+                        selected = 'selected';
+                    }
+                    html += `<option value="${data.id}" ${selected}>RW ${data.rw} - ${data.nama}</option>`;
                 });
                 $('#list-posko').html(html);
             }
-        })
+        });
     });
 </script>
 @endpush
