@@ -56,6 +56,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/create', 'PetugasController@create')->name('petugas.create');
             Route::post('/store', 'PetugasController@store')->name('petugas.store');
             Route::get('/{id}/edit', 'PetugasController@edit')->name('petugas.edit');
+            Route::put('/{id}/{user_id}/update', 'PetugasController@update')->name('petugas.update');
+            Route::delete('/{id}/{user_id}/destroy', 'PetugasController@destroy')->name('petugas.destroy');
         });
     });
 });

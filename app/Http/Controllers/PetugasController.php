@@ -6,6 +6,7 @@ use App\Models\PetugasKesehatan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\DataTables;
@@ -35,7 +36,7 @@ class PetugasController extends Controller
             'username' => 'required|unique:users',
             'password' => 'required|min:6|required_with:password_confirmation|confirmed',
             'nama' => 'required',
-            'nik' => 'required|unique:kader',
+            'nik' => 'required|unique:petugas_kesehatan',
             'telp' => 'required',
             'puskesmas' => 'required',
         ], [
@@ -103,22 +104,19 @@ class PetugasController extends Controller
             // 'password_confirmation' => 'required_if:password,!=,|confirmed',
             'nama' => 'required',
             'nik' => ['required', function ($attribute, $value, $fail) use ($id) {
-                $kader = Kader::findOrFail($id);
+                $kader = PetugasKesehatan::findOrFail($id);
 
                 if ($kader->nik === $value) {
                     return;
                 }
 
-                $exists = Kader::where('nik', $value)->where('id', '!=', $id)->exists();
+                $exists = PetugasKesehatan::where('nik', $value)->where('id', '!=', $id)->exists();
                 if ($exists) {
                     $fail('NIK telah digunakan');
                 }
             }],
             'telp' => 'required',
-            'jalan' => 'required',
-            'rt' => 'required',
-            'rw' => 'required',
-            'posko_id' => 'required',
+            'puskesmas' => 'required',
         ], [
             'nik.unique' => 'NIK sudah digunakan',
             'password_confirmation.min' => 'Password minimal 6 digit',
@@ -141,21 +139,18 @@ class PetugasController extends Controller
             $user->save();
             DB::beginTransaction();
 
-            $kader = Kader::findOrFail($id);
+            $kader = PetugasKesehatan::findOrFail($id);
             $kader->nama = $request->nama;
             $kader->nik = $request->nik;
             $kader->telp = $request->telp;
-            $kader->jalan = $request->jalan;
-            $kader->rw = $request->rw;
-            $kader->rt = $request->rt;
-            $kader->posko_id = $request->posko_id;
+            $kader->puskesmas = $request->puskesmas;
             $kader->save();
             DB::commit();
 
-            Alert::success('Berhasil', 'Berhasil memperbaharui data kader');
-            return redirect()->route('kader.index');
+            Alert::success('Berhasil', 'Berhasil memperbaharui data petugas kesehatan');
+            return redirect()->route('petugas.index');
         } catch (\Throwable $th) {
-            Alert::error('Gagal', 'Gagal memperbaharui data kader')->autoclose(3000);
+            Alert::error('Gagal', 'Gagal memperbaharui data petugas kesehatan')->autoclose(3000);
             return redirect()->back()->withInput($request->all());
         }
     }
@@ -164,13 +159,13 @@ class PetugasController extends Controller
     {
         try {
             DB::beginTransaction();
-            Kader::findOrFail($id)->delete();
+            PetugasKesehatan::findOrFail($id)->delete();
             User::findOrFail($user_id)->delete();
             DB::commit();
-            Alert::success('Berhasil', 'Berhasil menghapus data kader');
+            Alert::success('Berhasil', 'Berhasil menghapus data petugas kesehatan');
             return redirect()->back();
         } catch (\Throwable $th) {
-            Alert::error('Gagal', 'Gagal menghapus data kader')->autoclose(3000);
+            Alert::error('Gagal', 'Gagal menghapus data petugas kesehatan')->autoclose(3000);
             return redirect()->back();
         }
     }
