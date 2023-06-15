@@ -9,9 +9,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::fallback(function () {
         return response()->view('errors.404', [], 404);
     });
-    Route::fallback(function () {
-        return response()->view('errors.403', [], 403);
-    });
+    // Route::fallback(function () {
+    //     return response()->view('errors.403', [], 403);
+    // });
 
     Route::group(['middleware' => ['guest']], function () {
         Route::get('/login', 'AuthController@index')->name('auth.index');
@@ -51,6 +51,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::delete('/{id}/{user_id}/destroy', 'KaderController@destroy')->name('kader.destroy');
         });
 
-        Route::get('/petugas-kesehatan', 'PetugasController@index')->name('petugas.index');
+        Route::prefix('petugas')->group(function () {
+            Route::get('/', 'PetugasController@index')->name('petugas.index');
+            Route::get('/create', 'PetugasController@create')->name('petugas.create');
+            Route::post('/store', 'PetugasController@store')->name('petugas.store');
+            Route::get('/{id}/edit', 'PetugasController@edit')->name('petugas.edit');
+        });
     });
 });

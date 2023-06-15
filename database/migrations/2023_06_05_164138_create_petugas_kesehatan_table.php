@@ -22,9 +22,9 @@ return new class extends Migration
                 ->onDelete('restrict');
 
             $table->string('nama');
+            $table->string('nik')->unique();
             $table->string('telp');
             $table->string('puskesmas');
-            $table->text('alamat_puskesmas');
             $table->timestamps();
         });
     }

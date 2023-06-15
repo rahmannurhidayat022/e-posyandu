@@ -15,8 +15,8 @@ class PetugasKesehatan extends Model
         'user_id',
         'nama',
         'telp',
+        'nik',
         'puskesmas',
-        'alamat_puskesmas',
     ];
 
     public function user()

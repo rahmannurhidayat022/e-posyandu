@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Kader::class, 'posko_id');
     }
+
+    public function petugas()
+    {
+        return $this->hasOne(PetugasKesehatan::class, 'user_id');
+    }
 }

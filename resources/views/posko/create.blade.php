@@ -47,7 +47,7 @@
                                     </select>
                                 </div>
                                 <div class="mb-2">
-                                    <label class="form-label" for="rt">Rukun Tetangga (RT)</label>
+                                    <label class="form-label" for="rt">Lingkup Rukun Tetangga (RT)</label>
                                     <select class="select2 form-control" id="rt" name="rt[]" multiple="multiple">
                                         <option value="01">RT 01</option>
                                         <option value="02">RT 02</option>

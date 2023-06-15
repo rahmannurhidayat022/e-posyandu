@@ -1,5 +1,5 @@
 @extends("layouts.admin")
-@section("title", "Kader")
+@section("title", "Petugas Kesehatan")
 
 @section("content")
 <section>
@@ -7,9 +7,9 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title fw-semibold mb-4">Manajemen Kader</h2>
+                    <h2 class="card-title fw-semibold mb-4">Manajemen Petugas Kesehatan</h2>
                     <div class="mt-4">
-                        <table id="kader-table" class="display" style="width:100%">
+                        <table id="petugas-table" class="display" style="width:100%">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -17,8 +17,8 @@
                                     <th>Username</th>
                                     <th>Nama</th>
                                     <th>NIK</th>
-                                    <th>Posko</th>
                                     <th>Telepon</th>
+                                    <th>Puskesmas</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -36,31 +36,13 @@
         const table = window.initialDataTable({
             tableConfiguration: {
                 name: 'kader',
-                container: 'kader-table',
-                ajax: "{{ route('kader.index') }}",
-                createPageUrl: '/kader/create',
-                editPageUrl: '/kader/{id}/edit',
-                deleteActionUrl: '/kader/{id}/{user_id}/destroy',
-                isChild: true,
+                container: 'petugas-table',
+                ajax: "{{ route('petugas.index') }}",
+                createPageUrl: '/petugas/create',
+                editPageUrl: '/petugas/{id}/edit',
+                deleteActionUrl: '/petugas/{id}/{user_id}/destroy',
+                isChild: false,
                 isNumber: true,
-                formatChildRow: function(d) {
-                    return (
-                        '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-                        '<tr>' +
-                        '<td><i class="ti ti-mailbox fs-6 text-info"></i></td>' +
-                        '<td>' +
-                        `Posko ${d.posko.nama} ${d.posko.jalan} RW${d.posko.rw}` +
-                        '</td>' +
-                        '<td><i class="ti ti-home-link fs-6 text-info"></i></td>' +
-                        '<td>' +
-                        `${d.jalan} RT${d.rt} RW${d.rw}` +
-                        '</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                        '</tr>' +
-                        '</table>'
-                    );
-                },
                 columns: [{
                         data: 'user.username',
                         name: 'user.username'
@@ -74,15 +56,12 @@
                         name: 'nik',
                     },
                     {
-                        data: 'posko.nama',
-                        name: 'posko.nama',
-                        render: (data, type, row) => {
-                            return `<span class="badge badge-sm rounded-pill text-bg-info text-uppercase">${data}</span> <span class="badge badge-sm rounded-pill text-bg-info">RW ${row.posko.rw}</span>`;
-                        }
-                    },
-                    {
                         data: 'telp',
                         name: 'telp',
+                    },
+                    {
+                        data: 'puskesmas',
+                        name: 'puskesmas',
                     },
                 ]
             },
@@ -90,21 +69,20 @@
                 orientation: 'potrait',
                 pageSize: 'A4',
                 columns: [0, 1, 2, 3, 4],
-                filename: 'Laporan Data Kader',
-                title: 'Laporan Data Kader',
+                filename: 'Laporan Data Petugas Kesehatan',
+                title: 'Laporan Data Petugas Kesehatan',
             },
             excelConfiguration: {
                 columns: [0, 1, 2, 3, 4],
-                filename: 'Laporan Data Kader',
-                title: 'Laporan Data Kader',
+                filename: 'Laporan Data Petugas Kesehatan',
+                title: 'Laporan Data Petugas Kesehatan',
             },
             pdfConfiguration: {
                 orientation: 'potrait',
                 pageSize: 'A4',
                 columns: [1, 2, 3, 4],
-                filename: 'Laporan Data Kader',
-                title: 'Laporan Data Kader',
-                isRt: false,
+                filename: 'Laporan Data Petugas Kesehatan',
+                title: 'Laporan Data Petugas Kesehatan',
             },
         })
     });
