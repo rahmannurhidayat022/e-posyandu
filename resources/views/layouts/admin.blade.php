@@ -11,15 +11,15 @@
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
         <aside class="left-sidebar">
             <div>
-                <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a href="./index.html" class="text-nowrap logo-img">
-                        <img src="{{ asset('assets/images/posyandu_full.png') }}" width="180" alt="logo posyandu" />
+                <div class="brand-logo d-flex align-items-center justify-content-center">
+                    <a href="{{ route('dashboard.index') }}" class="text-nowrap logo-img">
+                        <img src="{{ asset('assets/images/posyandu_full.png') }}" width="130" alt="logo posyandu" />
                     </a>
                     <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                         <i class="ti ti-x fs-8"></i>
                     </div>
                 </div>
-                <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                <nav class="sidebar-nav scroll-sidebar" data-simplebar="" style="overflow-y: auto;">
                     <ul id="sidebarnav">
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
@@ -47,20 +47,36 @@
                         </li>
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">MANAJEMEN AKUN</span>
+                            <span class="hide-menu">DATA MASTER</span>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('admin.index') }}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{ route('ibu.index') }}" aria-expanded="false">
                                 <span>
-                                    <i class="ti ti-user"></i>
+                                    <i class="ti ti-empathize"></i>
                                 </span>
-                                <span class="hide-menu">Admin</span>
+                                <span class="hide-users">Ibu</span>
                             </a>
                         </li>
+                        <!-- <li class="sidebar-item"> -->
+                        <!--     <a class="sidebar-link" href="" aria-expanded="false"> -->
+                        <!--         <span> -->
+                        <!--             <i class="ti ti-baby-bottle"></i> -->
+                        <!--         </span> -->
+                        <!--         <span class="hide-users">Anak</span> -->
+                        <!--     </a> -->
+                        <!-- </li> -->
+                        <!-- <li class="sidebar-item"> -->
+                        <!--     <a class="sidebar-link" href="" aria-expanded="false"> -->
+                        <!--         <span> -->
+                        <!--             <i class="ti ti-wheelchair"></i> -->
+                        <!--         </span> -->
+                        <!--         <span class="hide-users">Lansia</span> -->
+                        <!--     </a> -->
+                        <!-- </li> -->
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ route('kader.index') }}" aria-expanded="false">
                                 <span>
-                                    <i class="ti ti-users"></i>
+                                    <i class="ti ti-heart-handshake"></i>
                                 </span>
                                 <span class="hide-users">Kader</span>
                             </a>
@@ -71,6 +87,14 @@
                                     <i class="ti ti-first-aid-kit"></i>
                                 </span>
                                 <span class="hide-menu">Petugas</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.index') }}" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-user"></i>
+                                </span>
+                                <span class="hide-menu">Admin</span>
                             </a>
                         </li>
                     </ul>

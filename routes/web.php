@@ -59,5 +59,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::put('/{id}/{user_id}/update', 'PetugasController@update')->name('petugas.update');
             Route::delete('/{id}/{user_id}/destroy', 'PetugasController@destroy')->name('petugas.destroy');
         });
+
+        Route::prefix('ibu')->group(function () {
+            Route::get('/', 'IbuController@index')->name('ibu.index');
+            Route::get('/create', 'IbuController@create')->name('ibu.create');
+            Route::get('/{id}/edit', 'IbuController@edit')->name('ibu.edit');
+            Route::post('/store', 'IbuController@store')->name('ibu.store');
+            Route::put('/{id}/update', 'IbuController@update')->name('ibu.update');
+            Route::delete('/{id}/destroy', 'IbuController@destroy')->name('ibu.destroy');
+        });
     });
 });
