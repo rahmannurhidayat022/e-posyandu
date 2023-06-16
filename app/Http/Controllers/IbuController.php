@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Alert;
 use App\Models\Ibu;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
@@ -12,6 +13,12 @@ use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
 
 class IbuController extends Controller
 {
+    public function getIbu(): JsonResponse
+    {
+        $data = Ibu::select('id', 'nama', 'ayah')->orderBy('nama', 'asc')->get();
+        return response()->json($data);
+    }
+
     public function index(Request $request)
     {
         if ($request->ajax()) {

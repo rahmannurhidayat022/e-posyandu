@@ -57,14 +57,14 @@
                                 <span class="hide-users">Ibu</span>
                             </a>
                         </li>
-                        <!-- <li class="sidebar-item"> -->
-                        <!--     <a class="sidebar-link" href="" aria-expanded="false"> -->
-                        <!--         <span> -->
-                        <!--             <i class="ti ti-baby-bottle"></i> -->
-                        <!--         </span> -->
-                        <!--         <span class="hide-users">Anak</span> -->
-                        <!--     </a> -->
-                        <!-- </li> -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('anak.index') }}" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-baby-bottle"></i>
+                                </span>
+                                <span class="hide-users">Anak</span>
+                            </a>
+                        </li>
                         <!-- <li class="sidebar-item"> -->
                         <!--     <a class="sidebar-link" href="" aria-expanded="false"> -->
                         <!--         <span> -->

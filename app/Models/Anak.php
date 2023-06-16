@@ -15,7 +15,6 @@ class Anak extends Model
         'ibu_id',
         'nama',
         'nik',
-        'telp',
         'tanggal_lahir',
         'jenis_kelamin',
         'bb',

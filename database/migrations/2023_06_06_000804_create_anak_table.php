@@ -28,8 +28,7 @@ return new class extends Migration
                 ->onDelete('restrict');
 
             $table->string('nama');
-            $table->string('nik')->unique();
-            $table->string('telp');
+            $table->string('nik')->nullable()->unique();
             $table->date('tanggal_lahir');
             $table->enum('jenis_kelamin', ['lk', 'pr']);
             $table->decimal('bb', 5, 2)->nullable();

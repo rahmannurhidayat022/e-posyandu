@@ -67,6 +67,16 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('/store', 'IbuController@store')->name('ibu.store');
             Route::put('/{id}/update', 'IbuController@update')->name('ibu.update');
             Route::delete('/{id}/destroy', 'IbuController@destroy')->name('ibu.destroy');
+            Route::get('/get-ibu', 'IbuController@getIbu')->name('getIbu');
+        });
+
+        Route::prefix('anak')->group(function () {
+            Route::get('/', 'AnakController@index')->name('anak.index');
+            Route::get('/create', 'AnakController@create')->name('anak.create');
+            Route::get('/{id}/edit', 'AnakController@edit')->name('anak.edit');
+            Route::post('/store', 'AnakController@store')->name('anak.store');
+            Route::put('/{id}/update', 'AnakController@update')->name('anak.update');
+            Route::delete('/{id}/destroy', 'AnakController@destroy')->name('anak.destroy');
         });
     });
 });
