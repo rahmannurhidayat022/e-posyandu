@@ -23,7 +23,8 @@ return new class extends Migration
 
             $table->string('nama');
             $table->string('nik')->unique();
-            $table->string('telp');
+            $table->string('telp')->nullable();
+            $table->string('darah');
             $table->date('tanggal_lahir');
             $table->string('jalan');
             $table->string('rt', 2);

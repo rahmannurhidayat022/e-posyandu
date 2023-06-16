@@ -65,14 +65,14 @@
                                 <span class="hide-users">Anak</span>
                             </a>
                         </li>
-                        <!-- <li class="sidebar-item"> -->
-                        <!--     <a class="sidebar-link" href="" aria-expanded="false"> -->
-                        <!--         <span> -->
-                        <!--             <i class="ti ti-wheelchair"></i> -->
-                        <!--         </span> -->
-                        <!--         <span class="hide-users">Lansia</span> -->
-                        <!--     </a> -->
-                        <!-- </li> -->
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('lansia.index') }}" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-wheelchair"></i>
+                                </span>
+                                <span class="hide-users">Lansia</span>
+                            </a>
+                        </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ route('kader.index') }}" aria-expanded="false">
                                 <span>

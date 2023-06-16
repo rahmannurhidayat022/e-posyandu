@@ -25,7 +25,7 @@
                             @csrf
                             <div class="modal-body">
                                 <div class="row gap-0 row-gap-3 mb-3">
-                                    <h6><b>Identitas Ibu</b></h6>
+                                    <h6><b>Identitas Anak</b></h6>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label" for="nama">Nama Lengkap</label>
                                         <input id="nama" class="form-control form-sm" name="nama" type="text" value="{{ old('nama') }}" required>

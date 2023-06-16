@@ -78,5 +78,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::put('/{id}/update', 'AnakController@update')->name('anak.update');
             Route::delete('/{id}/destroy', 'AnakController@destroy')->name('anak.destroy');
         });
+
+        Route::prefix('lansia')->group(function () {
+            Route::get('/', 'LansiaController@index')->name('lansia.index');
+            Route::get('/create', 'LansiaController@create')->name('lansia.create');
+            Route::get('/{id}/edit', 'LansiaController@edit')->name('lansia.edit');
+            Route::post('/store', 'LansiaController@store')->name('lansia.store');
+            Route::put('/{id}/update', 'LansiaController@update')->name('lansia.update');
+            Route::delete('/{id}/destroy', 'LansiaController@destroy')->name('lansia.destroy');
+            Route::get('/get-lansia', 'LansiaController@getLansia')->name('getLansia');
+        });
     });
 });

@@ -15,6 +15,7 @@ class Lansia extends Model
         'nama',
         'nik',
         'telp',
+        'darah',
         'tanggal_lahir',
         'jalan',
         'rt',
