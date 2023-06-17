@@ -38,7 +38,6 @@ return new class extends Migration
             $table->decimal('bb', 5, 2);
             $table->integer('tb');
             $table->string('bb_status')->nullable();
-            $table->string('tb_status')->nullable();
             $table->string('suplemen')->nullable();
             $table->text('keluhan')->nullable();
             $table->text('catatan')->nullable();
