@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Validator;
 
 class KaderController extends Controller
 {
+    public function getKader()
+    {
+        $data = Kader::select('id', 'nama')->orderBy('nama', 'asc')->get();
+        return response()->json($data);
+    }
+
     public function index(Request $request)
     {
         if ($request->ajax()) {

@@ -49,6 +49,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('/store', 'KaderController@store')->name('kader.store');
             Route::put('/{id}/{user_id}/update', 'KaderController@update')->name('kader.update');
             Route::delete('/{id}/{user_id}/destroy', 'KaderController@destroy')->name('kader.destroy');
+            Route::get('/get-kader', 'KaderController@getKader')->name('getKader');
         });
 
         Route::prefix('petugas')->group(function () {
@@ -58,6 +59,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/{id}/edit', 'PetugasController@edit')->name('petugas.edit');
             Route::put('/{id}/{user_id}/update', 'PetugasController@update')->name('petugas.update');
             Route::delete('/{id}/{user_id}/destroy', 'PetugasController@destroy')->name('petugas.destroy');
+            Route::get('/get-petugas', 'PetugasController@getPetugas')->name('getPetugas');
         });
 
         Route::prefix('ibu')->group(function () {
@@ -70,13 +72,20 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/get-ibu', 'IbuController@getIbu')->name('getIbu');
         });
 
-        Route::prefix('anak')->group(function () {
+        Route::prefix('kesehatan-anak')->group(function () {
             Route::get('/', 'AnakController@index')->name('anak.index');
             Route::get('/create', 'AnakController@create')->name('anak.create');
             Route::get('/{id}/edit', 'AnakController@edit')->name('anak.edit');
             Route::post('/store', 'AnakController@store')->name('anak.store');
             Route::put('/{id}/update', 'AnakController@update')->name('anak.update');
             Route::delete('/{id}/destroy', 'AnakController@destroy')->name('anak.destroy');
+            Route::get('/get-anak', 'AnakController@getAnak')->name('getAnak');
+
+            Route::prefix('penimbangan')->group(function () {
+                Route::get('/{id}', 'PenimbanganAnakController@index')->name('penimbangan.index');
+                Route::get('/{id}/create', 'PenimbanganAnakController@create')->name('penimbangan.create');
+                Route::post('/{id}/store', 'PenimbanganAnakController@store')->name('penimbangan.store');
+            });
         });
 
         Route::prefix('lansia')->group(function () {

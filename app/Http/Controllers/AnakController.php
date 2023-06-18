@@ -4,20 +4,49 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Alert;
-use App\Models\Ibu;
 use App\Models\Anak;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
 
 class AnakController extends Controller
 {
+    public function getAnak()
+    {
+        $data = Anak::select('id', 'nama')->with('ibu:nama')->orderBy('nama', 'asc')->get();
+        return response()->json($data);
+    }
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
             $data = Anak::select('*')->with('ibu:id,nama,ayah')->with('posko:id,nama,rw');
             return DataTables::of($data)
+                ->filter(function (Builder $query) {
+                    if (request()->has("posko_id")) {
+                        $query->where("posko_id", request("posko_id"));
+                    }
+
+                    if (!empty(request()->has('search'))) {
+                        $search = request("search");
+                        $query->where(function ($query) use ($search) {
+                            $model = new Anak();
+                            $columns = $model->getFillable();
+                            foreach ($columns as $column) {
+                                $query->orWhere($column, 'like', "%$search%");
+                            }
+
+                            $query->orWhereHas('ibu', function ($query) use ($search) {
+                                $query->where('nama', 'like', "%$search%");
+                            });
+
+                            $query->orWhereHas('posko', function ($query) use ($search) {
+                                $query->where('nama', 'like', "%$search%");
+                            });
+                        });
+                    }
+                })
                 ->addIndexColumn()
                 ->make(true);
         }

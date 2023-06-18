@@ -13,6 +13,12 @@ use Yajra\DataTables\DataTables;
 
 class PetugasController extends Controller
 {
+    public function getPetugas()
+    {
+        $data = PetugasKesehatan::select('id', 'nama')->orderBy('nama', 'asc')->get();
+        return response()->json($data);
+    }
+
     public function index(Request $request)
     {
         if ($request->ajax()) {

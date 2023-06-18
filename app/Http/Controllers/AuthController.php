@@ -24,15 +24,15 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $kaderInformation = Kader::where('user_id', $user->id)->first();
+            $kaderInformation = Kader::where('user_id', $user->id)->with('posko:id,nama,rw')->first();
             $petugasKesehatanInformation = PetugasKesehatan::where('user_id', $user->id)->first();
 
             if ($kaderInformation) {
-                $user->user_information = $kaderInformation;
+                session(['user_information' => $kaderInformation]);
             } else if ($petugasKesehatanInformation) {
-                $user->user_information = $petugasKesehatanInformation;
+                session(['user_information' => $petugasKesehatanInformation]);
             } else {
-                $user->user_information = null;
+                session(['user_information' => null]);
             }
 
             return redirect()->intended('/dashboard');

@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title fw-semibold mb-4">Manajemen Data Anak</h2>
+                    <h2 class="card-title fw-semibold mb-4">Penimbangan Anak</h2>
                     <div class="mt-4">
                         <table id="anak-table" class="display" style="width:100%">
                             <thead>
@@ -37,11 +37,15 @@
                 name: 'ibu',
                 container: 'anak-table',
                 ajax: "{{ route('anak.index') }}",
-                createPageUrl: '/anak/create',
-                editPageUrl: '/anak/{id}/edit',
+                createPageUrl: '/kesehatan-anak/create',
+                editPageUrl: '/kesehatan-anak/{id}/edit',
                 isChild: true,
-                deleteActionUrl: '/anak/{id}/destroy',
+                deleteActionUrl: '/kesehatan-anak/{id}/destroy',
                 isNumber: true,
+                filters: {
+                    posko_id: "{{ session('user_information')->posko->id ?? null }}"
+                },
+                isPenimbanganAction: true,
                 formatChildRow: function(d) {
                     return (
                         '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +

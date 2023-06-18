@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="{{ route('anak.index') }}">Anak</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('anak.index') }}">Kesehatan anak</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Create</li>
                         </ol>
                     </nav>
@@ -63,7 +63,7 @@
                                     <h6><b>Pengecekan Kesehatan</b></h6>
                                     <div class="col-sm-12 col-md-6 col-lg-4">
                                         <label class="form-label" for="posko_id">Posko</label>
-                                        <select id="list-posko" class="form-select" id="posko_id" name="posko_id" required>
+                                        <select id="list-posko" class="select2 form-select" id="posko_id" name="posko_id" required>
                                         </select>
                                     </div>
                                 </div>

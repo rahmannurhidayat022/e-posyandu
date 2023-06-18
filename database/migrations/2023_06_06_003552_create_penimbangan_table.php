@@ -20,6 +20,12 @@ return new class extends Migration
                 ->on('posko')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
+            $table->unsignedBigInteger('kader_id');
+            $table->foreign('kader_id')
+                ->references('id')
+                ->on('kader')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
             $table->unsignedBigInteger('petugas_id');
             $table->foreign('petugas_id')
                 ->references('id')
@@ -35,10 +41,10 @@ return new class extends Migration
 
             $table->string('id_layanan')->unique();
             $table->integer('usia');
-            $table->decimal('bb', 5, 2);
-            $table->integer('tb');
+            $table->decimal('bb', 4, 1);
+            $table->decimal('tb', 4, 1);
             $table->string('bb_status')->nullable();
-            $table->string('suplemen')->nullable();
+            $table->string('tb_status')->nullable();
             $table->text('keluhan')->nullable();
             $table->text('catatan')->nullable();
             $table->timestamps();

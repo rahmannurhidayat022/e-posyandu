@@ -21,6 +21,17 @@
                 </div>
                 <nav class="sidebar-nav scroll-sidebar" data-simplebar="" style="overflow-y: auto;">
                     <ul id="sidebarnav">
+                        <li class="nav-small-cap m-0 p-0 d-flex justify-content-center">
+                            @if(session('user_information'))
+                            <span class="badge badge-sm rounded-pill text-bg-info">
+                                {!! session('user_information')->posko->nama !!} / RW {!! session('user_information')->posko->rw !!}
+                            </span>
+                            @else
+                            <span class="badge badge-sm rounded-pill text-bg-info">
+                                {!! Auth::user()->role !!}
+                            </span>
+                            @endif
+                        </li>
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                             <span class="hide-menu">Home</span>
@@ -31,6 +42,26 @@
                                     <i class="ti ti-layout-dashboard"></i>
                                 </span>
                                 <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="nav-small-cap">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">Pelayanan</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('anak.index') }}" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-activity"></i>
+                                </span>
+                                <span class="hide-menu">Kesehatan Anak</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('lansia.index') }}" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-wheelchair"></i>
+                                </span>
+                                <span class="hide-users">Kesehatan Lansia</span>
                             </a>
                         </li>
                         <li class="nav-small-cap">
@@ -55,22 +86,6 @@
                                     <i class="ti ti-empathize"></i>
                                 </span>
                                 <span class="hide-users">Ibu</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('anak.index') }}" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-baby-bottle"></i>
-                                </span>
-                                <span class="hide-users">Anak</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('lansia.index') }}" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-wheelchair"></i>
-                                </span>
-                                <span class="hide-users">Lansia</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -114,11 +129,11 @@
                     <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
                         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
                             <li class="nav-item dropdown d-flex align-items-center">
-                                @if(Auth::user()->user_information)
-                                {{ Auth::user()->user_information->nama }}
-                                @else
-                                Admin
-                                @endif
+                                <span class="fw-bold">@if(session('user_information'))
+                                    {{ session('user_information')->nama }}
+                                    @else
+                                    {{ Auth::user()->username }}
+                                    @endif</span>
                                 <a class="nav-link nav-icon-hover p-1" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="ti ti-user-circle fs-8" style="font-size: 18px;"></i>
                                 </a>
@@ -272,7 +287,15 @@
                     processing: true,
                     serverSide: true,
                     responsive: true,
-                    ajax: tableConfiguration.ajax,
+                    ajax: {
+                        url: tableConfiguration.ajax,
+                        data: function(d) {
+                            if (tableConfiguration?.filters?.posko_id) {
+                                d.posko_id = tableConfiguration?.filters?.posko_id;
+                            }
+                            d.search = $(`input[type="search"][aria-controls="${tableConfiguration.container}"]`).val();
+                        }
+                    },
                     columns: [{
                             data: null,
                             defaultContent: '',
@@ -298,12 +321,25 @@
                             orderable: false,
                             searchable: false,
                             render: (data, type, row) => {
+                                let html = '';
+                                if (tableConfiguration?.isPenimbanganAction) {
+                                    html += `<li><a class="dropdown-item" href="/kesehatan-anak/penimbangan/${row.id}"><i class="ti ti-scale"></i> Penimbangan</a></li>`
+                                }
+
                                 const editUrl = replaceStringWithObjectValues(tableConfiguration.editPageUrl, row);
                                 const deleteUrl = replaceStringWithObjectValues(tableConfiguration.deleteActionUrl, row);
+                                html += `
+                                        <li><a class="dropdown-item" href="${editUrl}"><i class="ti ti-edit"></i> Edit</a></li>
+                                        <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" onclick="confirmAlert({ formId: 'form-delete', deleteUrl: '${deleteUrl}' })"><i class="ti ti-trash"></i> Delete</button></li>
+                                        `
 
-                                return `<a class="btn btn-success" title="Edit Data" href="${editUrl}"><i class="ti ti-edit"></i></a>
-<button type="button" title="Hapus Data" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" class="btn btn-danger" onclick="confirmAlert({ formId: 'form-delete', deleteUrl: '${deleteUrl}' })"><i class="ti ti-trash"></i></button>
-`
+                                return `<div class="dropdown">
+                                  <i class="ti ti-dots-vertical fs-6" id="optionsDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer">
+                                  </i>
+                                  <ul class="dropdown-menu" aria-labelledby="optionsDropdown">
+                                    ${html}
+                                  </ul>
+                                </div>`;
                             }
                         }
                     ],
