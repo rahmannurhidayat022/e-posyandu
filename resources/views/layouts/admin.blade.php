@@ -209,6 +209,16 @@
                             }
                         },
                         {
+                            text: '<i class="ti ti-chart-dots fs-4"></i>',
+                            className: `${tableConfiguration?.kmsPageUrl ? '' : 'd-none'} btn btn-primary`,
+                            attr: {
+                                'title': 'Kartu Menuju Sehat (KMS)'
+                            },
+                            action: function() {
+                                window.location = tableConfiguration.kmsPageUrl;
+                            }
+                        },
+                        {
                             text: '<i class="ti ti-printer fs-4"></i>',
                             className: 'btn btn-secondary',
                             attr: {
@@ -282,7 +292,7 @@
                                 doc.content[0].text = '';
                                 doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
                             }
-                        }
+                        },
                     ],
                     processing: true,
                     serverSide: true,
