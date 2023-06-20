@@ -85,6 +85,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
                 Route::get('/{id}', 'PenimbanganAnakController@index')->name('penimbangan.index');
                 Route::get('/{id}/create', 'PenimbanganAnakController@create')->name('penimbangan.create');
                 Route::post('/{id}/store', 'PenimbanganAnakController@store')->name('penimbangan.store');
+                Route::get('/{id}/{penimbangan_id}/edit', 'PenimbanganAnakController@edit')->name('penimbangan.edit');
+                Route::put('/{id}/update', 'PenimbanganAnakController@update')->name('penimbangan.update');
+                Route::delete('/{id}/destroy', 'PenimbanganAnakController@destroy')->name('penimbangan.destroy');
             });
         });
 

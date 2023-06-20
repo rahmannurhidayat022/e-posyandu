@@ -19,25 +19,25 @@ return new class extends Migration
                 ->references('id')
                 ->on('posko')
                 ->onUpdate('cascade')
-                ->onDelete('restrict');
+                ->onDelete('cascade');
             $table->unsignedBigInteger('kader_id');
             $table->foreign('kader_id')
                 ->references('id')
                 ->on('kader')
                 ->onUpdate('cascade')
-                ->onDelete('restrict');
+                ->onDelete('cascade');
             $table->unsignedBigInteger('petugas_id');
             $table->foreign('petugas_id')
                 ->references('id')
                 ->on('petugas_kesehatan')
                 ->onUpdate('cascade')
-                ->onDelete('restrict');
+                ->onDelete('cascade');
             $table->unsignedBigInteger('anak_id');
             $table->foreign('anak_id')
                 ->references('id')
                 ->on('anak')
                 ->onUpdate('cascade')
-                ->onDelete('restrict');
+                ->onDelete('cascade');
 
             $table->string('id_layanan')->unique();
             $table->integer('usia');

@@ -45,9 +45,9 @@
                 container: 'penimbangan-table',
                 ajax: "{{ route('penimbangan.index', $id) }}",
                 createPageUrl: '/kesehatan-anak/penimbangan/{{ $id }}/create',
-                editPageUrl: '/kesehatan-anak/{id}/edit',
+                editPageUrl: '/kesehatan-anak/penimbangan/{anak_id}/{id}/edit',
                 isChild: true,
-                deleteActionUrl: '/penimbangan/{id}/destroy',
+                deleteActionUrl: '/kesehatan-anak/penimbangan/{id}/destroy',
                 isNumber: true,
                 formatChildRow: function(d) {
                     return (
