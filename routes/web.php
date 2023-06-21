@@ -89,6 +89,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
                 Route::put('/{id}/update', 'PenimbanganAnakController@update')->name('penimbangan.update');
                 Route::delete('/{id}/destroy', 'PenimbanganAnakController@destroy')->name('penimbangan.destroy');
             });
+
+            Route::prefix('kms')->group(function () {
+                Route::get('/{id}', 'KMSController@index')->name('kms.index');
+            });
         });
 
         Route::prefix('lansia')->group(function () {

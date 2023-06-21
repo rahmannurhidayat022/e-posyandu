@@ -6,3 +6,4 @@ import "./sidebarmenu";
 import "./sidebar";
 import "./simplebar";
 import "./helper";
+import './series';
