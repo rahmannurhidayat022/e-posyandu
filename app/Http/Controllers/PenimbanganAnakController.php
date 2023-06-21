@@ -81,31 +81,41 @@ class PenimbanganAnakController extends Controller
 
             $jenisKelamin = Anak::find($request->input('anak_id'))->jenis_kelamin;
             $bulan = $request->input('usia');
-            $antropometri = Antropometri::where('jenis_kelamin', $jenisKelamin)
+            $antropometri_bb = Antropometri::where('jenis_kelamin', $jenisKelamin)
                 ->where('bulan', $bulan)
+                ->where('tipe', 'bb')
+                ->first();
+            $antropometri_tb = Antropometri::where('jenis_kelamin', $jenisKelamin)
+                ->where('bulan', $bulan)
+                ->where('tipe', 'tb')
                 ->first();
 
             $bb = $request->input('bb');
-            if ($antropometri && $antropometri->bb_min <= $bb && $bb <= $antropometri->bb_max) {
-                $bb_status = 'normal';
-            } elseif ($antropometri && $bb < $antropometri->bb_min) {
-                $bb_status = 'kurang';
-            } elseif ($antropometri && $bb > $antropometri->bb_max) {
-                $bb_status = 'obesitas';
+            if ($antropometri_bb && $bb < $antropometri_bb->minus_3_sd) {
+                $bb_status =  'Sangat Kurang';
+            } else if ($antropometri_bb && $bb < $antropometri_bb->minus_2_sd && $bb > $antropometri_bb->minus_3_sd) {
+                $bb_status =  'Kurang';
+            } else if ($antropometri_bb && $bb > $antropometri_bb->minus_2_sd && $bb < $antropometri_bb->plus_1_sd) {
+                $bb_status =  'Normal';
+            } else if ($antropometri_bb && $bb > $antropometri_bb->plus_1_sd) {
+                $bb_status =  'Risiko Berat Badan';
             } else {
                 $bb_status = null;
             }
 
             $tb = $request->input('tb');
-            if ($antropometri && $antropometri->tb_min <= $tb && $tb <= $antropometri->tb_max) {
-                $tb_status = 'normal';
-            } elseif ($antropometri && $tb < $antropometri->tb_min) {
-                $tb_status = 'pendek';
-            } elseif ($antropometri && $tb > $antropometri->tb_max) {
-                $tb_status = 'tinggi';
+            if ($antropometri_bb && $tb < $antropometri_tb->minus_3_sd) {
+                $tb_status = 'Sangat Pendek';
+            } else if ($antropometri_bb && $tb > $antropometri_tb->minus_3_sd && $tb < $antropometri_tb->minus_2_sd) {
+                $tb_status = 'Pendek';
+            } else if ($antropometri_bb && $tb > $antropometri_tb->minus_2_sd && $tb < $antropometri_tb->plus_3_sd) {
+                $tb_status = 'Normal';
+            } else if ($antropometri_bb && $tb > $antropometri_tb->plus_3_sd) {
+                $tb_status = 'Tinggi';
             } else {
                 $tb_status = null;
             }
+
             $penimbangan->bb_status = $bb_status;
             $penimbangan->tb_status = $tb_status;
             $penimbangan->save();
@@ -145,31 +155,41 @@ class PenimbanganAnakController extends Controller
 
             $jenisKelamin = Anak::find($request->input('anak_id'))->jenis_kelamin;
             $bulan = $request->input('usia');
-            $antropometri = Antropometri::where('jenis_kelamin', $jenisKelamin)
+            $antropometri_bb = Antropometri::where('jenis_kelamin', $jenisKelamin)
                 ->where('bulan', $bulan)
+                ->where('tipe', 'bb')
+                ->first();
+            $antropometri_tb = Antropometri::where('jenis_kelamin', $jenisKelamin)
+                ->where('bulan', $bulan)
+                ->where('tipe', 'tb')
                 ->first();
 
             $bb = $request->input('bb');
-            if ($antropometri && $antropometri->bb_min <= $bb && $bb <= $antropometri->bb_max) {
-                $bb_status = 'normal';
-            } elseif ($antropometri && $bb < $antropometri->bb_min) {
-                $bb_status = 'kurang';
-            } elseif ($antropometri && $bb > $antropometri->bb_max) {
-                $bb_status = 'obesitas';
+            if ($antropometri_bb && $bb < $antropometri_bb->minus_3_sd) {
+                $bb_status =  'Sangat Kurang';
+            } else if ($antropometri_bb && $bb < $antropometri_bb->minus_2_sd && $bb > $antropometri_bb->minus_3_sd) {
+                $bb_status =  'Kurang';
+            } else if ($antropometri_bb && $bb > $antropometri_bb->minus_2_sd && $bb < $antropometri_bb->plus_1_sd) {
+                $bb_status =  'Normal';
+            } else if ($antropometri_bb && $bb > $antropometri_bb->plus_1_sd) {
+                $bb_status =  'Risiko Berat Badan';
             } else {
                 $bb_status = null;
             }
 
             $tb = $request->input('tb');
-            if ($antropometri && $antropometri->tb_min <= $tb && $tb <= $antropometri->tb_max) {
-                $tb_status = 'normal';
-            } elseif ($antropometri && $tb < $antropometri->tb_min) {
-                $tb_status = 'pendek';
-            } elseif ($antropometri && $tb > $antropometri->tb_max) {
-                $tb_status = 'tinggi';
+            if ($antropometri_bb && $tb < $antropometri_tb->minus_3_sd) {
+                $tb_status = 'Sangat Pendek';
+            } else if ($antropometri_bb && $tb > $antropometri_tb->minus_3_sd && $tb < $antropometri_tb->minus_2_sd) {
+                $tb_status = 'Pendek';
+            } else if ($antropometri_bb && $tb > $antropometri_tb->minus_2_sd && $tb < $antropometri_tb->plus_3_sd) {
+                $tb_status = 'Normal';
+            } else if ($antropometri_bb && $tb > $antropometri_tb->plus_3_sd) {
+                $tb_status = 'Tinggi';
             } else {
                 $tb_status = null;
             }
+
             $penimbangan->bb_status = $bb_status;
             $penimbangan->tb_status = $tb_status;
             $penimbangan->save();

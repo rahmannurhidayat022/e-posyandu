@@ -7,6 +7,7 @@
     --secondary-color: #6c757d;
     --secondary-hover: #9da8b3;
     --white-color: #f3f3f3;
+    --danger-dark: #dc3545;
 }
 
 .card, .modal-content, .form-control, .form-select, .btn, .sidebar-link {
@@ -133,4 +134,10 @@
 
 .badge.badge-sm {
     font-size: 10px;
+}
+.text-bg-danger-dark {
+    background-color: var(--danger-dark);
+}
+.text-danger-dark {
+    color: var(--danger-dark);
 }

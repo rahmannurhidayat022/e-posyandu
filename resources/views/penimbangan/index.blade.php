@@ -89,12 +89,17 @@
                         name: 'bb',
                         render: (data, type, row) => {
                             let style = {}
-                            if (row.bb_status === 'normal') {
+                            if (row.bb_status.toLowerCase() === 'normal') {
                                 style = {
                                     textColor: 'text-success',
                                     badgeColor: 'text-bg-success'
                                 }
-                            } else if (row.bb_status === 'kurang') {
+                            } else if (row.bb_status.toLowerCase() === 'sangat kurang') {
+                                style = {
+                                    textColor: 'text-danger-dark',
+                                    badgeColor: 'text-bg-danger-dark'
+                                }
+                            } else if (row.bb_status.toLowerCase() === 'kurang') {
                                 style = {
                                     textColor: 'text-danger',
                                     badgeColor: 'text-bg-danger'
@@ -113,15 +118,25 @@
                         name: 'tb',
                         render: (data, type, row) => {
                             let style = {};
-                            if (row.tb_status === 'normal' || row.tb_status === 'tinggi') {
+                            if (row.tb_status.toLowerCase() === 'normal') {
                                 style = {
                                     textColor: 'text-success',
                                     badgeColor: 'text-bg-success'
                                 }
-                            } else {
+                            } else if (row.tb_status.toLowerCase() === 'sangat pendek') {
+                                style = {
+                                    textColor: 'text-danger-dark',
+                                    badgeColor: 'text-bg-danger-dark'
+                                }
+                            } else if (row.tb_status.toLowerCase() === 'pendek') {
                                 style = {
                                     textColor: 'text-danger',
                                     badgeColor: 'text-bg-danger'
+                                }
+                            } else {
+                                style = {
+                                    textColor: 'text-primary',
+                                    badgeColor: 'text-bg-primary'
                                 }
                             }
                             return `<span class="me-1 ${style.textColor}">${data}</span><span class="badge badge-sm rounded-pill ${style.badgeColor}">${row.tb_status.toUpperCase()}</span>`
