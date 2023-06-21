@@ -12,24 +12,32 @@ class AntropometriSeeder extends Seeder
      */
     public function run(): void
     {
-        $csvFile = database_path('antropometri_data.csv');
+        $csvFile = database_path('antropometri.csv');
         $file = fopen($csvFile, 'r');
         if ($file) {
             while (($data = fgetcsv($file, 1000, ',')) !== false) {
-                $jenis_kelamin = $data[0];
-                $bulan = $data[1];
-                $bb_min = $data[2];
-                $bb_max = $data[3];
-                $tb_min = $data[4];
-                $tb_max = $data[5];
+                $tipe = $data[0];
+                $jenis_kelamin = $data[1];
+                $bulan = $data[2];
+                $minus_3_sd = $data[3];
+                $minus_2_sd = $data[4];
+                $minus_1_sd = $data[5];
+                $median = $data[6];
+                $plus_1_sd = $data[7];
+                $plus_2_sd = $data[8];
+                $plus_3_sd = $data[9];
 
                 Antropometri::create([
+                    'tipe' => $tipe,
                     'jenis_kelamin' => $jenis_kelamin,
                     'bulan' => $bulan,
-                    'bb_min' => $bb_min,
-                    'bb_max' => $bb_max,
-                    'tb_min' => $tb_min,
-                    'tb_max' => $tb_max,
+                    'minus_3_sd' => $minus_3_sd,
+                    'minus_2_sd' => $minus_2_sd,
+                    'minus_1_sd' => $minus_1_sd,
+                    'median' => $median,
+                    'plus_1_sd' => $plus_1_sd,
+                    'plus_2_sd' => $plus_2_sd,
+                    'plus_3_sd' => $plus_3_sd,
                 ]);
             }
             fclose($file);

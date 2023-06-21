@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('antropometri', function (Blueprint $table) {
             $table->id();
+            $table->string('tipe')->nullable();
             $table->string('jenis_kelamin')->nullable();
             $table->string('bulan')->nullable();
-            $table->string('bb_min')->nullable();
-            $table->string('bb_max')->nullable();
-            $table->string('tb_min')->nullable();
-            $table->string('tb_max')->nullable();
+            $table->string('minus_3_sd')->nullable();
+            $table->string('minus_2_sd')->nullable();
+            $table->string('minus_1_sd')->nullable();
+            $table->string('median')->nullable();
+            $table->string('plus_1_sd')->nullable();
+            $table->string('plus_2_sd')->nullable();
+            $table->string('plus_3_sd')->nullable();
             $table->timestamps();
         });
     }
