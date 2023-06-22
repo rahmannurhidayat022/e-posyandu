@@ -22,15 +22,34 @@ class KMSController extends Controller
             return response()->json(["bb" => $data_bb, "tb" => $data_tb]);
         }
 
-        $latest = PenimbanganAnak::where('anak_id', $id)->latest()->with('posko:id,nama,rw')->first();
-        $antropometri = Antropometri::where('bulan', $latest->usia)->first();
         $profile = Anak::findOrFail($id);
-        $age = Carbon::parse($profile->tanggal_lahir)->diff(Carbon::now());
+        $age = Carbon::parse($profile->tanggal_lahir)
+            ->diff(Carbon::now());
+        $latest = PenimbanganAnak::where('anak_id', $id)
+            ->latest()
+            ->with('posko:id,nama,rw')
+            ->first();
+        $antropometri_bb = Antropometri::where('bulan', $latest->usia)
+            ->where('tipe', 'bb')
+            ->where('jenis_kelamin', $profile->jenis_kelamin)
+            ->first();
+        $antropometri_tb = Antropometri::where('bulan', $latest->usia)
+            ->where('tipe', 'tb')
+            ->where('jenis_kelamin', $profile->jenis_kelamin)
+            ->first();
+
         $year = $age->y;
         $month = $age->m;
         $day = $age->d;
         $ageString = $year . " tahun " . $month . " bulan " . $day . " hari";
 
-        return view('kms', ['id' => $id, 'profile' => $profile, 'age' => $ageString, 'latest' => $latest, 'antropometri' => $antropometri]);
+        return view('kms', [
+            'id' => $id,
+            'profile' => $profile,
+            'age' => $ageString,
+            'latest' => $latest,
+            'antropometri_bb' => $antropometri_bb,
+            'antropometri_tb' => $antropometri_tb
+        ]);
     }
 }

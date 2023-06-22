@@ -93,9 +93,9 @@ class PenimbanganAnakController extends Controller
             $bb = $request->input('bb');
             if ($antropometri_bb && $bb < $antropometri_bb->minus_3_sd) {
                 $bb_status =  'Sangat Kurang';
-            } else if ($antropometri_bb && $bb < $antropometri_bb->minus_2_sd && $bb > $antropometri_bb->minus_3_sd) {
+            } else if ($antropometri_bb && $bb <= $antropometri_bb->minus_2_sd && $bb >= $antropometri_bb->minus_3_sd) {
                 $bb_status =  'Kurang';
-            } else if ($antropometri_bb && $bb > $antropometri_bb->minus_2_sd && $bb < $antropometri_bb->plus_1_sd) {
+            } else if ($antropometri_bb && $bb >= $antropometri_bb->minus_2_sd && $bb <= $antropometri_bb->plus_1_sd) {
                 $bb_status =  'Normal';
             } else if ($antropometri_bb && $bb > $antropometri_bb->plus_1_sd) {
                 $bb_status =  'Risiko Berat Badan';
@@ -104,13 +104,13 @@ class PenimbanganAnakController extends Controller
             }
 
             $tb = $request->input('tb');
-            if ($antropometri_bb && $tb < $antropometri_tb->minus_3_sd) {
+            if ($antropometri_tb && $tb < $antropometri_tb->minus_3_sd) {
                 $tb_status = 'Sangat Pendek';
-            } else if ($antropometri_bb && $tb > $antropometri_tb->minus_3_sd && $tb < $antropometri_tb->minus_2_sd) {
+            } else if ($antropometri_tb && $tb >= $antropometri_tb->minus_3_sd && $tb <= $antropometri_tb->minus_2_sd) {
                 $tb_status = 'Pendek';
-            } else if ($antropometri_bb && $tb > $antropometri_tb->minus_2_sd && $tb < $antropometri_tb->plus_3_sd) {
+            } else if ($antropometri_tb && $tb >= $antropometri_tb->minus_2_sd && $tb <= $antropometri_tb->plus_3_sd) {
                 $tb_status = 'Normal';
-            } else if ($antropometri_bb && $tb > $antropometri_tb->plus_3_sd) {
+            } else if ($antropometri_tb && $tb > $antropometri_tb->plus_3_sd) {
                 $tb_status = 'Tinggi';
             } else {
                 $tb_status = null;
@@ -167,9 +167,9 @@ class PenimbanganAnakController extends Controller
             $bb = $request->input('bb');
             if ($antropometri_bb && $bb < $antropometri_bb->minus_3_sd) {
                 $bb_status =  'Sangat Kurang';
-            } else if ($antropometri_bb && $bb < $antropometri_bb->minus_2_sd && $bb > $antropometri_bb->minus_3_sd) {
+            } else if ($antropometri_bb && $bb <= $antropometri_bb->minus_2_sd && $bb >= $antropometri_bb->minus_3_sd) {
                 $bb_status =  'Kurang';
-            } else if ($antropometri_bb && $bb > $antropometri_bb->minus_2_sd && $bb < $antropometri_bb->plus_1_sd) {
+            } else if ($antropometri_bb && $bb >= $antropometri_bb->minus_2_sd && $bb <= $antropometri_bb->plus_1_sd) {
                 $bb_status =  'Normal';
             } else if ($antropometri_bb && $bb > $antropometri_bb->plus_1_sd) {
                 $bb_status =  'Risiko Berat Badan';
@@ -178,13 +178,13 @@ class PenimbanganAnakController extends Controller
             }
 
             $tb = $request->input('tb');
-            if ($antropometri_bb && $tb < $antropometri_tb->minus_3_sd) {
+            if ($antropometri_tb && $tb < $antropometri_tb->minus_3_sd) {
                 $tb_status = 'Sangat Pendek';
-            } else if ($antropometri_bb && $tb > $antropometri_tb->minus_3_sd && $tb < $antropometri_tb->minus_2_sd) {
+            } else if ($antropometri_tb && $tb >= $antropometri_tb->minus_3_sd && $tb <= $antropometri_tb->minus_2_sd) {
                 $tb_status = 'Pendek';
-            } else if ($antropometri_bb && $tb > $antropometri_tb->minus_2_sd && $tb < $antropometri_tb->plus_3_sd) {
+            } else if ($antropometri_tb && $tb >= $antropometri_tb->minus_2_sd && $tb <= $antropometri_tb->plus_3_sd) {
                 $tb_status = 'Normal';
-            } else if ($antropometri_bb && $tb > $antropometri_tb->plus_3_sd) {
+            } else if ($antropometri_tb && $tb > $antropometri_tb->plus_3_sd) {
                 $tb_status = 'Tinggi';
             } else {
                 $tb_status = null;

@@ -13,6 +13,12 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="{{ route('penimbangan.index', $id) }}">Penimbangan Anak</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">KMS Online</li>
+                        </ol>
+                    </nav>
                     <h2 class="mb-5 text-center" style="font-size: 22px; color: rgb(51, 51, 51); font-weight: bold; fill: rgb(51, 51, 51);">Kartu Menuju Sehat (KMS) Online</h2>
                     <div class="table-responsive mb-5">
                         <h2 class="card-title d-flex gap-2 align-items-center mb-3">
@@ -37,17 +43,17 @@
                                     <td>Berat Badan:</td>
                                     <td>
                                         <b>{{ $latest->bb }} Kg</b><br>
-                                        {{ $latest->bb_status == 'obesitas' ? 'Risiko Berat Badan Lebih' : ($latest->bb_status == 'normal' ? 'Normal' : 'Kurang') }}<br>
-                                        {{ $latest->bb_status !== 'normal' ? 'Berat ideal antara '.$antropometri->bb_min.' - '.$antropometri->bb_max.' Kg' : ''}}
+                                        {{ $latest->bb_status }}<br>
+                                        {{ $latest->bb_status !== 'Normal' ? 'Berat ideal antara '.$antropometri_bb->minus_2_sd.' - '.$antropometri_bb->plus_1_sd.' Kg' : ''}}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Tinggi Badan:</td>
                                     <td>
                                         <b>{{ $latest->tb }} Cm</b><br>
-                                        {{ $latest->tb_status == 'pendek' ? 'Pendek' : ($latest->bb_status == 'normal' ? 'Normal' : 'Tinggi') }}<br>
-                                        @if ($latest->tb_status !== 'normal' && $latest->tb_status !== 'tinggi')
-                                        Tinggi ideal antara {{ $antropometri->tb_min }} - {{ $antropometri->tb_max }} Cm
+                                        {{ $latest->tb_status}}<br>
+                                        @if ($latest->tb_status !== 'Normal' && $latest->tb_status !== 'Tinggi')
+                                        Tinggi ideal antara {{ $antropometri_tb->minus_2_sd }} - {{ $antropometri_tb->plus_3_sd }} Cm
                                         @endif
                                     </td>
                                 </tr>
@@ -69,6 +75,9 @@
                         </div>
                         <div class="col-12 mt-5">
                             <figure id="hight-container"></figure>
+                            <div class="d-flex justify-content-center">
+                                <small><i>* usia < 24 bulan menggunakan panjang badan</i></small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -95,6 +104,22 @@
     $.ajax({
         url: '/kesehatan-anak/kms/{{ $id }}',
         success: function(response) {
+            const weightData = [
+                ...data.bb,
+                {
+                    name: '',
+                    marker: {
+                        enabled: true
+                    },
+                    color: 'black',
+                    lineWidth: 0.2,
+                    data: response.bb,
+                    pointStart: 0,
+                    enableMouseTracking: true
+                }
+            ];
+            console.log(weightData)
+
             Highcharts.chart('weight-container', {
                 chart: {
                     type: 'line'
@@ -103,7 +128,7 @@
                     text: 'Berat Badan menurut Umur ({{ $profile->jenis_kelamin == "lk" ? "Laki-laki" : "Perempuan"}})'
                 },
                 subtitle: {
-                    text: 'Sumber: Posyandu Kebon Jayanti'
+                    text: 'Sumber: PMK No.2 Tahun 2020'
                 },
                 xAxis: {
                     categories: []
@@ -138,7 +163,7 @@
                         enableMouseTracking: false,
                     },
                 },
-                series: data.bb,
+                series: weightData,
                 navigation: {
                     buttonOptions: {
                         enabled: false
@@ -146,6 +171,20 @@
                 }
             });
 
+            const heightData = [
+                ...data.tb,
+                {
+                    name: '',
+                    marker: {
+                        enabled: true
+                    },
+                    color: 'black',
+                    lineWidth: 0.2,
+                    data: response.tb,
+                    pointStart: 0,
+                    enableMouseTracking: true
+                }
+            ];
             Highcharts.chart('hight-container', {
                 chart: {
                     type: 'line'
@@ -154,7 +193,7 @@
                     text: 'Tinggi Badan menurut Umur ({{ $profile->jenis_kelamin == "lk" ? "Laki-laki" : "Perempuan"}})'
                 },
                 subtitle: {
-                    text: 'Sumber: Posyandu Kebon Jayanti'
+                    text: 'Sumber: PMK No.2 Tahun 2020'
                 },
                 xAxis: {
                     categories: []
@@ -189,7 +228,7 @@
                         enableMouseTracking: false,
                     },
                 },
-                series: data.tb,
+                series: heightData,
                 navigation: {
                     buttonOptions: {
                         enabled: false
