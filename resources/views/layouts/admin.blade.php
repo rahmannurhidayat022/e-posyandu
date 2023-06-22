@@ -201,7 +201,14 @@
                     dom: '<"btn-group w-100 mb-3" B>lfrtip',
                     buttons: [{
                             text: '<i class="ti ti-pencil-plus fs-4"></i>',
-                            className: 'btn btn-primary',
+                            className: function() {
+                                let disabled = '';
+                                if (tableConfiguration?.ageLimit) {
+                                    disabled = 'disabled';
+                                }
+
+                                return `btn btn-primary ${disabled}`
+                            },
                             attr: {
                                 'title': 'Tambah Data'
                             },

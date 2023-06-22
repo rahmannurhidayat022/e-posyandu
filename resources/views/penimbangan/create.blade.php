@@ -32,7 +32,7 @@
                                     <input type="text" value="{{ session('user_information')->posko->id }}" name="posko_id" hidden>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label" for="bulan">Usia (Bulan)</label>
-                                        <input id="bulan" class="form-control form-sm" name="usia" type="number" value="{{ old('usia') }}">
+                                        <input id="bulan" class="form-control form-sm" name="usia" type="number" value="{{ $bulan }}" readonly>
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label" for="bb">Berat Badan (Kg)</label>

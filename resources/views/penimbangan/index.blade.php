@@ -13,6 +13,9 @@
                             <li class="breadcrumb-item active" aria-current="page">Penimbangan</li>
                         </ol>
                     </nav>
+                    @if ($limit)
+                    <div class="alert alert-primary">Index massa anak sudah mencapai <strong>60 bulan (5 tahun)</strong></div>
+                    @endif
                     <h2 class="card-title fw-semibold mb-4">Riwayat Penimbangan {{ $anak->nama }}</h2>
                     <div class="mt-4">
                         <table id="penimbangan-table" class="display" style="width:100%">
@@ -46,6 +49,7 @@
                 ajax: "{{ route('penimbangan.index', $id) }}",
                 createPageUrl: '/kesehatan-anak/penimbangan/{{ $id }}/create',
                 editPageUrl: '/kesehatan-anak/penimbangan/{anak_id}/{id}/edit',
+                ageLimit: '{{ $limit }}',
                 isChild: true,
                 deleteActionUrl: '/kesehatan-anak/penimbangan/{id}/destroy',
                 isNumber: true,
