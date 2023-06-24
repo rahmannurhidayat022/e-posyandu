@@ -27,6 +27,7 @@
                             <div class="modal-body">
                                 <div class="row gap-0 row-gap-3 mb-3">
                                     <h6><b>Identitas Lansia</b></h6>
+                                    <input type="text" value="{{ session('user_information')->posko->id }}" name="posko_id" hidden>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label" for="nama">Nama Lengkap</label>
                                         <input id="nama" class="form-control form-sm" name="nama" type="text" value="{{ $lansia->nama }}" required>
@@ -49,10 +50,6 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-3">
-                                        <label class="form-label" for="telp">Telepon</label>
-                                        <input id="telp" class="form-control form-sm" name="telp" type="tel" value="{{ $lansia->telp }}" required>
-                                    </div>
                                 </div>
                                 <div class="row mb-3">
                                     <h6><b>Alamat</b></h6>
@@ -72,14 +69,6 @@
                                         <select class="form-select" id="rw" name="rw" required>
                                             @for ($i = 1; $i <= 14; $i++) @php $formattedValue=str_pad($i, 2, '0' , STR_PAD_LEFT); @endphp <option value="{{ $formattedValue }}" {{ $lansia->rw == $formattedValue ? 'selected' : '' }}>RW {{ $formattedValue }}</option>
                                                 @endfor
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <h6><b>Pengecekan Kesehatan</b></h6>
-                                    <div class="col-sm-12 col-md-6 col-lg-4">
-                                        <label class="form-label" for="posko_id">Posko</label>
-                                        <select id="list-posko" class="form-select" id="posko_id" name="posko_id" required>
                                         </select>
                                     </div>
                                 </div>

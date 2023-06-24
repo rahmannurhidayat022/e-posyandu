@@ -14,7 +14,6 @@ class Lansia extends Model
         'posko_id',
         'nama',
         'nik',
-        'telp',
         'darah',
         'tanggal_lahir',
         'jalan',

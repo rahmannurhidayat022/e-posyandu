@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Alert;
 use App\Models\Lansia;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
@@ -22,8 +23,28 @@ class LansiaController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Lansia::select('*')->with('posko');
+            $data = Lansia::select('*')->with('posko:id,rw,nama');
             return DataTables::of($data)
+                ->filter(function (Builder $query) {
+                    if (request()->has("posko_id")) {
+                        $query->where("posko_id", request("posko_id"));
+                    }
+
+                    if (!empty(request()->has('search'))) {
+                        $search = request("search");
+                        $query->where(function ($query) use ($search) {
+                            $model = new Lansia();
+                            $columns = $model->getFillable();
+                            foreach ($columns as $column) {
+                                $query->orWhere($column, 'like', "%$search%");
+                            }
+
+                            $query->orWhereHas('posko', function ($query) use ($search) {
+                                $query->where('nama', 'like', "%$search%");
+                            });
+                        });
+                    }
+                })
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -41,7 +62,6 @@ class LansiaController extends Controller
         $validated = Validator::make($request->all(), [
             'nama' => 'required',
             'nik' => 'required|unique:lansia',
-            'telp' => 'required',
             'jalan' => 'required',
             'rt' => 'required',
             'rw' => 'required',
@@ -60,7 +80,6 @@ class LansiaController extends Controller
             $ibu = new Lansia();
             $ibu->nama = $request->nama;
             $ibu->nik = $request->nik;
-            $ibu->telp = $request->telp;
             $ibu->tanggal_lahir = $request->tanggal_lahir;
             $ibu->darah = $request->darah;
             $ibu->jalan = $request->jalan;
@@ -99,7 +118,6 @@ class LansiaController extends Controller
                     $fail('NIK telah digunakan');
                 }
             }],
-            'telp' => 'nullable',
             'jalan' => 'required',
             'darah' => 'required',
             'tanggal_lahir' => 'required',
@@ -118,7 +136,6 @@ class LansiaController extends Controller
             $lansia = Lansia::findOrFail($id);
             $lansia->nama = $request->nama;
             $lansia->nik = $request->nik;
-            $lansia->telp = $request->telp;
             $lansia->jalan = $request->jalan;
             $lansia->darah = $request->darah;
             $lansia->tanggal_lahir = $request->tanggal_lahir;

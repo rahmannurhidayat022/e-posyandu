@@ -23,7 +23,6 @@ class LansiaFactory extends Factory
             },
             'nama' => $this->faker->name,
             'nik' => $this->faker->unique()->randomNumber(8),
-            'telp' => $this->faker->phoneNumber,
             'darah' => $this->faker->randomElement(['A', 'B', 'AB', 'O']),
             'tanggal_lahir' => $this->faker->date(),
             'jalan' => $this->faker->streetAddress,

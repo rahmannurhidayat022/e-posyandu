@@ -60,7 +60,7 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ route('lansia.index') }}" aria-expanded="false">
                                 <span>
-                                    <i class="ti ti-wheelchair"></i>
+                                    <i class="ti ti-activity"></i>
                                 </span>
                                 <span class="hide-users">Kesehatan Lansia</span>
                             </a>
@@ -218,7 +218,7 @@
                         },
                         {
                             text: '<i class="ti ti-chart-dots fs-4"></i>',
-                            className: `${tableConfiguration?.kmsPageUrl ? '' : 'disabled'} btn btn-primary`,
+                            className: `${tableConfiguration?.kmsPageUrl ? '' : 'd-none'} btn btn-primary`,
                             attr: {
                                 'title': 'Kartu Menuju Sehat (KMS)'
                             },
@@ -342,6 +342,8 @@
                                 let html = '';
                                 if (tableConfiguration?.isPenimbanganAction) {
                                     html += `<li><a class="dropdown-item" href="/kesehatan-anak/penimbangan/${row.id}"><i class="ti ti-scale"></i> Penimbangan</a></li>`
+                                } else if (tableConfiguration?.isKesehatanLansia) {
+                                    html += `<li><a class="dropdown-item" href="/lansia/cek-kesehatan/${row.id}"><i class="ti ti-heartbeat"></i> Cek Kesehatan</a></li>`
                                 }
 
                                 const editUrl = replaceStringWithObjectValues(tableConfiguration.editPageUrl, row);

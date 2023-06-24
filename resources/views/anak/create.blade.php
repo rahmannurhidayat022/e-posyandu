@@ -50,6 +50,7 @@
                                         <label class="form-label" for="ibu_id">Nama Ibu</label>
                                         <select class="select2 form-control" id="ibu_id" name="ibu_id">
                                         </select>
+                                        <small>Data ibu tidak ditemukan? <a href="{{ route('ibu.create') }}">tambah</a></small>
                                     </div>
                                 </div>
                             </div>

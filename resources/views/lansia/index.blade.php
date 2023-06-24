@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title fw-semibold mb-4">Manajemen Data Lansia</h2>
+                    <h2 class="card-title fw-semibold mb-4">Kesehatan Lansia</h2>
                     <div class="mt-4">
                         <table id="lansia-table" class="display" style="width:100%">
                             <thead>
@@ -17,7 +17,6 @@
                                     <th>Nama</th>
                                     <th>NIK</th>
                                     <th>Tanggal Lahir</th>
-                                    <th>Telepon</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -42,6 +41,10 @@
                 isChild: true,
                 deleteActionUrl: '/lansia/{id}/destroy',
                 isNumber: true,
+                filters: {
+                    posko_id: "{{ session('user_information')->posko->id ?? null }}"
+                },
+                isKesehatanLansia: true,
                 formatChildRow: function(d) {
                     return (
                         '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
@@ -73,10 +76,6 @@
                     {
                         data: 'tanggal_lahir',
                         name: 'tanggal_lahir',
-                    },
-                    {
-                        data: 'telp',
-                        name: 'telp',
                     },
                 ]
             },
