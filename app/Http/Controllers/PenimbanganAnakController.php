@@ -41,8 +41,9 @@ class PenimbanganAnakController extends Controller
         $anak = Anak::where('id', $id)->select('id', 'nama')->get()->first();
         $bulan = PenimbanganAnak::where('anak_id', $anak->id)->select('usia')->latest()->value('usia') ?? null;
         $limit = ($bulan === null || $bulan < 60) ? false : true;
+        $is_kms = $bulan === null ? false : true;
 
-        return view('penimbangan.index', ['id' => $id, 'anak' => $anak, 'limit' => $limit]);
+        return view('penimbangan.index', ['id' => $id, 'anak' => $anak, 'limit' => $limit, 'is_kms' => $is_kms]);
     }
 
     public function create($id)

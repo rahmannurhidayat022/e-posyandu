@@ -53,7 +53,7 @@
                 isChild: true,
                 deleteActionUrl: '/kesehatan-anak/penimbangan/{id}/destroy',
                 isNumber: true,
-                kmsPageUrl: '/kesehatan-anak/kms/{{ $id }}',
+                kmsPageUrl: '{{ $is_kms }}' && '/kesehatan-anak/kms/{{ $id }}',
                 formatChildRow: function(d) {
                     return (
                         '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +

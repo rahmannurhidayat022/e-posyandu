@@ -218,7 +218,7 @@
                         },
                         {
                             text: '<i class="ti ti-chart-dots fs-4"></i>',
-                            className: `${tableConfiguration?.kmsPageUrl ? '' : 'd-none'} btn btn-primary`,
+                            className: `${tableConfiguration?.kmsPageUrl ? '' : 'disabled'} btn btn-primary`,
                             attr: {
                                 'title': 'Kartu Menuju Sehat (KMS)'
                             },
