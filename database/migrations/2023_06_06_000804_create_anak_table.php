@@ -31,8 +31,6 @@ return new class extends Migration
             $table->string('nik')->nullable()->unique();
             $table->date('tanggal_lahir');
             $table->enum('jenis_kelamin', ['lk', 'pr']);
-            $table->decimal('bb', 5, 2)->nullable();
-            $table->integer('tb')->nullable();
 
             $table->timestamps();
         });

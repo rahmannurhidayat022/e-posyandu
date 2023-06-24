@@ -45,14 +45,6 @@
                                             <option value="pr">Perempuan</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-3">
-                                        <label class="form-label" for="bb">Beran Badan Awal (Kg)</label>
-                                        <input id="bb" class="form-control form-sm" name="bb" type="number" value="{{ old('bb') }}" step="0.1">
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-3">
-                                        <label class="form-label" for="tb">Tinggi Badan Awal (Cm)</label>
-                                        <input id="tb" class="form-control form-sm" name="tb" type="number" value="{{ old('tb') }}" step="0.1">
-                                    </div>
                                     <div class="col-sm-12 col-md-6 col-lg-5">
                                         <label class="form-label" for="ibu_id">Nama Ibu</label>
                                         <select class="select2 form-control" id="ibu_id" name="ibu_id">

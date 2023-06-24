@@ -29,8 +29,6 @@ class AnakFactory extends Factory
             'nik' => $this->faker->unique()->randomNumber(8),
             'tanggal_lahir' => $this->faker->date(),
             'jenis_kelamin' => $this->faker->randomElement(['lk', 'pr']),
-            'bb' => $this->faker->randomFloat(2, 2, 100),
-            'tb' => $this->faker->numberBetween(40, 200),
             'created_at' => now(),
             'updated_at' => now(),
         ];

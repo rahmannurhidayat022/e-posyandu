@@ -46,14 +46,6 @@
                                             <option value="pr" {{ $anak->jenis_kelamin == 'pr' ? 'selected' : ''}}>Perempuan</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-3">
-                                        <label class="form-label" for="bb">Beran Badan Awal (Kg)</label>
-                                        <input id="bb" class="form-control form-sm" name="bb" type="number" value="{{ $anak->bb }}">
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-3">
-                                        <label class="form-label" for="tb">Tinggi Badan Awal (Cm)</label>
-                                        <input id="tb" class="form-control form-sm" name="tb" type="number" value="{{ $anak->tb }}">
-                                    </div>
                                     <div class="col-sm-12 col-md-6 col-lg-5">
                                         <label class="form-label" for="ibu_id">Nama Ibu</label>
                                         <select class="select2 form-control" id="ibu_id" name="ibu_id">

@@ -54,12 +54,6 @@
                             <td>${d.nik}</td>
                         </tr>` +
                         `<tr>
-                            <td>BB:</td>
-                            <td>${d.bb}</td>
-                            <td>TB:</td>
-                            <td>${d.tb}</td>
-                        </tr>` +
-                        `<tr>
                             <td>Dibuat:</td>
                             <td>${d.created_at}</td>
                             <td>Diperbaharui:</td>

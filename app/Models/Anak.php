@@ -17,8 +17,6 @@ class Anak extends Model
         'nik',
         'tanggal_lahir',
         'jenis_kelamin',
-        'bb',
-        'tb',
     ];
 
     public function posko()

@@ -66,8 +66,6 @@ class AnakController extends Controller
             'nik' => 'nullable|unique:anak',
             'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required',
-            'bb' => 'required',
-            'tb' => 'required',
             'posko_id' => 'required',
             'ibu_id' => 'required',
         ]);
@@ -84,8 +82,6 @@ class AnakController extends Controller
             $anak->nik = $request->nik;
             $anak->jenis_kelamin = $request->jenis_kelamin;
             $anak->tanggal_lahir = $request->tanggal_lahir;
-            $anak->bb = $request->bb;
-            $anak->tb = $request->tb;
             $anak->posko_id = $request->posko_id;
             $anak->ibu_id = $request->ibu_id;
             $anak->save();
@@ -122,8 +118,6 @@ class AnakController extends Controller
             }],
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required',
-            'bb' => 'nullable',
-            'tb' => 'nullable',
             'ibu_id' => 'required',
             'posko_id' => 'required',
         ]);
@@ -140,8 +134,6 @@ class AnakController extends Controller
             $anak->nik = $request->nik;
             $anak->jenis_kelamin = $request->jenis_kelamin;
             $anak->tanggal_lahir = $request->tanggal_lahir;
-            $anak->bb = $request->bb;
-            $anak->tb = $request->tb;
             $anak->posko_id = $request->posko_id;
             $anak->ibu_id = $request->ibu_id;
             $anak->save();
