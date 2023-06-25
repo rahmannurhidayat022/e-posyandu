@@ -66,7 +66,17 @@ class LansiaController extends Controller
             'rt' => 'required',
             'rw' => 'required',
             'darah' => 'required',
-            'tanggal_lahir' => 'required',
+            'tanggal_lahir' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) {
+                    $age = date_diff(date_create($value), date_create(date('Y-m-d')))->y;
+
+                    if ($age < 60) {
+                        $fail('Usia belum termasuk dalam kategori usia lansia.');
+                    }
+                },
+            ],
             'posko_id' => 'required',
         ]);
 
@@ -120,7 +130,17 @@ class LansiaController extends Controller
             }],
             'jalan' => 'required',
             'darah' => 'required',
-            'tanggal_lahir' => 'required',
+            'tanggal_lahir' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) {
+                    $age = date_diff(date_create($value), date_create(date('Y-m-d')))->y;
+
+                    if ($age < 60) {
+                        $fail('Usia belum termasuk dalam kategori usia lansia.');
+                    }
+                },
+            ],
             'rt' => 'required',
             'rw' => 'required',
             'posko_id' => 'required',
