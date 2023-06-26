@@ -36,9 +36,9 @@ return new class extends Migration
             $table->string('id_layanan')->unique();
             $table->decimal('bb', 5, 2)->nullable();
             $table->integer('tb')->nullable();
-            $table->integer('tekanan_darah');
-            $table->integer('kolestrol');
-            $table->integer('gula_darah');
+            $table->string('tekanan_darah');
+            $table->string('kolestrol');
+            $table->string('gula_darah');
             $table->text('keluhan')->nullable();
             $table->text('catatan')->nullable();
             $table->timestamps();
