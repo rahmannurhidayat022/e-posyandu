@@ -47,9 +47,9 @@
                 container: 'kesehatan-lansia-table',
                 ajax: "{{ route('kesehatan_lansia.index', $id) }}",
                 createPageUrl: '/lansia/cek-kesehatan/{{ $id }}/create',
-                editPageUrl: '/kesehatan-anak/penimbangan/{anak_id}/{id}/edit',
+                editPageUrl: '/lansia/cek-kesehatan/{lansia_id}/{id}/edit',
                 isChild: true,
-                deleteActionUrl: '/kesehatan-anak/penimbangan/{id}/destroy',
+                deleteActionUrl: '/lansia/cek-kesehatan/{id}/destroy',
                 isNumber: true,
                 formatChildRow: function(d) {
                     return (

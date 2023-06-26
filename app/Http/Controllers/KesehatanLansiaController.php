@@ -48,11 +48,11 @@ class KesehatanLansiaController extends Controller
         return view('kesehatan_lansia.create', ['id' => $id, 'lansia' => $lansia]);
     }
 
-    public function edit($id, $penimbangan_id)
+    public function edit($id, $kesehatan_id)
     {
-        $anak = Anak::where('id', $id)->select('nama')->get()->first();
-        $penimbangan = PenimbanganAnak::where('id', $penimbangan_id)->get()->first();
-        return view('penimbangan.edit', ['id' => $id, 'anak' => $anak, 'penimbangan' => $penimbangan]);
+        $lansia = Lansia::where('id', $id)->select('nama')->get()->first();
+        $kesehatan = KesehatanLansia::where('id', $kesehatan_id)->get()->first();
+        return view('kesehatan_lansia.edit', ['id' => $id, 'lansia' => $lansia, 'kesehatan' => $kesehatan]);
     }
 
     public function store(Request $request, $id)
@@ -60,7 +60,7 @@ class KesehatanLansiaController extends Controller
         $validated = Validator::make($request->all(), [
             'posko_id' => 'required|exists:posko,id',
             'petugas_id' => 'required|exists:petugas_kesehatan,id',
-            'lansia_id' => 'required|exists:anak,id',
+            'lansia_id' => 'required|exists:lansia,id',
             'bb' => 'required',
             'tb' => 'required',
             'tekanan_darah' => 'required',
@@ -94,11 +94,12 @@ class KesehatanLansiaController extends Controller
         $validated = Validator::make($request->all(), [
             'posko_id' => 'required|exists:posko,id',
             'petugas_id' => 'required|exists:petugas_kesehatan,id',
-            'anak_id' => 'required|exists:anak,id',
-            'kader_id' => 'required|exists:kader,id',
-            'usia' => 'required',
+            'lansia_id' => 'required|exists:lansia,id',
             'bb' => 'required',
             'tb' => 'required',
+            'tekanan_darah' => 'required',
+            'kolestrol' => 'required',
+            'gula_darah' => 'required',
             'keluhan' => 'nullable',
             'catatan' => 'nullable',
         ]);
@@ -111,54 +112,14 @@ class KesehatanLansiaController extends Controller
 
         try {
 
-            $penimbangan = PenimbanganAnak::findOrFail($id);
+            $penimbangan = KesehatanLansia::findOrFail($id);
             $penimbangan->update($request->all());
-
-            $jenisKelamin = Anak::find($request->input('anak_id'))->jenis_kelamin;
-            $bulan = $request->input('usia');
-            $antropometri_bb = Antropometri::where('jenis_kelamin', $jenisKelamin)
-                ->where('bulan', $bulan)
-                ->where('tipe', 'bb')
-                ->first();
-            $antropometri_tb = Antropometri::where('jenis_kelamin', $jenisKelamin)
-                ->where('bulan', $bulan)
-                ->where('tipe', 'tb')
-                ->first();
-
-            $bb = $request->input('bb');
-            if ($antropometri_bb && $bb < $antropometri_bb->minus_3_sd) {
-                $bb_status =  'Sangat Kurang';
-            } else if ($antropometri_bb && $bb <= $antropometri_bb->minus_2_sd && $bb >= $antropometri_bb->minus_3_sd) {
-                $bb_status =  'Kurang';
-            } else if ($antropometri_bb && $bb >= $antropometri_bb->minus_2_sd && $bb <= $antropometri_bb->plus_1_sd) {
-                $bb_status =  'Normal';
-            } else if ($antropometri_bb && $bb > $antropometri_bb->plus_1_sd) {
-                $bb_status =  'Risiko Berat Badan';
-            } else {
-                $bb_status = null;
-            }
-
-            $tb = $request->input('tb');
-            if ($antropometri_tb && $tb < $antropometri_tb->minus_3_sd) {
-                $tb_status = 'Sangat Pendek';
-            } else if ($antropometri_tb && $tb >= $antropometri_tb->minus_3_sd && $tb <= $antropometri_tb->minus_2_sd) {
-                $tb_status = 'Pendek';
-            } else if ($antropometri_tb && $tb >= $antropometri_tb->minus_2_sd && $tb <= $antropometri_tb->plus_3_sd) {
-                $tb_status = 'Normal';
-            } else if ($antropometri_tb && $tb > $antropometri_tb->plus_3_sd) {
-                $tb_status = 'Tinggi';
-            } else {
-                $tb_status = null;
-            }
-
-            $penimbangan->bb_status = $bb_status;
-            $penimbangan->tb_status = $tb_status;
             $penimbangan->save();
 
-            Alert::success('Berhasil', 'Berhasil perbaharui data penimbangan anak');
-            return redirect()->route('penimbangan.index', $request->input('anak_id'));
+            Alert::success('Berhasil', 'Berhasil perbaharui data kesehatan lansia');
+            return redirect()->route('kesehatan_lansia.index', $request->input('lansia_id'));
         } catch (\Throwable $th) {
-            Alert::error('Gagal', 'Gagal perbaharui data penimbangan anak')->autoclose(3000);
+            Alert::error('Gagal', 'Gagal perbaharui data kesehatan lansia')->autoclose(3000);
             return redirect()->back()->withInput($request->all());
         }
     }
@@ -166,11 +127,11 @@ class KesehatanLansiaController extends Controller
     public function destroy($id)
     {
         try {
-            PenimbanganAnak::findOrFail($id)->delete();
-            Alert::success('Berhasil', 'Berhasil menghapus data penimbangan anak');
+            KesehatanLansia::findOrFail($id)->delete();
+            Alert::success('Berhasil', 'Berhasil menghapus data kesehatan lansia');
             return redirect()->back();
         } catch (\Throwable $th) {
-            Alert::error('Gagal', 'Gagal menghapus data penimbangan anak')->autoclose(3000);
+            Alert::error('Gagal', 'Gagal menghapus data kesehatan lansia')->autoclose(3000);
             return redirect()->back();
         }
     }

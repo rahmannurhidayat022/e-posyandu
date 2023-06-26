@@ -108,6 +108,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
                 Route::get('/{id}', 'KesehatanLansiaController@index')->name('kesehatan_lansia.index');
                 Route::get('/{id}/create', 'KesehatanLansiaController@create')->name('kesehatan_lansia.create');
                 Route::post('/{id}/store', 'KesehatanLansiaController@store')->name('kesehatan_lansia.store');
+                Route::get('/{id}/{kesehatan_id}/edit', 'KesehatanLansiaController@edit')->name('kesehatan_lansia.edit');
+                Route::put('/{id}/update', 'KesehatanLansiaController@update')->name('kesehatan_lansia.update');
+                Route::delete('/{id}/destroy', 'KesehatanLansiaController@destroy')->name('kesehatan_lansia.destroy');
             });
         });
     });

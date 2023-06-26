@@ -84,42 +84,6 @@
 <script>
     $(document).ready(function() {
         $.ajax({
-            url: "{{ route('getPosko') }}",
-            method: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                let html = '<option selected>Pilih</option>';
-                $.each(response, function(index, data) {
-                    html += `<option value="${data.id}">RW ${data.rw} - ${data.nama}</option>`
-                });
-                $('#list-posko').html(html);
-            }
-        });
-        $.ajax({
-            url: "{{ route('getAnak') }}",
-            method: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                let html = '<option selected>Pilih</option>';
-                $.each(response, function(index, data) {
-                    html += `<option value="${data.id}">${data.nama}</option>`
-                });
-                $('#anak_id').html(html);
-            }
-        });
-        $.ajax({
-            url: "{{ route('getKader') }}",
-            method: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                let html = '<option selected>Pilih</option>';
-                $.each(response, function(index, data) {
-                    html += `<option value="${data.id}">${data.nama}</option>`
-                });
-                $('#kader_id').html(html);
-            }
-        });
-        $.ajax({
             url: "{{ route('getPetugas') }}",
             method: 'GET',
             dataType: 'json',
