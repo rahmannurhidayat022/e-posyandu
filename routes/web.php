@@ -90,6 +90,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
                 Route::delete('/{id}/destroy', 'PenimbanganAnakController@destroy')->name('penimbangan.destroy');
             });
 
+            Route::prefix('imunisasi')->group(function () {
+                Route::get('/{id}', 'ImunisasiController@index')->name('imunisasi.index');
+                Route::get('/{id}/create', 'ImunisasiController@create')->name('imunisasi.create');
+                Route::post('/{id}/store', 'ImunisasiController@store')->name('imunisasi.store');
+                Route::get('/{id}/{imunisasi_id}/edit', 'ImunisasiController@edit')->name('imunisasi.edit');
+                Route::put('/{id}/update', 'ImunisasiController@update')->name('imunisasi.update');
+                Route::delete('/{id}/destroy', 'ImunisasiController@destroy')->name('imunisasi.destroy');
+            });
+
             Route::prefix('kms')->group(function () {
                 Route::get('/{id}', 'KMSController@index')->name('kms.index');
             });
@@ -112,6 +121,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
                 Route::put('/{id}/update', 'KesehatanLansiaController@update')->name('kesehatan_lansia.update');
                 Route::delete('/{id}/destroy', 'KesehatanLansiaController@destroy')->name('kesehatan_lansia.destroy');
             });
+        });
+
+        Route::prefix('laporan')->group(function () {
+            Route::get('/', 'LaporanPelayanan@index')->name('laporan.index');
         });
     });
 });

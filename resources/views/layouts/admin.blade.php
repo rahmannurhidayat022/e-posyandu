@@ -47,7 +47,7 @@
                         </li>
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">Pelayanan</span>
+                            <span class="hide-menu">Pelayanan Posyandu</span>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ route('anak.index') }}" aria-expanded="false">
@@ -63,6 +63,14 @@
                                     <i class="ti ti-activity"></i>
                                 </span>
                                 <span class="hide-users">Kesehatan Lansia</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('laporan.index') }}" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-file-analytics"></i>
+                                </span>
+                                <span class="hide-menu">Laporan Pelayanan</span>
                             </a>
                         </li>
                         <li class="nav-small-cap">
@@ -338,12 +346,17 @@
                             sortable: false,
                             orderable: false,
                             searchable: false,
+                            visible: tableConfiguration.isAksi,
                             render: (data, type, row) => {
                                 let html = '';
                                 if (tableConfiguration?.isPenimbanganAction) {
                                     html += `<li><a class="dropdown-item" href="/kesehatan-anak/penimbangan/${row.id}"><i class="ti ti-scale"></i> Penimbangan</a></li>`
-                                } else if (tableConfiguration?.isKesehatanLansia) {
+                                }
+                                if (tableConfiguration?.isKesehatanLansia) {
                                     html += `<li><a class="dropdown-item" href="/lansia/cek-kesehatan/${row.id}"><i class="ti ti-heartbeat"></i> Cek Kesehatan</a></li>`
+                                }
+                                if (tableConfiguration.isImunisasi) {
+                                    html += `<li><a class="dropdown-item" href="/kesehatan-anak/imunisasi/${row.id}"><i class="ti ti-vaccine"></i> Imunisasi</a></li>`
                                 }
 
                                 const editUrl = replaceStringWithObjectValues(tableConfiguration.editPageUrl, row);

@@ -42,6 +42,7 @@
                 isChild: true,
                 deleteActionUrl: '/kesehatan-anak/{id}/destroy',
                 isNumber: true,
+                isImunisasi: true,
                 filters: {
                     posko_id: "{{ session('user_information')->posko->id ?? null }}"
                 },
