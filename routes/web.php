@@ -125,6 +125,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::prefix('laporan')->group(function () {
             Route::get('/', 'LaporanPelayanan@index')->name('laporan.index');
+            Route::get('get-report', 'LaporanPelayanan@getReportByMonth')->name('laporan.report');
         });
     });
 });

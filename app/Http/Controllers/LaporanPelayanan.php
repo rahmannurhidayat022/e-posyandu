@@ -22,7 +22,8 @@ class LaporanPelayanan extends Controller
                 ->map(function ($item) {
                     return [
                         'laporan' => 'Penimbangan Anak',
-                        'tanggal' => Carbon::parse($item->created_at)->format('m/Y'),
+                        'bulan' => Carbon::parse($item->created_at)->format('m'),
+                        'tahun' => Carbon::parse($item->created_at)->format('Y'),
                     ];
                 });
 
@@ -34,7 +35,8 @@ class LaporanPelayanan extends Controller
                 ->map(function ($item) {
                     return [
                         'laporan' => 'Imunisasi Anak',
-                        'tanggal' => Carbon::parse($item->created_at)->format('m/Y'),
+                        'bulan' => Carbon::parse($item->created_at)->format('m'),
+                        'tahun' => Carbon::parse($item->created_at)->format('Y'),
                     ];
                 });
 
@@ -46,7 +48,8 @@ class LaporanPelayanan extends Controller
                 ->map(function ($item) {
                     return [
                         'laporan' => 'Kesehatan Lansia',
-                        'tanggal' => Carbon::parse($item->created_at)->format('m/Y'),
+                        'bulan' => Carbon::parse($item->created_at)->format('m'),
+                        'tahun' => Carbon::parse($item->created_at)->format('Y'),
                     ];
                 });
 
@@ -58,5 +61,36 @@ class LaporanPelayanan extends Controller
         }
 
         return view('laporan');
+    }
+
+    public function getReportByMonth(Request $request)
+    {
+        $kategori = $request->input('kategori');
+        $bulan = $request->input('bulan');
+        $tahun = $request->input('tahun');
+        $data = null;
+
+        if ($kategori == "Penimbangan Anak") {
+            $data = PenimbanganAnak::whereMonth('created_at', $bulan)
+                ->whereYear('created_at', $tahun)
+                ->with(['anak'])
+                ->get();
+        }
+
+        if ($kategori == "Imunisasi Anak") {
+            $data = Imunisasi::whereMonth('created_at', $bulan)
+                ->whereYear('created_at', $tahun)
+                ->with(['posko', 'petugas', 'anak', 'anak.ibu'])
+                ->get();
+        }
+
+        if ($kategori == "Kesehatan Lansia") {
+            $data = KesehatanLansia::whereMonth('created_at', $bulan)
+                ->whereYear('created_at', $tahun)
+                ->with(['posko', 'petugas'])
+                ->get();
+        }
+
+        return response()->json($data);
     }
 }
