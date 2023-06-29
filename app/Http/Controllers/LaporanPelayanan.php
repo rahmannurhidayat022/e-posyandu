@@ -80,14 +80,14 @@ class LaporanPelayanan extends Controller
         if ($kategori == "Imunisasi Anak") {
             $data = Imunisasi::whereMonth('created_at', $bulan)
                 ->whereYear('created_at', $tahun)
-                ->with(['posko', 'petugas', 'anak', 'anak.ibu'])
+                ->with(['anak'])
                 ->get();
         }
 
         if ($kategori == "Kesehatan Lansia") {
             $data = KesehatanLansia::whereMonth('created_at', $bulan)
                 ->whereYear('created_at', $tahun)
-                ->with(['posko', 'petugas'])
+                ->with(['lansia'])
                 ->get();
         }
 
