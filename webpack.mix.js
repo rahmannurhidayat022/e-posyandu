@@ -10,5 +10,6 @@ mix.webpackConfig({
     },
 })
     .sass("resources/css/app.scss", "public/assets/css/")
+    .sass("resources/css/landing.scss", "public/assets/css/")
     .js("resources/js/app.js", "public/assets/js/")
     .copy("resources/images", "public/assets/images/");

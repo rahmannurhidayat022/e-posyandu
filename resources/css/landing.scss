@@ -1,0 +1,21 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap");
+
+@import "./bootstrap/bootstrap.scss";
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import "./custom.css";
+
+p {}
+#hero {
+    width: 100%;
+    min-height: 400px;
+}
+p, table, td, th {
+    font-size: 14px;
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 960px;
+    }
+}
