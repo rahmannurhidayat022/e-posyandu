@@ -22,7 +22,7 @@ class PetugasController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = PetugasKesehatan::select('*')->with('user');
+            $data = PetugasKesehatan::select('*')->orderBy('created_at', 'desc')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->make(true);
@@ -39,17 +39,12 @@ class PetugasController extends Controller
     public function store(Request $request)
     {
         $validated = Validator::make($request->all(), [
-            'username' => 'required|unique:users',
-            'password' => 'required|min:6|required_with:password_confirmation|confirmed',
             'nama' => 'required',
             'nik' => 'required|unique:petugas_kesehatan',
             'telp' => 'required',
             'puskesmas' => 'required',
         ], [
-            'username.unique' => 'Username sudah digunakan',
             'nik.unique' => 'NIK sudah digunakan',
-            'password.min' => 'Password minimal 6 digit',
-            'password.confirmed' => 'Password tidak sama',
         ]);
 
         if ($validated->fails()) {
@@ -59,23 +54,12 @@ class PetugasController extends Controller
         }
 
         try {
-            $user = new User();
-            $user->username = $request->username;
-            $user->password = $request->password;
-            $user->role = 'viewer';
-            $user->save();
-            DB::beginTransaction();
-
-            if ($user) {
-                $petugas = new PetugasKesehatan();
-                $petugas->user_id = $user->id;
-                $petugas->nama = $request->nama;
-                $petugas->nik = $request->nik;
-                $petugas->telp = $request->telp;
-                $petugas->puskesmas = $request->puskesmas;
-                $petugas->save();
-                DB::commit();
-            }
+            $petugas = new PetugasKesehatan();
+            $petugas->nama = $request->nama;
+            $petugas->nik = $request->nik;
+            $petugas->telp = $request->telp;
+            $petugas->puskesmas = $request->puskesmas;
+            $petugas->save();
 
             Alert::success('Berhasil', 'Berhasil menambahkan data petugas kesehatan');
             return redirect()->route('petugas.index');
@@ -91,23 +75,9 @@ class PetugasController extends Controller
         return view('petugas.edit', compact('petugas'));
     }
 
-    public function update(Request $request, $id, $user_id)
+    public function update(Request $request, $id)
     {
         $validated = Validator::make($request->all(), [
-            'username' => ['required', function ($attribute, $value, $fail) use ($user_id) {
-                $user = User::findOrFail($user_id);
-
-                if ($user->username === $value) {
-                    return;
-                }
-
-                $exists = User::where('username', $value)->where('id', '!=', $user_id)->exists();
-                if ($exists) {
-                    $fail('Username telah digunakan');
-                }
-            }],
-            'password' => 'nullable|min:6|confirmed',
-            // 'password_confirmation' => 'required_if:password,!=,|confirmed',
             'nama' => 'required',
             'nik' => ['required', function ($attribute, $value, $fail) use ($id) {
                 $kader = PetugasKesehatan::findOrFail($id);
@@ -125,9 +95,6 @@ class PetugasController extends Controller
             'puskesmas' => 'required',
         ], [
             'nik.unique' => 'NIK sudah digunakan',
-            'password_confirmation.min' => 'Password minimal 6 digit',
-            'password.min' => 'Password minimal 6 digit',
-            'password_confirmation.confirmed' => 'Password tidak sama',
         ]);
 
         if ($validated->fails()) {
@@ -137,21 +104,12 @@ class PetugasController extends Controller
         }
 
         try {
-            $user = User::findOrFail($user_id);
-            $user->username = $request->username;
-            if ($request->has('password')) {
-                $user->password = Hash::make($request->password);
-            }
-            $user->save();
-            DB::beginTransaction();
-
             $kader = PetugasKesehatan::findOrFail($id);
             $kader->nama = $request->nama;
             $kader->nik = $request->nik;
             $kader->telp = $request->telp;
             $kader->puskesmas = $request->puskesmas;
             $kader->save();
-            DB::commit();
 
             Alert::success('Berhasil', 'Berhasil memperbaharui data petugas kesehatan');
             return redirect()->route('petugas.index');
@@ -161,13 +119,10 @@ class PetugasController extends Controller
         }
     }
 
-    public function destroy($id, $user_id)
+    public function destroy($id)
     {
         try {
-            DB::beginTransaction();
             PetugasKesehatan::findOrFail($id)->delete();
-            User::findOrFail($user_id)->delete();
-            DB::commit();
             Alert::success('Berhasil', 'Berhasil menghapus data petugas kesehatan');
             return redirect()->back();
         } catch (\Throwable $th) {

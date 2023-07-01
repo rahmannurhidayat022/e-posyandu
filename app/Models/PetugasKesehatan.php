@@ -11,7 +11,6 @@ class PetugasKesehatan extends Model
     protected $table = 'petugas_kesehatan';
 
     protected $fillable = [
-        'user_id',
         'nama',
         'telp',
         'nik',

@@ -21,26 +21,10 @@
                         </div>
                     </h2>
                     <div class="mt-4">
-                        <form class="" method="post" action="{{ route('petugas.update', ['id' => $petugas->id, 'user_id' => $petugas->user->id ]) }}">
+                        <form class="" method="post" action="{{ route('petugas.update', ['id' => $petugas->id]) }}">
                             @csrf
                             @method('PUT')
                             <div class="modal-body">
-                                <div class="row mb-3">
-                                    <h6><b>Pembuatan Akun</b></h6>
-                                    <div class="col-sm-12 col-md-6 col-lg-3">
-                                        <label class="form-label" for="username">Username</label>
-                                        <input id="username" class="form-control form-sm" name="username" type="text" value="{{ $petugas->user->username }}" required>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-3">
-                                        <label class="form-label" for="password">Password</label>
-                                        <input id="password" class="form-control form-sm" name="password" type="password" min="6">
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-3">
-                                        <label class="form-label" for="password_confirmation">Konfirmasi Password</label>
-                                        <input id="password_confirmation" class="form-control form-sm" name="password_confirmation" type="password">
-                                    </div>
-
-                                </div>
                                 <div class="row gap-0 row-gap-3 mb-3">
                                     <h6><b>Identitas Petugas Kesehatan</b></h6>
                                     <div class="col-sm-12 col-md-6 col-lg-3">

@@ -14,7 +14,6 @@
                                 <tr>
                                     <th></th>
                                     <th>No</th>
-                                    <th>Username</th>
                                     <th>Nama</th>
                                     <th>NIK</th>
                                     <th>Telepon</th>
@@ -40,14 +39,10 @@
                 ajax: "{{ route('petugas.index') }}",
                 createPageUrl: '/petugas/create',
                 editPageUrl: '/petugas/{id}/edit',
-                deleteActionUrl: '/petugas/{id}/{user_id}/destroy',
+                deleteActionUrl: '/petugas/{id}/destroy',
                 isChild: false,
                 isNumber: true,
                 columns: [{
-                        data: 'user.username',
-                        name: 'user.username'
-                    },
-                    {
                         data: 'nama',
                         name: 'nama'
                     },

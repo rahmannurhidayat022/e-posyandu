@@ -20,9 +20,6 @@ class PetugasKesehatanFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => function () {
-                return User::factory()->create()->id;
-            },
             'nama' => $this->faker->name,
             'nik' => $this->faker->unique()->randomNumber(8),
             'telp' => $this->faker->phoneNumber,
