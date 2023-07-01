@@ -15,7 +15,7 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::where('role', 'admin');
+            $data = User::with(['posko'])->orderBy('created_at', 'desc');
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->editColumn('created_at', function ($row) {
@@ -40,6 +40,9 @@ class AdminController extends Controller
         $validated = Validator::make($request->all(), [
             'username' => 'required|unique:users',
             'password' => 'required|min:6|required_with:password_confirmation|confirmed',
+            'nama' => 'required',
+            'posko_id' => 'nullable',
+            'role' => 'required',
         ], [
             'username.unique' => 'Username sudah digunakan',
             'password.min' => 'Password minimal 6 digit',
@@ -54,9 +57,11 @@ class AdminController extends Controller
 
         try {
             $data = new User();
+            $data->nama = $request->nama;
+            $data->posko_id = $request->posko_id;
             $data->username = $request->username;
             $data->password = Hash::make($request->password);
-            $data->role = 'admin';
+            $data->role = $request->role;
             $data->save();
 
             Alert::success('Berhasil', 'Berhasil menambahkan data akun admin');
@@ -69,7 +74,7 @@ class AdminController extends Controller
 
     public function edit($id)
     {
-        $data = User::select('id', 'username')->findOrFail($id);
+        $data = User::findOrFail($id);
         return view('admin.edit', ["user" => $data, 'id' => $id]);
     }
 
@@ -88,10 +93,14 @@ class AdminController extends Controller
                     $fail('Username telah digunakan');
                 }
             }],
-            'password' => 'required|min:6|required_with:password_confirmation|confirmed',
+            'password' => 'nullable|min:6|confirmed',
+            'nama' => 'required',
+            'posko_id' => 'nullable',
+            'role' => 'required',
         ], [
+            'password_confirmation.min' => 'Password minimal 6 digit',
             'password.min' => 'Password minimal 6 digit',
-            'password.confirmed' => 'Password tidak sama',
+            'password_confirmation.confirmed' => 'Password tidak sama',
         ]);
 
         if ($validated->fails()) {
@@ -102,9 +111,13 @@ class AdminController extends Controller
 
         try {
             $data = User::findOrFail($id);
+            $data->nama = $request->nama;
+            $data->posko_id = $request->posko_id;
             $data->username = $request->username;
-            $data->password = Hash::make($request->password);
-            $data->role = 'admin';
+            if ($request->has('password')) {
+                $data->password = Hash::make($request->password);
+            }
+            $data->role = $request->role;
             $data->save();
 
             Alert::success('Berhasil', 'Berhasil memperbaharui data akun admin');

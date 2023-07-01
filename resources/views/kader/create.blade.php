@@ -24,22 +24,6 @@
                         <form class="" method="post" action="{{ route('kader.store') }}">
                             @csrf
                             <div class="modal-body">
-                                <div class="row mb-3">
-                                    <h6><b>Pembuatan Akun</b></h6>
-                                    <div class="col-sm-12 col-md-6 col-lg-3">
-                                        <label class="form-label" for="username">Username</label>
-                                        <input id="username" class="form-control form-sm" name="username" type="text" value="{{ old('username') }}" required>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-3">
-                                        <label class="form-label" for="password">Password</label>
-                                        <input id="password" class="form-control form-sm" name="password" type="password" min="6" required>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-3">
-                                        <label class="form-label" for="password_confirmation">Konfirmasi Password</label>
-                                        <input id="password_confirmation" class="form-control form-sm" name="password_confirmation" type="password" required>
-                                    </div>
-
-                                </div>
                                 <div class="row gap-0 row-gap-3 mb-3">
                                     <h6><b>Identitas Kader</b></h6>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
@@ -84,6 +68,9 @@
                                             <option value="08">RW 08</option>
                                             <option value="09">RW 09</option>
                                             <option value="10">RW 10</option>
+                                            <option value="11">RW 11</option>
+                                            <option value="12">RW 12</option>
+                                            <option value="13">RW 13</option>
                                         </select>
                                     </div>
                                 </div>

@@ -39,8 +39,6 @@ class KaderController extends Controller
     public function store(Request $request)
     {
         $validated = Validator::make($request->all(), [
-            'username' => 'required|unique:users',
-            'password' => 'required|min:6|required_with:password_confirmation|confirmed',
             'nama' => 'required',
             'nik' => 'required|unique:kader',
             'telp' => 'required',
@@ -49,10 +47,7 @@ class KaderController extends Controller
             'rw' => 'required',
             'posko_id' => 'required',
         ], [
-            'username.unique' => 'Username sudah digunakan',
             'nik.unique' => 'NIK sudah digunakan',
-            'password.min' => 'Password minimal 6 digit',
-            'password.confirmed' => 'Password tidak sama',
         ]);
 
         if ($validated->fails()) {
@@ -62,26 +57,15 @@ class KaderController extends Controller
         }
 
         try {
-            $user = new User();
-            $user->username = $request->username;
-            $user->password = $request->password;
-            $user->role = 'operator';
-            $user->save();
-            DB::beginTransaction();
-
-            if ($user) {
-                $kader = new Kader();
-                $kader->user_id = $user->id;
-                $kader->nama = $request->nama;
-                $kader->nik = $request->nik;
-                $kader->telp = $request->telp;
-                $kader->jalan = $request->jalan;
-                $kader->rw = $request->rw;
-                $kader->rt = $request->rt;
-                $kader->posko_id = $request->posko_id;
-                $kader->save();
-                DB::commit();
-            }
+            $kader = new Kader();
+            $kader->nama = $request->nama;
+            $kader->nik = $request->nik;
+            $kader->telp = $request->telp;
+            $kader->jalan = $request->jalan;
+            $kader->rw = $request->rw;
+            $kader->rt = $request->rt;
+            $kader->posko_id = $request->posko_id;
+            $kader->save();
 
             Alert::success('Berhasil', 'Berhasil menambahkan data kader');
             return redirect()->route('kader.index');
@@ -97,23 +81,9 @@ class KaderController extends Controller
         return view('kader.edit', compact('kader'));
     }
 
-    public function update(Request $request, $id, $user_id)
+    public function update(Request $request, $id)
     {
         $validated = Validator::make($request->all(), [
-            'username' => ['required', function ($attribute, $value, $fail) use ($user_id) {
-                $user = User::findOrFail($user_id);
-
-                if ($user->username === $value) {
-                    return;
-                }
-
-                $exists = User::where('username', $value)->where('id', '!=', $user_id)->exists();
-                if ($exists) {
-                    $fail('Username telah digunakan');
-                }
-            }],
-            'password' => 'nullable|min:6|confirmed',
-            // 'password_confirmation' => 'required_if:password,!=,|confirmed',
             'nama' => 'required',
             'nik' => ['required', function ($attribute, $value, $fail) use ($id) {
                 $kader = Kader::findOrFail($id);
@@ -134,9 +104,6 @@ class KaderController extends Controller
             'posko_id' => 'required',
         ], [
             'nik.unique' => 'NIK sudah digunakan',
-            'password_confirmation.min' => 'Password minimal 6 digit',
-            'password.min' => 'Password minimal 6 digit',
-            'password_confirmation.confirmed' => 'Password tidak sama',
         ]);
 
         if ($validated->fails()) {
@@ -146,14 +113,6 @@ class KaderController extends Controller
         }
 
         try {
-            $user = User::findOrFail($user_id);
-            $user->username = $request->username;
-            if ($request->has('password')) {
-                $user->password = Hash::make($request->password);
-            }
-            $user->save();
-            DB::beginTransaction();
-
             $kader = Kader::findOrFail($id);
             $kader->nama = $request->nama;
             $kader->nik = $request->nik;
@@ -163,7 +122,6 @@ class KaderController extends Controller
             $kader->rt = $request->rt;
             $kader->posko_id = $request->posko_id;
             $kader->save();
-            DB::commit();
 
             Alert::success('Berhasil', 'Berhasil memperbaharui data kader');
             return redirect()->route('kader.index');
@@ -173,12 +131,11 @@ class KaderController extends Controller
         }
     }
 
-    public function destroy($id, $user_id)
+    public function destroy($id)
     {
         try {
             DB::beginTransaction();
             Kader::findOrFail($id)->delete();
-            User::findOrFail($user_id)->delete();
             DB::commit();
             Alert::success('Berhasil', 'Berhasil menghapus data kader');
             return redirect()->back();

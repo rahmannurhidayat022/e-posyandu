@@ -14,7 +14,6 @@
                                 <tr>
                                     <th></th>
                                     <th>No</th>
-                                    <th>Username</th>
                                     <th>Nama</th>
                                     <th>NIK</th>
                                     <th>Posko</th>
@@ -40,7 +39,7 @@
                 ajax: "{{ route('kader.index') }}",
                 createPageUrl: '/kader/create',
                 editPageUrl: '/kader/{id}/edit',
-                deleteActionUrl: '/kader/{id}/{user_id}/destroy',
+                deleteActionUrl: '/kader/{id}/destroy',
                 isChild: true,
                 isNumber: true,
                 formatChildRow: function(d) {
@@ -62,10 +61,6 @@
                     );
                 },
                 columns: [{
-                        data: 'user.username',
-                        name: 'user.username'
-                    },
-                    {
                         data: 'nama',
                         name: 'nama'
                     },

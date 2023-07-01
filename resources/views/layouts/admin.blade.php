@@ -23,15 +23,9 @@
                 <nav class="sidebar-nav scroll-sidebar" data-simplebar="" style="overflow-y: auto;">
                     <ul id="sidebarnav">
                         <li class="nav-small-cap m-0 p-0 d-flex justify-content-center">
-                            @if(session('user_information'))
-                            <span class="badge badge-sm rounded-pill text-bg-info">
-                                {!! session('user_information')->posko->nama !!} / RW {!! session('user_information')->posko->rw !!}
-                            </span>
-                            @else
                             <span class="badge badge-sm rounded-pill text-bg-info">
                                 {!! Auth::user()->role !!}
                             </span>
-                            @endif
                         </li>
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
@@ -118,7 +112,7 @@
                                 <span>
                                     <i class="ti ti-user"></i>
                                 </span>
-                                <span class="hide-menu">Admin</span>
+                                <span class="hide-menu">Akun</span>
                             </a>
                         </li>
                     </ul>

@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title fw-semibold mb-4">Manajemen akun admin</h2>
+                    <h2 class="card-title fw-semibold mb-4">Manajemen akun</h2>
                     <div class="mt-4">
                         <table id="admin-table" class="display nowrap" style="width:100%">
                             <thead>
@@ -16,6 +16,7 @@
                                     <th>No</th>
                                     <th>Username</th>
                                     <th>Role</th>
+                                    <th>Posko</th>
                                     <th>Dibuat</th>
                                     <th>Diperbaharui</th>
                                     <th>Aksi</th>
@@ -49,6 +50,10 @@
                     {
                         data: 'role',
                         name: 'role',
+                    },
+                    {
+                        data: 'posko.nama',
+                        name: 'posko.nama',
                     },
                     {
                         data: 'created_at',

@@ -12,7 +12,6 @@ class Kader extends Model
     protected $table = 'kader';
 
     protected $fillable = [
-        'user_id',
         'posko_id',
         'nama',
         'nik',

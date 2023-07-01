@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Posko;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -18,9 +19,14 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'username' => fake()->name(),
+            'nama' => fake()->name(),
+            'username' => fake()->userName(),
             'role' => fake()->randomElement(["admin", "operator", "viewer"]),
             'password' => 'admin123',
+            'posko_id' => function () {
+                return Posko::factory()->create()->id;
+            },
+
         ];
     }
 

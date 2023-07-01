@@ -21,13 +21,10 @@ class KaderFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => function () {
-                return User::factory()->create()->id;
-            },
             'posko_id' => function () {
                 return Posko::factory()->create()->id;
             },
-            'nama' => $this->faker->name,
+            'nama' => $this->faker->firstName(),
             'nik' => $this->faker->unique()->randomNumber(8),
             'telp' => $this->faker->phoneNumber,
             'jalan' => $this->faker->streetAddress,

@@ -14,12 +14,6 @@ return new class extends Migration
         Schema::create('kader', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
             $table->unsignedBigInteger('posko_id');
 
             $table->string('nama');

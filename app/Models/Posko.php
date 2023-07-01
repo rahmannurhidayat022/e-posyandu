@@ -20,4 +20,9 @@ class Posko extends Model
     {
         return $this->hasMany(Kader::class, 'posko_id');
     }
+
+    public function user()
+    {
+        return $this->hasMany(User::class, 'posko_id');
+    }
 }

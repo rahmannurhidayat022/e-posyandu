@@ -20,12 +20,6 @@ return new class extends Migration
                 ->on('posko')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('kader_id');
-            $table->foreign('kader_id')
-                ->references('id')
-                ->on('kader')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
             $table->unsignedBigInteger('petugas_id');
             $table->foreign('petugas_id')
                 ->references('id')

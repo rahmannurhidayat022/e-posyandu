@@ -13,9 +13,16 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
             $table->string('username');
             $table->string('password');
             $table->enum('role', ['admin', 'operator', 'viewer']);
+            $table->unsignedBigInteger('posko_id')->nullable();
+            $table->foreign('posko_id')
+                ->references('id')
+                ->on('posko')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -29,3 +36,4 @@ return new class extends Migration
         Schema::dropIfExists('users');
     }
 };
+

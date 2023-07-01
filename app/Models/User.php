@@ -19,6 +19,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'role',
+        'nama',
+        'posko_id',
         'username',
         'password',
     ];
@@ -43,13 +45,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function kaders()
+    public function posko()
     {
-        return $this->hasOne(Kader::class, 'posko_id');
-    }
-
-    public function petugas()
-    {
-        return $this->hasOne(PetugasKesehatan::class, 'user_id');
+        return $this->belongsTo(Posko::class);
     }
 }

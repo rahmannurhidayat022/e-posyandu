@@ -20,8 +20,8 @@ class PoskoFactory extends Factory
     public function definition(): array
     {
         return [
-            'nama' => $this->faker->name,
-            'jalan' => $this->faker->streetAddress,
+            'nama' => $this->faker->firstName(),
+            'jalan' => $this->faker->streetAddress(),
             'rw' => $this->faker->unique()->randomNumber(2),
         ];
     }

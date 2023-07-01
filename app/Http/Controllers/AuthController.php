@@ -23,18 +23,6 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            $kaderInformation = Kader::where('user_id', $user->id)->with('posko:id,nama,rw')->first();
-            $petugasKesehatanInformation = PetugasKesehatan::where('user_id', $user->id)->first();
-
-            if ($kaderInformation) {
-                session(['user_information' => $kaderInformation]);
-            } else if ($petugasKesehatanInformation) {
-                session(['user_information' => $petugasKesehatanInformation]);
-            } else {
-                session(['user_information' => null]);
-            }
-
             return redirect()->intended('/dashboard');
         } else {
             Alert::error('Gagal masuk', 'Pastikan username dan password yang anda ketikan sudah benar')->autoclose(5000);
