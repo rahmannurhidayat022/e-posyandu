@@ -3,9 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
-    Route::get('/', function () {
-        return view('index');
-    })->name("home.index");
+    Route::get('/', "LandingController@index")->name("home.index");
     Route::fallback(function () {
         return response()->view('errors.404', [], 404);
     });

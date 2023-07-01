@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/posyandu.png') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/landing.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery.min.css" integrity="sha512-F2E+YYE1gkt0T5TVajAslgDfTEUQKtlu4ralVq78ViNxhKXQLrgQLLie8u1tVdG2vWnB3ute4hcdbiBtvJQh0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery-bundle.min.css" integrity="sha512-nUqPe0+ak577sKSMThGcKJauRI7ENhKC2FQAOOmdyCYSrUh0GnwLsZNYqwilpMmplN+3nO3zso8CWUgu33BDag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -42,11 +44,11 @@
                                 <h6 class="card-title text-uppercase"><i class="bi bi-clipboard2-pulse fs-4 me-1"></i> Cek perkembangan anak</h6>
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form action="{{ route('home.index') }}" method="GET">
                                     <div class="mb-3">
                                         <label class="form-label" for="nik">NIK / Nama Lengkap</label>
                                         <div class="d-flex gap-1 flex-nowrap">
-                                            <input type="text" class="form-control" id="nik" name="nik">
+                                            <input type="text" class="form-control" id="nik" name="search">
                                             <button type="reset" class="btn btn-sm btn-danger"><i class="bi bi-x fs-5"></i></button>
                                             <button type="submit" class="btn btn-sm btn-primary">Cari</button>
                                         </div>
@@ -69,8 +71,20 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach(session('success') as $item)
+                                            <tr>
+                                                <td>{{ $item->anak->nik }}</td>
+                                                <td>{{ $item->anak->nama }}</td>
+                                                <td>
+                                                    <a href="" class="btn btn-sm btn-outline-primary">KMS</a>
+                                                </td>
+                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
+                                    <div class="pagination">
+                                        {{ session('success')->links() }}
+                                    </div>
                                 </div>
                                 @endif
                             </div>
@@ -79,20 +93,44 @@
                 </div>
             </div>
         </section>
-        <section>
+        <section id="about">
             <div class="container">
                 <div class="mb-5">
                     <h4 class="text-uppercase my-4 text-primary text-center">Tentang Kami</h4>
                     <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <div class="d-flex gap-4 flex-nowrap justify-content-center">
-                        <a href="" class="nav-link text-info d-flex align-items-center justify-content-center gap-1">
+                    <div class="d-flex gap-1 gap-md-4 flex-column flex-md-row justify-content-center">
+                        <a href="tel:+0227333054" class="nav-link text-info d-flex align-items-center justify-content-center gap-1">
                             <i class="bi bi-telephone fs-5 me-1"></i>
                             (022) 7333054
                         </a>
-                        <a href="" class="nav-link text-info d-flex align-items-center justify-content-center gap-1">
+                        <a href="mailto:kebonjayantikirconbdg@gmail.com" class="nav-link text-info d-flex align-items-center justify-content-center gap-1">
                             <i class="bi bi-envelope fs-5 me-1"></i>
                             kebonjayantikirconbdg@gmail.com
                         </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="gallery">
+            <div class="container">
+                <div class="gallery">
+                    <div class="gallery-item">
+                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-01.jpg') }}" alt="gallery-01">
+                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-02.jpg') }}" alt="gallery-02">
+                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-03.jpg') }}" alt="gallery-03">
+                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-10.jpg') }}" alt="gallery-10">
+                    </div>
+                    <div class="gallery-item">
+                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-04.jpg') }}" alt="gallery-04">
+                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-05.jpg') }}" alt="gallery-05">
+                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-06.jpg') }}" alt="gallery-06">
+                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-11.jpg') }}" alt="gallery-11">
+                    </div>
+                    <div class="gallery-item">
+                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-07.jpg') }}" alt="gallery-07">
+                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-08.jpg') }}" alt="gallery-08">
+                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-09.jpg') }}" alt="gallery-09">
+                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-12.jpg') }}" alt="gallery-12">
                     </div>
                 </div>
             </div>
@@ -104,6 +142,20 @@
     <script src="{{ asset('assets/js/app.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js" integrity="sha512-dSI4QnNeaXiNEjX2N8bkb16B7aMu/8SI5/rE6NIa3Hr/HnWUO+EAZpizN2JQJrXuvU7z0HTgpBVk/sfGd0oW+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const gallery = document.querySelector('.gallery');
+
+            lightGallery(gallery, {
+                selector: '.fluidbox-item',
+                download: false,
+                counter: false,
+                share: false,
+                thumbnail: true
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -5,7 +5,6 @@
 @import 'bootstrap-icons/font/bootstrap-icons.css';
 @import "./custom.css";
 
-p {}
 #hero {
     width: 100%;
     min-height: 400px;
@@ -13,9 +12,35 @@ p {}
 p, table, td, th {
     font-size: 14px;
 }
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.gallery .gallery-item {
+    flex: 100%;
+    width: auto;
+    overflow: hidden;
+    padding: 0 4px;
+    height: 100%;
+}
+.gallery .gallery-item img {
+    margin-top: 2%;
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+}
 
+@media (min-width: 768px) {
+    #gallery .gallery-item {
+        flex: 50%;
+    }
+}
 @media (min-width: 1024px) {
     .container {
         max-width: 960px;
+    }
+    #gallery .gallery-item {
+        flex: 33.3%;
     }
 }
