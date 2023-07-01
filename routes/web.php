@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/', "LandingController@index")->name("home.index");
+    Route::get('/kms/{id}', "LandingController@kms")->name("home.kms");
     Route::fallback(function () {
         return response()->view('errors.404', [], 404);
     });

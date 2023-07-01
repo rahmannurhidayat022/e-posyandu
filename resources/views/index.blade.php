@@ -76,7 +76,7 @@
                                                 <td>{{ $item->anak->nik }}</td>
                                                 <td>{{ $item->anak->nama }}</td>
                                                 <td>
-                                                    <a href="" class="btn btn-sm btn-outline-primary">KMS</a>
+                                                    <a href="{{ route('home.kms', $item->anak->id) }}" class="btn btn-sm btn-outline-primary">KMS</a>
                                                 </td>
                                             </tr>
                                             @endforeach

@@ -118,7 +118,6 @@
                     enableMouseTracking: true
                 }
             ];
-            console.log(weightData)
 
             Highcharts.chart('weight-container', {
                 chart: {
