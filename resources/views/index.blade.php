@@ -73,10 +73,10 @@
                                         <tbody>
                                             @foreach(session('success') as $item)
                                             <tr>
-                                                <td>{{ $item->anak->nik }}</td>
-                                                <td>{{ $item->anak->nama }}</td>
+                                                <td>{{ $item->nik }}</td>
+                                                <td>{{ $item->nama }}</td>
                                                 <td>
-                                                    <a href="{{ route('home.kms', $item->anak->id) }}" class="btn btn-sm btn-outline-primary">KMS</a>
+                                                    <a href="{{ route('home.kms', $item->id) }}" class="btn btn-sm btn-outline-primary">KMS</a>
                                                 </td>
                                             </tr>
                                             @endforeach

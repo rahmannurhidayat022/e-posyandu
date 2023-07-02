@@ -14,10 +14,8 @@ class LandingController extends Controller
     {
         $search = $request->input('search');
         if ($search) {
-            $data = PenimbanganAnak::whereHas('anak', function ($query) use ($search) {
-                $query->where('nik', 'like', "$search")
-                    ->orWhere('nama', 'like', "%$search%");
-            })->paginate(5);
+            $data = Anak::where('nik', 'like', "$search")
+                ->orWhere('nama', 'like', "%$search%")->paginate(5);
 
             if ($data->isEmpty()) {
                 return redirect()->back()->with('error', 'Data kosong');
