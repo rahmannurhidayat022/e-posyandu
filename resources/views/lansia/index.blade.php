@@ -42,7 +42,7 @@
                 deleteActionUrl: '/lansia/{id}/destroy',
                 isNumber: true,
                 filters: {
-                    posko_id: "{{ session('user_information')->posko->id ?? null }}"
+                    posko_id: "{{ Auth::user()->posko_id ?? null }}"
                 },
                 isKesehatanLansia: true,
                 formatChildRow: function(d) {

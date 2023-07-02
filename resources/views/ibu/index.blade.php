@@ -43,6 +43,9 @@
                 isChild: true,
                 deleteActionUrl: '/ibu/{id}/destroy',
                 isNumber: true,
+                filters: {
+                    posko_id: "{{ Auth::user()->posko_id ?? null }}"
+                },
                 formatChildRow: function(d) {
                     return (
                         '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
