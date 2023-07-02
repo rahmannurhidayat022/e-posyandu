@@ -14,6 +14,7 @@
                                 <tr>
                                     <th></th>
                                     <th>No</th>
+                                    <th>Nama</th>
                                     <th>Username</th>
                                     <th>Role</th>
                                     <th>Posko</th>
@@ -44,8 +45,12 @@
                 isNumber: true,
                 isChild: false,
                 columns: [{
+                        data: 'nama',
+                        name: 'nama'
+                    },
+                    {
                         data: 'username',
-                        name: 'username'
+                        name: 'username',
                     },
                     {
                         data: 'role',

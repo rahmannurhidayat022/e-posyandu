@@ -28,7 +28,7 @@
                                 <input type="text" value="{{ $user->id }}" hidden>
                                 <div class="mb-2">
                                     <label class="form-label" for="role">Role</label>
-                                    <select id="role" name="role" class="form-select" required>
+                                    <select id="role" name="role" class="form-select" onchange="togglePoskoInput()" required>
                                         <option value="operator" {{ $user->role == "operator" ? "selected" : ""}}>Operator</option>
                                         <option value="admin" {{ $user->role == "admin" ? "selected" : ""}}>Admin</option>
                                         <option value="viewer" {{ $user->role == "viewer" ? "selected" : ""}}>Viewer</option>
@@ -36,8 +36,9 @@
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label" for="posko_id">Posko</label>
-                                    <select id="list-posko" class="select2 form-select" id="posko_id" name="posko_id" required>
+                                    <select id="list-posko" class="select2 form-select" id="posko_id" name="posko_id" required {{ $user->posko_id ? "" : "disabled" }} required>
                                     </select>
+                                    <sub class="text-info">**untuk operator</sub>
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label" for="nama">Nama</label>
@@ -87,6 +88,17 @@
             }
         });
     });
+
+    function togglePoskoInput() {
+        var roleSelect = document.getElementById("role");
+        var poskoInput = document.getElementById("list-posko");
+
+        if (roleSelect.value === "operator") {
+            poskoInput.disabled = false;
+        } else {
+            poskoInput.disabled = true;
+        }
+    }
 </script>
 @endpush
 @endsection

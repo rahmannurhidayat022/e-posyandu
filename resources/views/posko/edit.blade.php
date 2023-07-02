@@ -36,21 +36,21 @@
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label" for="rw">Rukun Warga (RW)</label>
-                                    <select class="form-select" id="rw" name="rw" required>
-                                        @for ($i = 1; $i <= 10; $i++) @php $formattedValue=str_pad($i, 2, '0' , STR_PAD_LEFT); @endphp <option value="{{ $formattedValue }}" {{ $posko->rw == $formattedValue ? 'selected' : '' }}>RW {{ $formattedValue }}</option>
+                                    <select class="select2 form-select" id="rw" name="rw" required>
+                                        @for ($i = 1; $i <= 14; $i++) @php $formattedValue=str_pad($i, 2, '0' , STR_PAD_LEFT); @endphp <option value="{{ $formattedValue }}" {{ $posko->rw == $formattedValue ? 'selected' : '' }}>RW {{ $formattedValue }}</option>
                                             @endfor
                                     </select>
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label" for="rt">Rukun Tetangga (RT)</label>
                                     <select class="select2 form-control" id="rt" name="rt[]" multiple="multiple">
-                                        @for ($i = 1; $i <= 10; $i++) @php $formattedValue=str_pad($i, 2, '0' , STR_PAD_LEFT); $isSelected='' ; foreach ($lingkup as $arr) { if ($arr->rt == $formattedValue) {
+                                        @for ($i = 1; $i <= 89; $i++) @php $formattedValue=str_pad($i, 2, '0' , STR_PAD_LEFT); $isSelected='' ; foreach ($lingkup as $arr) { if ($arr->rt == $formattedValue) {
                                             $isSelected = 'selected';
                                             break; // Jika sudah ditemukan, hentikan perulangan
                                             }
                                             }
                                             @endphp
-                                            <option value="{{ $formattedValue }}" {{ $isSelected }}>RW {{ $formattedValue }}</option>
+                                            <option value="{{ $formattedValue }}" {{ $isSelected }}>RT {{ $formattedValue }}</option>
                                             @endfor
                                     </select>
                                 </div>
@@ -67,10 +67,5 @@
     </div>
 </section>
 @push('script')
-<script>
-    $(document).ready(function() {
-        $('.select2').select2();
-    });
-</script>
 @endpush
 @endsection

@@ -124,14 +124,16 @@ class PoskoController extends Controller
 
             LingkupPosko::where('posko_id', $data->id)->delete();
 
-            $rt = [];
-            foreach ($request->rt as $item) {
-                $rt[] = [
-                    "posko_id" => $data->id,
-                    "rt" => $item,
-                ];
+            if ($request->rt) {
+                $rt = [];
+                foreach ($request->rt as $item) {
+                    $rt[] = [
+                        "posko_id" => $data->id,
+                        "rt" => $item,
+                    ];
+                }
+                LingkupPosko::insert($rt);
             }
-            LingkupPosko::insert($rt);
 
             Alert::success('Berhasil', 'Berhasil update data posko');
             return redirect()->route('posko.index');

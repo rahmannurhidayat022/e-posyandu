@@ -103,6 +103,14 @@
 .breadcrumb-item a {
     color: var(--primary-color) !important;
 }
+.select2-selection__rendered, .select2-selection__choice {
+    font-weight: 300 !important;
+    line-height: 2 !important;
+    font-size: 13px !important;
+}
+.select2-selection__choice {
+    padding: 1px 3px !important;
+}
 .select2-results__option--highlighted {
     background-color: var(--primary-color) !important;
 }

@@ -26,16 +26,18 @@
                             <div class="modal-body">
                                 <div class="mb-2">
                                     <label class="form-label" for="role">Role</label>
-                                    <select id="role" name="role" class="form-select" required>
-                                        <option value="operator" selected>Operator</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="viewer">Viewer</option>
+                                    <select id="role" name="role" class="form-select" onchange="togglePoskoInput()" required>
+                                        <option value="">Pilih</option>
+                                        <option value="operator" {{ old('role') === "operator" ? "selected" : "" }}>Operator</option>
+                                        <option value="admin" {{ old('role') === "admin" ? "selected" : "" }}>Admin</option>
+                                        <option value="viewer" {{ old('role') === "viewer" ? "selected" : "" }}>Viewer</option>
                                     </select>
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label" for="posko_id">Posko</label>
-                                    <select id="list-posko" class="select2 form-select" id="posko_id" name="posko_id" required>
+                                    <select id="list-posko" class="select2 form-select" id="posko_id" name="posko_id" required {{ old('role') === "operator" ? "" : "disabled" }} required>
                                     </select>
+                                    <sub class="text-info">**untuk operator</sub>
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label" for="nama">Nama</label>
@@ -79,8 +81,20 @@
                 });
                 $('#list-posko').html(html);
             }
-        })
+        });
+
     });
+
+    function togglePoskoInput() {
+        var roleSelect = document.getElementById("role");
+        var poskoInput = document.getElementById("list-posko");
+
+        if (roleSelect.value === "operator") {
+            poskoInput.disabled = false;
+        } else {
+            poskoInput.disabled = true;
+        }
+    }
 </script>
 @endpush
 @endsection

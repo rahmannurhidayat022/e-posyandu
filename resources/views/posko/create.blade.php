@@ -34,30 +34,16 @@
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label" for="rw">Rukun Warga (RW)</label>
-                                    <select class="form-select" id="rw" name="rw" required>
-                                        <option value="01" selected>RW 01</option>
-                                        <option value="02">RW 02</option>
-                                        <option value="03">RW 03</option>
-                                        <option value="04">RW 04</option>
-                                        <option value="05">RW 06</option>
-                                        <option value="07">RW 07</option>
-                                        <option value="08">RW 08</option>
-                                        <option value="09">RW 09</option>
-                                        <option value="10">RW 10</option>
+                                    <select class="select2 form-select" id="rw" name="rw" required>
+                                        @for ($i = 1; $i <= 14; $i++) @php $formattedValue=str_pad($i, 2, '0' , STR_PAD_LEFT); @endphp <option value="{{ $formattedValue }}">RW {{ $formattedValue }}</option>
+                                            @endfor
                                     </select>
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label" for="rt">Lingkup Rukun Tetangga (RT)</label>
-                                    <select class="select2 form-control" id="rt" name="rt[]" multiple="multiple">
-                                        <option value="01">RT 01</option>
-                                        <option value="02">RT 02</option>
-                                        <option value="03">RT 03</option>
-                                        <option value="04">RT 04</option>
-                                        <option value="05">RT 06</option>
-                                        <option value="07">RT 07</option>
-                                        <option value="08">RT 08</option>
-                                        <option value="09">RT 09</option>
-                                        <option value="10">RT 10</option>
+                                    <select class="select2 form-select" id="rt" name="rt[]" multiple="multiple">
+                                        @for ($i = 1; $i <= 89; $i++) @php $formattedValue=str_pad($i, 2, '0' , STR_PAD_LEFT); @endphp <option value="{{ $formattedValue }}">RT {{ $formattedValue }}</option>
+                                            @endfor
                                     </select>
                                 </div>
                             </div>
@@ -73,10 +59,5 @@
     </div>
 </section>
 @push('script')
-<script>
-    $(document).ready(function() {
-        $('.select2').select2();
-    });
-</script>
 @endpush
 @endsection

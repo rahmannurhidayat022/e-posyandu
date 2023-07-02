@@ -106,7 +106,7 @@ class AdminController extends Controller
         if ($validated->fails()) {
             $errors = $validated->errors();
             Alert::error('Gagal', $errors->first())->autoclose(3000);
-            return redirect()->back()->withInput($request->only('username'));
+            return redirect()->back()->withInput($request->all());
         }
 
         try {
