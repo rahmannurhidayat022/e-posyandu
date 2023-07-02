@@ -149,3 +149,6 @@
 .text-danger-dark {
     color: var(--danger-dark);
 }
+.dropdown-item.disabled {
+    opacity: .5;
+}

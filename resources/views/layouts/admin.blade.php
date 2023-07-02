@@ -59,6 +59,7 @@
                                 <span class="hide-users">Kesehatan Lansia</span>
                             </a>
                         </li>
+                        @if (Auth::user()->role === "admin" || Auth::user()->role === "viewer")
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ route('laporan.index') }}" aria-expanded="false">
                                 <span>
@@ -67,6 +68,7 @@
                                 <span class="hide-menu">Laporan Pelayanan</span>
                             </a>
                         </li>
+                        @endif
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                             <span class="hide-menu">Tempat Pelayanan</span>
@@ -107,6 +109,7 @@
                                 <span class="hide-menu">Petugas</span>
                             </a>
                         </li>
+                        @if (Auth::user()->role === "admin")
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ route('admin.index') }}" aria-expanded="false">
                                 <span>
@@ -115,6 +118,7 @@
                                 <span class="hide-menu">Akun</span>
                             </a>
                         </li>
+                        @endif
                     </ul>
                 </nav>
             </div>
@@ -208,6 +212,7 @@
                                 if (tableConfiguration?.ageLimit) {
                                     disabled = 'disabled';
                                 }
+                                if ("{{ Auth::user()->role }}" === "viewer") disabled = 'disabled'
 
                                 return `btn btn-primary ${disabled}`
                             },
@@ -352,12 +357,14 @@
                                     html += `<li><a class="dropdown-item" href="/kesehatan-anak/imunisasi/${row.id}"><i class="ti ti-vaccine"></i> Imunisasi</a></li>`
                                 }
 
+
                                 const editUrl = replaceStringWithObjectValues(tableConfiguration.editPageUrl, row);
                                 const deleteUrl = replaceStringWithObjectValues(tableConfiguration.deleteActionUrl, row);
                                 html += `
-                                        <li><a class="dropdown-item" href="${editUrl}"><i class="ti ti-edit"></i> Edit</a></li>
-                                        <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" onclick="confirmAlert({ formId: 'form-delete', deleteUrl: '${deleteUrl}' })"><i class="ti ti-trash"></i> Delete</button></li>
+                                        <li><a class="dropdown-item ${"{{ Auth::user()->role }}" === "viewer" ? 'disabled' : ''}" href="${editUrl}"><i class="ti ti-edit"></i> Edit</a></li>
+                                        <li><button type="button" class="dropdown-item ${"{{ Auth::user()->role }}" === "viewer" ? 'disabled' : ''}" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" onclick="confirmAlert({ formId: 'form-delete', deleteUrl: '${deleteUrl}' })"><i class="ti ti-trash"></i> Delete</button></li>
                                         `
+
 
                                 return `<div class="dropdown">
                                   <i class="ti ti-dots-vertical fs-6" id="optionsDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer">

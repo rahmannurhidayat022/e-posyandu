@@ -8,9 +8,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::fallback(function () {
         return response()->view('errors.404', [], 404);
     });
-    // Route::fallback(function () {
-    //     return response()->view('errors.403', [], 403);
-    // });
 
     Route::group(['middleware' => ['guest']], function () {
         Route::get('/login', 'AuthController@index')->name('auth.index');
@@ -24,15 +21,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::prefix('posko')->group(function () {
             Route::get('/', 'PoskoController@index')->name('posko.index');
-            Route::get('/create', 'PoskoController@create')->name('posko.create');
-            Route::get('/{id}/edit', 'PoskoController@edit')->name('posko.edit');
-            Route::put('/{id}/update', 'PoskoController@update')->name('posko.update');
-            Route::post('/store', 'PoskoController@store')->name('posko.store');
-            Route::delete('/{id}/destroy', 'PoskoController@destroy')->name('posko.destroy');
+            Route::get('/create', 'PoskoController@create')->name('posko.create')->middleware('role:admin');
+            Route::get('/{id}/edit', 'PoskoController@edit')->name('posko.edit')->middleware('role:admin');
+            Route::put('/{id}/update', 'PoskoController@update')->name('posko.update')->middleware('role:admin');
+            Route::post('/store', 'PoskoController@store')->name('posko.store')->middleware('role:admin');
+            Route::delete('/{id}/destroy', 'PoskoController@destroy')->name('posko.destroy')->middleware('role:admin');
             Route::get('/get-posko', 'PoskoController@getPosko')->name('getPosko');
         });
 
-        Route::prefix('admin')->group(function () {
+        Route::prefix('admin')->middleware('role:admin')->group(function () {
             Route::get('/', 'AdminController@index')->name('admin.index');
             Route::get('/create', 'AdminController@create')->name('admin.create');
             Route::get('/{id}/edit', 'AdminController@edit')->name('admin.edit');
@@ -63,39 +60,39 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::prefix('ibu')->group(function () {
             Route::get('/', 'IbuController@index')->name('ibu.index');
-            Route::get('/create', 'IbuController@create')->name('ibu.create');
-            Route::get('/{id}/edit', 'IbuController@edit')->name('ibu.edit');
-            Route::post('/store', 'IbuController@store')->name('ibu.store');
-            Route::put('/{id}/update', 'IbuController@update')->name('ibu.update');
-            Route::delete('/{id}/destroy', 'IbuController@destroy')->name('ibu.destroy');
+            Route::get('/create', 'IbuController@create')->name('ibu.create')->middleware('role:operator');
+            Route::get('/{id}/edit', 'IbuController@edit')->name('ibu.edit')->middleware('role:operator,admin');
+            Route::post('/store', 'IbuController@store')->name('ibu.store')->middleware('role:operator');
+            Route::put('/{id}/update', 'IbuController@update')->name('ibu.update')->middleware('role:operator,admin');
+            Route::delete('/{id}/destroy', 'IbuController@destroy')->name('ibu.destroy')->middleware('role:operator,admin');
             Route::get('/get-ibu', 'IbuController@getIbu')->name('getIbu');
         });
 
         Route::prefix('kesehatan-anak')->group(function () {
             Route::get('/', 'AnakController@index')->name('anak.index');
-            Route::get('/create', 'AnakController@create')->name('anak.create');
-            Route::get('/{id}/edit', 'AnakController@edit')->name('anak.edit');
-            Route::post('/store', 'AnakController@store')->name('anak.store');
-            Route::put('/{id}/update', 'AnakController@update')->name('anak.update');
-            Route::delete('/{id}/destroy', 'AnakController@destroy')->name('anak.destroy');
+            Route::get('/create', 'AnakController@create')->name('anak.create')->middleware('role:operator');
+            Route::get('/{id}/edit', 'AnakController@edit')->name('anak.edit')->middleware('role:operator,admin');
+            Route::post('/store', 'AnakController@store')->name('anak.store')->middleware('role:operator');
+            Route::put('/{id}/update', 'AnakController@update')->name('anak.update')->middleware('role:operator,admin');
+            Route::delete('/{id}/destroy', 'AnakController@destroy')->name('anak.destroy')->middleware('role:operator,admin');
             Route::get('/get-anak', 'AnakController@getAnak')->name('getAnak');
 
             Route::prefix('penimbangan')->group(function () {
                 Route::get('/{id}', 'PenimbanganAnakController@index')->name('penimbangan.index');
-                Route::get('/{id}/create', 'PenimbanganAnakController@create')->name('penimbangan.create');
-                Route::post('/{id}/store', 'PenimbanganAnakController@store')->name('penimbangan.store');
-                Route::get('/{id}/{penimbangan_id}/edit', 'PenimbanganAnakController@edit')->name('penimbangan.edit');
-                Route::put('/{id}/update', 'PenimbanganAnakController@update')->name('penimbangan.update');
-                Route::delete('/{id}/destroy', 'PenimbanganAnakController@destroy')->name('penimbangan.destroy');
+                Route::get('/{id}/create', 'PenimbanganAnakController@create')->name('penimbangan.create')->middleware('role:operator');
+                Route::post('/{id}/store', 'PenimbanganAnakController@store')->name('penimbangan.store')->middleware('role:operator');
+                Route::get('/{id}/{penimbangan_id}/edit', 'PenimbanganAnakController@edit')->name('penimbangan.edit')->middleware('role:operator,admin');
+                Route::put('/{id}/update', 'PenimbanganAnakController@update')->name('penimbangan.update')->middleware('role:operator,admin');
+                Route::delete('/{id}/destroy', 'PenimbanganAnakController@destroy')->name('penimbangan.destroy')->middleware('role:operator,admin');
             });
 
             Route::prefix('imunisasi')->group(function () {
                 Route::get('/{id}', 'ImunisasiController@index')->name('imunisasi.index');
-                Route::get('/{id}/create', 'ImunisasiController@create')->name('imunisasi.create');
-                Route::post('/{id}/store', 'ImunisasiController@store')->name('imunisasi.store');
-                Route::get('/{id}/{imunisasi_id}/edit', 'ImunisasiController@edit')->name('imunisasi.edit');
-                Route::put('/{id}/update', 'ImunisasiController@update')->name('imunisasi.update');
-                Route::delete('/{id}/destroy', 'ImunisasiController@destroy')->name('imunisasi.destroy');
+                Route::get('/{id}/create', 'ImunisasiController@create')->name('imunisasi.create')->middleware('role:operator');
+                Route::post('/{id}/store', 'ImunisasiController@store')->name('imunisasi.store')->middleware('role:operator');
+                Route::get('/{id}/{imunisasi_id}/edit', 'ImunisasiController@edit')->name('imunisasi.edit')->middleware('role:operator,admin');
+                Route::put('/{id}/update', 'ImunisasiController@update')->name('imunisasi.update')->middleware('role:operator,admin');
+                Route::delete('/{id}/destroy', 'ImunisasiController@destroy')->name('imunisasi.destroy')->middleware('role:operator,admin');
             });
 
             Route::prefix('kms')->group(function () {
@@ -105,24 +102,24 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::prefix('lansia')->group(function () {
             Route::get('/', 'LansiaController@index')->name('lansia.index');
-            Route::get('/create', 'LansiaController@create')->name('lansia.create');
-            Route::get('/{id}/edit', 'LansiaController@edit')->name('lansia.edit');
-            Route::post('/store', 'LansiaController@store')->name('lansia.store');
-            Route::put('/{id}/update', 'LansiaController@update')->name('lansia.update');
-            Route::delete('/{id}/destroy', 'LansiaController@destroy')->name('lansia.destroy');
+            Route::get('/create', 'LansiaController@create')->name('lansia.create')->middleware('role:operator');
+            Route::get('/{id}/edit', 'LansiaController@edit')->name('lansia.edit')->middleware('role:operator,admin');
+            Route::post('/store', 'LansiaController@store')->name('lansia.store')->middleware('role:operator');
+            Route::put('/{id}/update', 'LansiaController@update')->name('lansia.update')->middleware('role:operator,admin');
+            Route::delete('/{id}/destroy', 'LansiaController@destroy')->name('lansia.destroy')->middleware('role:operator,admin');
             Route::get('/get-lansia', 'LansiaController@getLansia')->name('getLansia');
 
             Route::prefix('cek-kesehatan')->group(function () {
                 Route::get('/{id}', 'KesehatanLansiaController@index')->name('kesehatan_lansia.index');
-                Route::get('/{id}/create', 'KesehatanLansiaController@create')->name('kesehatan_lansia.create');
-                Route::post('/{id}/store', 'KesehatanLansiaController@store')->name('kesehatan_lansia.store');
-                Route::get('/{id}/{kesehatan_id}/edit', 'KesehatanLansiaController@edit')->name('kesehatan_lansia.edit');
-                Route::put('/{id}/update', 'KesehatanLansiaController@update')->name('kesehatan_lansia.update');
-                Route::delete('/{id}/destroy', 'KesehatanLansiaController@destroy')->name('kesehatan_lansia.destroy');
+                Route::get('/{id}/create', 'KesehatanLansiaController@create')->name('kesehatan_lansia.create')->middleware('role:operator');
+                Route::post('/{id}/store', 'KesehatanLansiaController@store')->name('kesehatan_lansia.store')->middleware('role:operator');
+                Route::get('/{id}/{kesehatan_id}/edit', 'KesehatanLansiaController@edit')->name('kesehatan_lansia.edit')->middleware('role:operator,admin');
+                Route::put('/{id}/update', 'KesehatanLansiaController@update')->name('kesehatan_lansia.update')->middleware('role:operator,admin');
+                Route::delete('/{id}/destroy', 'KesehatanLansiaController@destroy')->name('kesehatan_lansia.destroy')->middleware('role:operator,admin');
             });
         });
 
-        Route::prefix('laporan')->group(function () {
+        Route::prefix('laporan')->middleware('role:admin,viewer')->group(function () {
             Route::get('/', 'LaporanPelayanan@index')->name('laporan.index');
             Route::get('get-report', 'LaporanPelayanan@getReportByMonth')->name('laporan.report');
         });

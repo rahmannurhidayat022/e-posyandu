@@ -27,7 +27,7 @@
                             <div class="modal-body">
                                 <div class="row gap-0 row-gap-3 mb-3">
                                     <h6><b>Identitas Ibu</b></h6>
-                                    <input type="text" value="{{ session('user_information')->posko->id }}" name="posko_id" hidden>
+                                    <input type="text" value="{{ Auth::user()->posko_id }}" name="posko_id" hidden>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label" for="nama">Nama Lengkap</label>
                                         <input id="nama" class="form-control form-sm" name="nama" type="text" value="{{ $anak->nama }}" required>
@@ -47,7 +47,7 @@
                                             <option value="pr" {{ $anak->jenis_kelamin == 'pr' ? 'selected' : ''}}>Perempuan</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-5">
+                                    <div class="col-sm-12 col-md-6 col-lg-4">
                                         <label class="form-label" for="ibu_id">Nama Ibu</label>
                                         <select class="select2 form-control" id="ibu_id" name="ibu_id">
                                         </select>
