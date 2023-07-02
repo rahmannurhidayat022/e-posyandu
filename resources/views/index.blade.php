@@ -26,7 +26,11 @@
                 <!--         <a class="nav-link" href="#">Tenang Kami</a> -->
                 <!--     </li> -->
                 <!-- </ul> -->
+                @if (Auth::check())
+                <a class="btn btn-primary ms-auto" href="{{ route('dashboard.index') }}">Dashboard</a>
+                @else
                 <a class="btn btn-primary ms-auto" href="{{ route('auth.index') }}">Login</a>
+                @endif
             </div>
         </div>
     </nav>
