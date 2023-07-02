@@ -25,8 +25,10 @@
                                     <th>No</th>
                                     <th>No.Layanan</th>
                                     <th>Usia</th>
-                                    <th>Berat Badan</th>
-                                    <th>Tinggi Badan</th>
+                                    <th>BB</th>
+                                    <th>BB Status</th>
+                                    <th>TB</th>
+                                    <th>TB Status</th>
                                     <th>Tanggal</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -60,10 +62,6 @@
                         `<tr>
                             <td>Posko:</td>
                             <td>${d.posko.nama} ${d.posko.rw}</td>
-                        </tr>` +
-                        `<tr>
-                            <td>Petugas Kader:</td>
-                            <td>${d.kader.nama}</td>
                         </tr>` +
                         `<tr>
                             <td>Petugas Kesehatan:</td>
@@ -114,7 +112,36 @@
                                     badgeColor: 'text-bg-warning'
                                 }
                             }
-                            return `<span class="me-1 ${style.textColor}">${data}</span><span class="badge badge-sm rounded-pill ${style.badgeColor}">${row.bb_status.toUpperCase()}</span>`
+                            return `<span class="${style.textColor}">${data}</span>`
+                        }
+                    },
+                    {
+                        name: 'bb_status',
+                        data: 'bb_status',
+                        render: (data, type, row) => {
+                            let style = {}
+                            if (row.bb_status.toLowerCase() === 'normal') {
+                                style = {
+                                    textColor: 'text-success',
+                                    badgeColor: 'text-bg-success'
+                                }
+                            } else if (row.bb_status.toLowerCase() === 'sangat kurang') {
+                                style = {
+                                    textColor: 'text-danger-dark',
+                                    badgeColor: 'text-bg-danger-dark'
+                                }
+                            } else if (row.bb_status.toLowerCase() === 'kurang') {
+                                style = {
+                                    textColor: 'text-danger',
+                                    badgeColor: 'text-bg-danger'
+                                }
+                            } else {
+                                style = {
+                                    textColor: 'text-warning',
+                                    badgeColor: 'text-bg-warning'
+                                }
+                            }
+                            return `<span class="badge badge-sm rounded-pill ${style.badgeColor}">${data.toUpperCase()}</span>`;
                         }
                     },
                     {
@@ -143,8 +170,37 @@
                                     badgeColor: 'text-bg-primary'
                                 }
                             }
-                            return `<span class="me-1 ${style.textColor}">${data}</span><span class="badge badge-sm rounded-pill ${style.badgeColor}">${row.tb_status.toUpperCase()}</span>`
+                            return `<span class="me-1 ${style.textColor}">${data}</span>`
 
+                        }
+                    },
+                    {
+                        data: 'tb_status',
+                        name: 'tb_status',
+                        render: (data, type, row) => {
+                            let style = {};
+                            if (row.tb_status.toLowerCase() === 'normal') {
+                                style = {
+                                    textColor: 'text-success',
+                                    badgeColor: 'text-bg-success'
+                                }
+                            } else if (row.tb_status.toLowerCase() === 'sangat pendek') {
+                                style = {
+                                    textColor: 'text-danger-dark',
+                                    badgeColor: 'text-bg-danger-dark'
+                                }
+                            } else if (row.tb_status.toLowerCase() === 'pendek') {
+                                style = {
+                                    textColor: 'text-danger',
+                                    badgeColor: 'text-bg-danger'
+                                }
+                            } else {
+                                style = {
+                                    textColor: 'text-primary',
+                                    badgeColor: 'text-bg-primary'
+                                }
+                            }
+                            return `<span class="badge badge-sm rounded-pill ${style.badgeColor}">${data.toUpperCase()}</span>`;
                         }
                     },
                     {
@@ -156,21 +212,21 @@
             printConfiguration: {
                 orientation: 'potrait',
                 pageSize: 'A4',
-                columns: [0, 1, 2, 3, 4],
-                filename: 'Laporan Data Penimbangan Anak',
-                title: 'Laporan Data Penimbangan Anak',
+                columns: [1, 2, 3, 4, 5, 6, 7, 8],
+                filename: `Laporan Data Penimbangan {{ $anak->nama }}`,
+                title: `Laporan Data Penimbangan {{ $anak->nama }}`,
             },
             excelConfiguration: {
-                columns: [0, 1, 2, 3, 4],
-                filename: 'Laporan Data Penimbangan Anak',
-                title: 'Laporan Data Penimbangan Anak',
+                columns: [1, 2, 3, 4, 5, 6, 7, 8],
+                filename: `Laporan Data Penimbangan {{ $anak->nama }}`,
+                title: `Laporan Data Penimbangan {{ $anak->nama }}`,
             },
             pdfConfiguration: {
                 orientation: 'potrait',
                 pageSize: 'A4',
-                columns: [1, 2, 3, 4],
-                filename: 'Laporan Data Penimbangan Anak',
-                title: 'Laporan Data Penimbangan Anak',
+                columns: [1, 2, 3, 4, 5, 6, 7, 8],
+                filename: `Laporan Data Penimbangan {{ $anak->nama }}`,
+                title: `Laporan Data Penimbangan {{ $anak->nama }}`,
                 isRt: false,
             },
         })

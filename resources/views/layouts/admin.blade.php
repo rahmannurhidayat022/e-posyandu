@@ -132,8 +132,8 @@
                     <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
                         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
                             <li class="nav-item dropdown d-flex align-items-center">
-                                <span class="fw-bold">@if(session('user_information'))
-                                    {{ session('user_information')->nama }}
+                                <span class="fw-bold">@if(Auth::user()->nama)
+                                    {{ Auth::user()->nama }}
                                     @else
                                     {{ Auth::user()->username }}
                                     @endif</span>
@@ -200,7 +200,7 @@
                 pdfConfiguration
             }) => {
                 const table = $(`#${tableConfiguration.container}`).DataTable({
-                    dom: '<"btn-group w-100 mb-3" B>lfrtip',
+                    dom: tableConfiguration.hiddenTools ? '' : '<"w-100 mb-3" B>lfrtip',
                     buttons: [{
                             text: '<i class="ti ti-pencil-plus fs-4"></i>',
                             className: function() {
@@ -230,7 +230,7 @@
                         },
                         {
                             text: '<i class="ti ti-printer fs-4"></i>',
-                            className: 'btn btn-secondary',
+                            className: `btn btn-secondary ${tableConfiguration.hiddenExportButton ? 'd-none' : ''}`,
                             attr: {
                                 'title': 'Print Data'
                             },
@@ -257,7 +257,7 @@
                         },
                         {
                             text: '<i class="ti ti-file-spreadsheet fs-4"></i>',
-                            className: 'btn btn-secondary',
+                            className: `btn btn-secondary ${tableConfiguration.hiddenExportButton ? 'd-none' : ''}`,
                             extend: 'excelHtml5',
                             attr: {
                                 'title': 'Export Excel'
@@ -272,7 +272,7 @@
                         },
                         {
                             text: '<i class="ti ti-file-lambda fs-4"></i>',
-                            className: 'btn btn-secondary',
+                            className: `btn btn-secondary ${tableConfiguration.hiddenExportButton ? 'd-none' : ''}`,
                             extend: 'pdfHtml5',
                             attr: {
                                 'title': 'Export PDF'
@@ -299,7 +299,6 @@
                             customize: function(doc) {
                                 doc.defaultStyle.tableWidth = 'auto';
                                 doc.styles.tableHeader.alignment = 'left';
-                                doc.content[0].text = '';
                                 doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
                             }
                         },

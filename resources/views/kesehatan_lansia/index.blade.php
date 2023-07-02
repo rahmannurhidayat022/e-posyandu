@@ -50,7 +50,7 @@
                 editPageUrl: '/lansia/cek-kesehatan/{lansia_id}/{id}/edit',
                 isChild: true,
                 deleteActionUrl: '/lansia/cek-kesehatan/{id}/destroy',
-                isNumber: true,
+                isNumber: false,
                 formatChildRow: function(d) {
                     return (
                         '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
@@ -111,21 +111,21 @@
             printConfiguration: {
                 orientation: 'potrait',
                 pageSize: 'A4',
-                columns: [0, 1, 2, 3, 4],
-                filename: 'Laporan Data Penimbangan Anak',
-                title: 'Laporan Data Penimbangan Anak',
+                columns: [1, 2, 3, 4, 5, 6, 7],
+                filename: `Laporan Kesehatan Lansia {{ $lansia->nama }}`,
+                title: `Laporan Kesehatan Lansia {{ $lansia->nama }}`,
             },
             excelConfiguration: {
-                columns: [0, 1, 2, 3, 4],
-                filename: 'Laporan Data Penimbangan Anak',
-                title: 'Laporan Data Penimbangan Anak',
+                columns: [1, 2, 3, 4, 5, 6, 7],
+                filename: `Laporan Kesehatan Lansia {{ $lansia->nama }}`,
+                title: `Laporan Kesehatan Lansia {{ $lansia->nama }}`,
             },
             pdfConfiguration: {
                 orientation: 'potrait',
                 pageSize: 'A4',
-                columns: [1, 2, 3, 4],
-                filename: 'Laporan Data Penimbangan Anak',
-                title: 'Laporan Data Penimbangan Anak',
+                columns: [1, 2, 3, 4, 5, 6, 7],
+                filename: `Laporan Kesehatan Lansia {{ $lansia->nama }}`,
+                title: `Laporan Kesehatan Lansia {{ $lansia->nama }}`,
                 isRt: false,
             },
         })

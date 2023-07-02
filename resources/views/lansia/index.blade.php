@@ -82,12 +82,12 @@
             printConfiguration: {
                 orientation: 'potrait',
                 pageSize: 'A4',
-                columns: [0, 1, 2, 3, 4],
+                columns: [1, 2, 3, 4],
                 filename: 'Laporan Data Lansia',
                 title: 'Laporan Data Lansia',
             },
             excelConfiguration: {
-                columns: [0, 1, 2, 3, 4],
+                columns: [1, 2, 3, 4],
                 filename: 'Laporan Data Lansia',
                 title: 'Laporan Data Lansia',
             },

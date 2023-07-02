@@ -42,6 +42,8 @@
                 isNumber: false,
                 isKesehatanLansia: true,
                 isAksi: false,
+                hiddenExportButton: true,
+                hiddenTools: true,
                 columns: [{
                         data: 'laporan',
                         name: 'laporan',

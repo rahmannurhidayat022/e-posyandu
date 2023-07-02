@@ -26,7 +26,7 @@
                             <div class="modal-body">
                                 <div class="row gap-0 row-gap-3 mb-3">
                                     <h6><b>Identitas Anak</b></h6>
-                                    <input type="text" value="{{ session('user_information')->posko->id }}" name="posko_id" hidden>
+                                    <input type="text" value="{{ Auth::user()->posko_id }}" name="posko_id" hidden>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label" for="nama">Nama Lengkap</label>
                                         <input id="nama" class="form-control form-sm" name="nama" type="text" value="{{ old('nama') }}" required>

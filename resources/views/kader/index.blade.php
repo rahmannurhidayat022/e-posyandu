@@ -17,6 +17,7 @@
                                     <th>Nama</th>
                                     <th>NIK</th>
                                     <th>Posko</th>
+                                    <th>RW</th>
                                     <th>Telepon</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -72,7 +73,14 @@
                         data: 'posko.nama',
                         name: 'posko.nama',
                         render: (data, type, row) => {
-                            return `<span class="badge badge-sm rounded-pill text-bg-info text-uppercase">${data}</span> <span class="badge badge-sm rounded-pill text-bg-info">RW ${row.posko.rw}</span>`;
+                            return `<span class="badge badge-sm rounded-pill text-bg-info text-uppercase">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: 'posko.rw',
+                        name: 'posko.rw',
+                        render: (data, type, row) => {
+                            return `<span class="badge badge-sm rounded-pill text-bg-info">RW ${data}</span>`;
                         }
                     },
                     {
@@ -84,19 +92,19 @@
             printConfiguration: {
                 orientation: 'potrait',
                 pageSize: 'A4',
-                columns: [0, 1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5, 6],
                 filename: 'Laporan Data Kader',
                 title: 'Laporan Data Kader',
             },
             excelConfiguration: {
-                columns: [0, 1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5, 6],
                 filename: 'Laporan Data Kader',
                 title: 'Laporan Data Kader',
             },
             pdfConfiguration: {
                 orientation: 'potrait',
                 pageSize: 'A4',
-                columns: [1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5, 6],
                 filename: 'Laporan Data Kader',
                 title: 'Laporan Data Kader',
                 isRt: false,

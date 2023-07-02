@@ -29,7 +29,7 @@
                                 <div class="row gap-0 row-gap-3 mb-3">
                                     <h6><b>Penimbangan</b></h6>
                                     <input type="text" value="{{ $id }}" name="lansia_id" hidden>
-                                    <input type="text" value="{{ session('user_information')->posko->id }}" name="posko_id" hidden>
+                                    <input type="text" value="{{ Auth::user()->posko_id }}" name="posko_id" hidden>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label" for="bb">Berat Badan (Kg)</label>
                                         <input id="bb" class="form-control form-sm" name="bb" type="number" value="{{ $kesehatan->bb }}" step="0.1" required>

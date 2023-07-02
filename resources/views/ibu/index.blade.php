@@ -89,19 +89,19 @@
             printConfiguration: {
                 orientation: 'potrait',
                 pageSize: 'A4',
-                columns: [0, 1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5, 6],
                 filename: 'Laporan Data Ibu',
                 title: 'Laporan Data Ibu',
             },
             excelConfiguration: {
-                columns: [0, 1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5, 6],
                 filename: 'Laporan Data Ibu',
                 title: 'Laporan Data Ibu',
             },
             pdfConfiguration: {
                 orientation: 'potrait',
                 pageSize: 'A4',
-                columns: [1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5, 6],
                 filename: 'Laporan Data Ibu',
                 title: 'Laporan Data Ibu',
                 isRt: false,

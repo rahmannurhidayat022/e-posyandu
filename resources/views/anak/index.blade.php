@@ -1,5 +1,5 @@
 @extends("layouts.admin")
-@section("title", "Data Anak")
+@section("title", "Penimbangan Anak")
 
 @section("content")
 <section>
@@ -14,6 +14,7 @@
                                 <tr>
                                     <th></th>
                                     <th>No</th>
+                                    <th>NIK</th>
                                     <th>Nama</th>
                                     <th>Ibu</th>
                                     <th>Tanggal Lahir</th>
@@ -41,10 +42,10 @@
                 editPageUrl: '/kesehatan-anak/{id}/edit',
                 isChild: true,
                 deleteActionUrl: '/kesehatan-anak/{id}/destroy',
-                isNumber: true,
+                isNumber: false,
                 isImunisasi: true,
                 filters: {
-                    posko_id: "{{ session('user_information')->posko->id ?? null }}"
+                    posko_id: "{{ Auth::user()->posko_id ?? null }}"
                 },
                 isPenimbanganAction: true,
                 formatChildRow: function(d) {
@@ -64,6 +65,10 @@
                     );
                 },
                 columns: [{
+                        data: 'nik',
+                        name: 'nik',
+                    },
+                    {
                         data: 'nama',
                         name: 'nama'
                     },
@@ -87,19 +92,19 @@
             printConfiguration: {
                 orientation: 'potrait',
                 pageSize: 'A4',
-                columns: [0, 1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5, 6],
                 filename: 'Laporan Data Anak',
                 title: 'Laporan Data Anak',
             },
             excelConfiguration: {
-                columns: [0, 1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5, 6],
                 filename: 'Laporan Data Anak',
                 title: 'Laporan Data Anak',
             },
             pdfConfiguration: {
                 orientation: 'potrait',
                 pageSize: 'A4',
-                columns: [1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5, 6],
                 filename: 'Laporan Data Anak',
                 title: 'Laporan Data Anak',
                 isRt: false,

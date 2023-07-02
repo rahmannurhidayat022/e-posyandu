@@ -48,7 +48,7 @@
                 ageLimit: '{{ $limit }}',
                 isChild: true,
                 deleteActionUrl: '/kesehatan-anak/imunisasi/{id}/destroy',
-                isNumber: true,
+                isNumber: false,
                 // kmsPageUrl: '{{ $is_kms }}' && '/kesehatan-anak/kms/{{ $id }}',
                 formatChildRow: function(d) {
                     return (
@@ -93,21 +93,21 @@
             printConfiguration: {
                 orientation: 'potrait',
                 pageSize: 'A4',
-                columns: [0, 1, 2, 3, 4],
-                filename: 'Laporan Data Imunisasi Anak',
-                title: 'Laporan Data Imunisasi Anak',
+                columns: [1, 2, 3, 4],
+                filename: `Laporan Data Imunisasi {{ $anak->nama }}`,
+                title: `Laporan Data Imunisasi {{ $anak->nama }}`,
             },
             excelConfiguration: {
-                columns: [0, 1, 2, 3, 4],
-                filename: 'Laporan Data Imunisasi Anak',
-                title: 'Laporan Data Imunisasi Anak',
+                columns: [1, 2, 3, 4],
+                filename: `Laporan Data Imunisasi {{ $anak->nama }}`,
+                title: `Laporan Data Imunisasi {{ $anak->nama }}`,
             },
             pdfConfiguration: {
                 orientation: 'potrait',
                 pageSize: 'A4',
                 columns: [1, 2, 3, 4],
-                filename: 'Laporan Data Imunisasi Anak',
-                title: 'Laporan Data Imunisasi Anak',
+                filename: `Laporan Data Imunisasi {{ $anak->nama }}`,
+                title: `Laporan Data Imunisasi {{ $anak->nama }}`,
                 isRt: false,
             },
         })
