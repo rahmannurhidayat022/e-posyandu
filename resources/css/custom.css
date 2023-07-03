@@ -152,3 +152,8 @@
 .dropdown-item.disabled {
     opacity: .5;
 }
+
+.card-title span {
+    opacity: .5;
+    font-size: 14px;
+}

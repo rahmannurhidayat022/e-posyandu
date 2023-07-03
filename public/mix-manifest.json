@@ -5,9 +5,8 @@
     "/assets/images/403.png": "/assets/images/403.png",
     "/assets/images/404.png": "/assets/images/404.png",
     "/assets/images/bg-hero.png": "/assets/images/bg-hero.png",
+    "/assets/images/child.png": "/assets/images/child.png",
     "/assets/images/family-icon.svg": "/assets/images/family-icon.svg",
-    "/assets/images/posyandu.png": "/assets/images/posyandu.png",
-    "/assets/images/posyandu_full.png": "/assets/images/posyandu_full.png",
     "/assets/images/gallery-01.jpg": "/assets/images/gallery-01.jpg",
     "/assets/images/gallery-02.jpg": "/assets/images/gallery-02.jpg",
     "/assets/images/gallery-03.jpg": "/assets/images/gallery-03.jpg",
@@ -19,5 +18,7 @@
     "/assets/images/gallery-09.jpg": "/assets/images/gallery-09.jpg",
     "/assets/images/gallery-10.jpg": "/assets/images/gallery-10.jpg",
     "/assets/images/gallery-11.jpg": "/assets/images/gallery-11.jpg",
-    "/assets/images/gallery-12.jpg": "/assets/images/gallery-12.jpg"
+    "/assets/images/gallery-12.jpg": "/assets/images/gallery-12.jpg",
+    "/assets/images/posyandu.png": "/assets/images/posyandu.png",
+    "/assets/images/posyandu_full.png": "/assets/images/posyandu_full.png"
 }
