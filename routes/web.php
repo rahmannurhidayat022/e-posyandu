@@ -123,5 +123,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/', 'LaporanPelayanan@index')->name('laporan.index');
             Route::get('get-report', 'LaporanPelayanan@getReportByMonth')->name('laporan.report');
         });
+
+        Route::prefix('gallery')->group(function () {
+            Route::get('/', 'GalleryController@index')->name('gallery.index');
+            Route::get('/create', 'GalleryController@add')->name('gallery.add');
+            Route::get('/{id}/edit', 'GalleryController@edit')->name('gallery.edit');
+            Route::post('/store', 'GalleryController@store')->name('gallery.store');
+            Route::put('/{id}/update', 'GalleryController@update')->name('gallery.update');
+            Route::delete('/{id}/destroy', 'GalleryController@destroy')->name('gallery.destroy');
+        });
     });
 });

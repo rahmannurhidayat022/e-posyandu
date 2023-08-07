@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <nav class="sidebar-nav scroll-sidebar" data-simplebar="" style="overflow-y: auto;">
-                    <ul id="sidebarnav">
+                    <ul id="sidebarnav" class="pb-5">
                         <li class="nav-small-cap m-0 p-0 d-flex justify-content-center">
                             <span class="badge badge-sm rounded-pill text-bg-info">
                                 {!! Auth::user()->role !!}
@@ -358,10 +358,15 @@
                                 }
 
 
-                                const editUrl = replaceStringWithObjectValues(tableConfiguration.editPageUrl, row);
                                 const deleteUrl = replaceStringWithObjectValues(tableConfiguration.deleteActionUrl, row);
+
+                                if (tableConfiguration?.editPageUrl) {
+                                    const editUrl = replaceStringWithObjectValues(tableConfiguration.editPageUrl, row);
+                                    html += `
+<li><a class="dropdown-item ${"{{ Auth::user()->role }}" === "viewer" ? 'disabled' : ''}" href="${editUrl}"><i class="ti ti-edit"></i> Edit</a></li>
+`
+                                }
                                 html += `
-                                        <li><a class="dropdown-item ${"{{ Auth::user()->role }}" === "viewer" ? 'disabled' : ''}" href="${editUrl}"><i class="ti ti-edit"></i> Edit</a></li>
                                         <li><button type="button" class="dropdown-item ${"{{ Auth::user()->role }}" === "viewer" ? 'disabled' : ''}" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal" onclick="confirmAlert({ formId: 'form-delete', deleteUrl: '${deleteUrl}' })"><i class="ti ti-trash"></i> Delete</button></li>
                                         `
 
