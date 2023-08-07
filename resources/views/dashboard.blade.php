@@ -125,7 +125,7 @@
                                     @endforeach
                                     @else
                                     <tr>
-                                        <td colspan="2" class="text-center">Data kosong</td>
+                                        <td colspan="3" class="text-center">Data kosong</td>
                                     </tr>
                                     @endif
                                 </tbody>
