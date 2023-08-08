@@ -1,165 +1,165 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <title>Posyandu Kebon Jayanti</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/posyandu.png') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/landing.css') }}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery.min.css" integrity="sha512-F2E+YYE1gkt0T5TVajAslgDfTEUQKtlu4ralVq78ViNxhKXQLrgQLLie8u1tVdG2vWnB3ute4hcdbiBtvJQh0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery-bundle.min.css" integrity="sha512-nUqPe0+ak577sKSMThGcKJauRI7ENhKC2FQAOOmdyCYSrUh0GnwLsZNYqwilpMmplN+3nO3zso8CWUgu33BDag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-
-<body>
-    <nav class="navbar navbar-expand-lg shadow-sm">
-        <div class="container">
-            <a href="{{ route('home.index') }}" class="text-nowrap logo-img">
-                <img src="{{ asset('assets/images/posyandu.png') }}" width="50" alt="logo posyandu" />
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-lg-flex gap-2"> -->
-                <!--     <li class="nav-item"> -->
-                <!--         <a class="nav-link" href="#">Tenang Kami</a> -->
-                <!--     </li> -->
-                <!-- </ul> -->
-                @if (Auth::check())
-                <a class="btn btn-primary ms-auto" href="{{ route('dashboard.index') }}">Dashboard</a>
-                @else
-                <a class="btn btn-primary ms-auto" href="{{ route('auth.index') }}">Login</a>
-                @endif
+@extends('layouts.landing')
+@section('content')
+<section>
+    <div class="container">
+        <div class="row py-5">
+            <div class="col-12 col-md-5 d-flex align-items-center mb-4 mb-md-0">
+                <img class="d-block mx-auto" src="{{ asset('assets/images/family-icon.svg') }}" alt="family icon">
             </div>
-        </div>
-    </nav>
-    <main>
-        <section>
-            <div class="container">
-                <div class="row py-5">
-                    <div class="col-12 col-md-5 d-flex align-items-center mb-4 mb-md-0">
-                        <img class="d-block mx-auto" src="{{ asset('assets/images/family-icon.svg') }}" alt="family icon">
+            <div class="col-12 col-md-7">
+                <h4 class="text-uppercase mb-4 text-primary">Posyandu Kelurahan Kebon Jayanti</h4>
+                <div class="card" style="border: none">
+                    <div class="card-header" style="border: none">
+                        <h6 class="card-title text-uppercase"><i class="bi bi-clipboard2-pulse fs-4 me-1"></i> Cek perkembangan anak</h6>
                     </div>
-                    <div class="col-12 col-md-7">
-                        <h4 class="text-uppercase mb-4 text-primary">Posyandu Kelurahan Kebon Jayanti</h4>
-                        <div class="card" style="border: none">
-                            <div class="card-header" style="border: none">
-                                <h6 class="card-title text-uppercase"><i class="bi bi-clipboard2-pulse fs-4 me-1"></i> Cek perkembangan anak</h6>
-                            </div>
-                            <div class="card-body">
-                                <form action="{{ route('home.index') }}" method="GET">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="nik">NIK / Nama Lengkap</label>
-                                        <div class="d-flex gap-1 flex-nowrap">
-                                            <input type="text" class="form-control" id="nik" name="search">
-                                            <button type="reset" class="btn btn-sm btn-danger"><i class="bi bi-x fs-5"></i></button>
-                                            <button type="submit" class="btn btn-sm btn-primary">Cari</button>
-                                        </div>
-                                        <sub class="text-info">**rekomendasi menggunakan NIK agar lebih akurat</sub>
-                                    </div>
-                                </form>
-                                @if (session('error'))
-                                <p class="mb-1">Hasil:</p>
-                                <div class="alert alert-danger">Data tidak ditemukan.</div>
-                                @endif
-                                @if (session('success'))
-                                <label class="form-label mb-1">Hasil:</label>
-                                <div classs="table-responsive">
-                                    <table class="table table-striped table-sm">
-                                        <thead>
-                                            <tr>
-                                                <th>NIK</th>
-                                                <th>Nama</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach(session('success') as $item)
-                                            <tr>
-                                                <td>{{ $item->nik }}</td>
-                                                <td>{{ $item->nama }}</td>
-                                                <td>
-                                                    <a href="{{ route('home.kms', $item->id) }}" class="btn btn-sm btn-outline-primary">KMS</a>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                    <div class="pagination">
-                                        {{ session('success')->links() }}
-                                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('home.index') }}" method="GET">
+                            <div class="mb-3">
+                                <label class="form-label" for="nik">NIK / Nama Lengkap</label>
+                                <div class="d-flex gap-1 flex-nowrap">
+                                    <input type="text" class="form-control" id="nik" name="search">
+                                    <button type="reset" class="btn btn-sm btn-danger"><i class="bi bi-x fs-5"></i></button>
+                                    <button type="submit" class="btn btn-sm btn-primary">Cari</button>
                                 </div>
-                                @endif
+                                <sub class="text-info">**rekomendasi menggunakan NIK agar lebih akurat</sub>
+                            </div>
+                        </form>
+                        @if (session('error'))
+                        <p class="mb-1">Hasil:</p>
+                        <div class="alert alert-danger">Data tidak ditemukan.</div>
+                        @endif
+                        @if (session('success'))
+                        <label class="form-label mb-1">Hasil:</label>
+                        <div classs="table-responsive">
+                            <table class="table table-striped table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>NIK</th>
+                                        <th>Nama</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(session('success') as $item)
+                                    <tr>
+                                        <td>{{ $item->nama }}</td>
+                                        <td>
+                                            <a href="{{ route('home.kms', $item->id) }}" class="btn btn-sm btn-outline-primary">KMS</a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <div class="pagination">
+                                {{ session('success')->links() }}
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
-        </section>
-        <section id="about">
-            <div class="container">
-                <div class="mb-5">
-                    <h4 class="text-uppercase my-4 text-primary text-center">Tentang Kami</h4>
-                    <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <div class="d-flex gap-1 gap-md-4 flex-column flex-md-row justify-content-center">
-                        <a href="tel:+0227333054" class="nav-link text-info d-flex align-items-center justify-content-center gap-1">
-                            <i class="bi bi-telephone fs-5 me-1"></i>
-                            (022) 7333054
-                        </a>
-                        <a href="mailto:kebonjayantikirconbdg@gmail.com" class="nav-link text-info d-flex align-items-center justify-content-center gap-1">
-                            <i class="bi bi-envelope fs-5 me-1"></i>
-                            kebonjayantikirconbdg@gmail.com
-                        </a>
+        </div>
+    </div>
+</section>
+<section id="about" class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-7">
+                <h4 class="text-uppercase my-4 text-primary">Tentang Posyandu</h4>
+                <p>
+                    Posyandu di Kelurahan Kebon Jayanti adalah sebuah pusat pelayanan kesehatan masyarakat yang memberikan layanan kesehatan dasar kepada anak-anak, dan lansia. Posyandu merupakan singkatan dari Pos Pelayanan Terpadu, yang merupakan program yang dikembangkan oleh Kementerian Kesehatan Indonesia.
+                </p>
+                <p>Tujuan dari Posyandu di Kelurahan Kebon Jayanti adalah untuk meningkatkan kesehatan dan kesejahteraan masyarakat melalui pelayanan kesehatan, edukasi, dan pemantauan kondisi kesehatan anggota masyarakat.</p>
+                <div class="d-flex flex-column gap-2 mb-4">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-scale-unbalanced"></i>
+                        <span class="">Penimbangan Gizi Anak</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-syringe"></i>
+                        <span class="">Imunisasi Anak</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-stethoscope"></i>
+                        <span class="">Kesehatan Lansia</span>
                     </div>
                 </div>
+                <!-- <div class="d-flex gap-1 gap-md-4 flex-column flex-md-row align-items-center"> -->
+                <!--     <a href="tel:+0227333054" class="nav-link text-info d-flex align-items-center justify-content-center gap-1"> -->
+                <!--         <i class="bi bi-telephone fs-5 me-1"></i> -->
+                <!--         (022) 7333054 -->
+                <!--     </a> -->
+                <!--     <a href="mailto:kebonjayantikirconbdg@gmail.com" class="nav-link text-info d-flex align-items-center justify-content-center gap-1"> -->
+                <!--         <i class="bi bi-envelope fs-5 me-1"></i> -->
+                <!--         kebonjayantikirconbdg@gmail.com -->
+                <!--     </a> -->
+                <!-- </div> -->
             </div>
-        </section>
-        <section id="gallery">
-            <div class="container">
-                <div class="gallery">
-                    <div class="gallery-item">
-                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-01.jpg') }}" alt="gallery-01">
-                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-02.jpg') }}" alt="gallery-02">
-                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-03.jpg') }}" alt="gallery-03">
-                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-10.jpg') }}" alt="gallery-10">
-                    </div>
-                    <div class="gallery-item">
-                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-04.jpg') }}" alt="gallery-04">
-                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-05.jpg') }}" alt="gallery-05">
-                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-06.jpg') }}" alt="gallery-06">
-                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-11.jpg') }}" alt="gallery-11">
-                    </div>
-                    <div class="gallery-item">
-                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-07.jpg') }}" alt="gallery-07">
-                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-08.jpg') }}" alt="gallery-08">
-                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-09.jpg') }}" alt="gallery-09">
-                        <img class="fluidbox-item" src="{{ asset('assets/images/gallery-12.jpg') }}" alt="gallery-12">
-                    </div>
+            <div class="col-12 col-md-5">
+                <div class="w-100 h-100 d-flex justify-content-center justify-content-md-end align-items-center overflow-hidden">
+                    <img class="img-fluid" width="250" src="{{ asset('assets/images/posyandu.png') }}">
                 </div>
             </div>
-        </section>
-    </main>
-    <footer class="text-center my-4">
-        © 2023 - <strong>E-Posyandu Kebon Jayanti
-    </footer>
-    <script src="{{ asset('assets/js/app.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js" integrity="sha512-dSI4QnNeaXiNEjX2N8bkb16B7aMu/8SI5/rE6NIa3Hr/HnWUO+EAZpizN2JQJrXuvU7z0HTgpBVk/sfGd0oW+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const gallery = document.querySelector('.gallery');
-
-            lightGallery(gallery, {
-                selector: '.fluidbox-item',
-                download: false,
-                counter: false,
-                share: false,
-                thumbnail: true
-            });
-        });
-    </script>
-</body>
-
-</html>
+            <!-- <div class="col-12"> -->
+            <!--     <div class="d-flex justify-content-center align-items-center gap-3 px-2 mt-5"> -->
+            <!--         <div class="card" style="width: 100%; max-width: 200px; min-height: 170px"> -->
+            <!--             <div class="card-body d-flex flex-column align-items-center justify-content-center gap-3"> -->
+            <!--                 <i class="fa-solid fa-scale-unbalanced" style="font-size: 55px"></i> -->
+            <!--                 <p class="text-center h6">Penimbangan Gizi Anak</p> -->
+            <!--             </div> -->
+            <!--         </div> -->
+            <!--         <div class="card" style="width: 100%; max-width: 200px; min-height: 170px"> -->
+            <!--             <div class="card-body">HII</div> -->
+            <!--         </div> -->
+            <!--         <div class="card" style="width: 100%; max-width: 200px; min-height: 170px"> -->
+            <!--             <div class="card-body">HII</div> -->
+            <!--         </div> -->
+            <!--     </div> -->
+            <!-- </div> -->
+        </div>
+    </div>
+</section>
+<section id="gallery" class="py-5">
+    <div class="container">
+        <h4 class="text-uppercase my-4 text-primary">Galeri Posyandu</h4>
+        <div class="row g-2 mb-3">
+            @foreach($galleries as $item)
+            <div class="col-12 col-md-4">
+                <div class="w-100 overflow-hidden">
+                    <img class="fluidbox-item" src="{{ asset('storage/gallery/' . $item->image) }}" alt="{{ $item->image }}" style="width: 100%; height: 270px; object-fit: cover; object-position: center; cursor: pointer;">
+                </div>
+            </div>
+            @endforeach
+        </div>
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-outline-primary" href="{{ route('galeri') }}">
+                Selengkapnya
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+<section id="article" class="py-5 bg-light">
+    <div class="container">
+        <h4 class="text-uppercase my-4 text-primary">Artikel</h4>
+        <div class="row g-2 mb-3">
+            @foreach($articles as $item)
+            <div class="col-12 col-md-3">
+                <a href="/artikel/{{ $item->slug }}" class="nav-link">
+                    <div class="w-100 overflow-hidden">
+                        <img class="fluidbox-item" src="{{ asset('storage/article/' . $item->image) }}" alt="{{ $item->image }}" style="width: 100%; height: 170px; object-fit: cover; object-position: center; cursor: pointer;">
+                    </div>
+                    <h5 class="h6 mt-2">{{ $item->title }}</h5>
+                </a>
+            </div>
+            @endforeach
+        </div>
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-outline-primary" href="{{ route('artikel') }}">
+                Selengkapnya
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+@endsection

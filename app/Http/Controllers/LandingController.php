@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Anak;
 use App\Models\Antropometri;
+use App\Models\Article;
+use App\Models\Gallery;
 use App\Models\PenimbanganAnak;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -23,7 +25,11 @@ class LandingController extends Controller
 
             return redirect()->back()->with('success', $data);
         }
-        return view('index');
+
+        $galleries = Gallery::limit(6)->get();
+        $articles = Article::limit(4)->get();
+
+        return view('index', compact('galleries'), compact('articles'));
     }
 
     public function kms(Request $request, $id)

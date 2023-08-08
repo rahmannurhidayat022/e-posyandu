@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/', "LandingController@index")->name("home.index");
     Route::get('/kms/{id}', "LandingController@kms")->name("home.kms");
+    Route::get('/artikel', 'ArticleController@publicArticle')->name('artikel');
+    Route::get('/galeri', 'GalleryController@publicGallery')->name('galeri');
+    Route::get('/artikel/{slug}', 'ArticleController@publicArticleDetail')->name('artikel_detail');
     Route::fallback(function () {
         return response()->view('errors.404', [], 404);
     });
@@ -131,6 +134,16 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('/store', 'GalleryController@store')->name('gallery.store');
             Route::put('/{id}/update', 'GalleryController@update')->name('gallery.update');
             Route::delete('/{id}/destroy', 'GalleryController@destroy')->name('gallery.destroy');
+        });
+
+        Route::prefix('article')->group(function () {
+            Route::get('/', 'ArticleController@index')->name('article.index');
+            Route::get('/create', 'ArticleController@create')->name('article.add');
+            Route::get('/{id}/edit', 'ArticleController@edit')->name('article.edit');
+            Route::get('/{id}/preview', 'ArticleController@preview')->name('article.preview');
+            Route::post('/store', 'ArticleController@store')->name('article.store');
+            Route::put('/{id}/update', 'ArticleController@update')->name('article.update');
+            Route::delete('/{id}/destroy', 'ArticleController@destroy')->name('article.destroy');
         });
     });
 });

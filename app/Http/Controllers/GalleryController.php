@@ -14,6 +14,12 @@ class GalleryController extends Controller
 {
     protected $path = 'gallery/';
 
+    public function publicGallery()
+    {
+        $galleries = Gallery::paginate(9);
+        return view('galeri', compact('galleries'));
+    }
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
