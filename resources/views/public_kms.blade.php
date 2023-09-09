@@ -15,14 +15,14 @@
 </head>
 
 <body>
-    <section class="container">
+    <section>
         <div class="row">
             <div class="col-12">
-                <div class="card" style="border: none;">
+                <div class="card">
                     <div class="card-body">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb mb-4">
-                                <li class="breadcrumb-item"><a href="{{ route('home.index', $id) }}">Beranda</a></li>
+                                <li class="breadcrumb-item"><a href="{{ route('penimbangan.index', $id) }}">Penimbangan Anak</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">KMS Online</li>
                             </ol>
                         </nav>
@@ -50,7 +50,31 @@
                                         <td>Berat Badan:</td>
                                         <td>
                                             <b>{{ $latest->bb }} Kg</b><br>
-                                            {{ $latest->bb_status }}<br>
+                                            @php
+                                            $style = [];
+                                            if (strtolower($latest->bb_status) === 'normal') {
+                                            $style = [
+                                            'textColor' => 'text-success',
+                                            'badgeColor' => 'text-bg-success'
+                                            ];
+                                            } elseif (strtolower($latest->bb_status) === 'sangat kurang') {
+                                            $style = [
+                                            'textColor' => 'text-danger-dark',
+                                            'badgeColor' => 'text-bg-danger-dark'
+                                            ];
+                                            } elseif (strtolower($latest->bb_status) === 'kurang') {
+                                            $style = [
+                                            'textColor' => 'text-danger',
+                                            'badgeColor' => 'text-bg-danger'
+                                            ];
+                                            } else {
+                                            $style = [
+                                            'textColor' => 'text-warning',
+                                            'badgeColor' => 'text-bg-warning'
+                                            ];
+                                            }
+                                            @endphp
+                                            <span class="badge badge-sm rounded-pill {{ $style['badgeColor'] }}">{{ strtoupper($latest->bb_status) }}</span><br>
                                             {{ $latest->bb_status !== 'Normal' ? 'Berat ideal antara '.$antropometri_bb->minus_2_sd.' - '.$antropometri_bb->plus_1_sd.' Kg' : ''}}
                                         </td>
                                     </tr>
@@ -58,7 +82,31 @@
                                         <td>Tinggi Badan:</td>
                                         <td>
                                             <b>{{ $latest->tb }} Cm</b><br>
-                                            {{ $latest->tb_status}}<br>
+                                            @php
+                                            $style = [];
+                                            if (strtolower($latest->tb_status) === 'normal') {
+                                            $style = [
+                                            'textColor' => 'text-success',
+                                            'badgeColor' => 'text-bg-success'
+                                            ];
+                                            } elseif (strtolower($latest->tb_status) === 'sangat pendek') {
+                                            $style = [
+                                            'textColor' => 'text-danger-dark',
+                                            'badgeColor' => 'text-bg-danger-dark'
+                                            ];
+                                            } elseif (strtolower($latest->tb_status) === 'pendek') {
+                                            $style = [
+                                            'textColor' => 'text-danger',
+                                            'badgeColor' => 'text-bg-danger'
+                                            ];
+                                            } else {
+                                            $style = [
+                                            'textColor' => 'text-primary',
+                                            'badgeColor' => 'text-bg-primary'
+                                            ];
+                                            }
+                                            @endphp
+                                            <span class="badge badge-sm rounded-pill {{ $style['badgeColor'] }}">{{ strtoupper($latest->tb_status) }}</span><br>
                                             @if ($latest->tb_status !== 'Normal' && $latest->tb_status !== 'Tinggi')
                                             Tinggi ideal antara {{ $antropometri_tb->minus_2_sd }} - {{ $antropometri_tb->plus_3_sd }} Cm
                                             @endif
@@ -76,7 +124,16 @@
                             </table>
                             <small><i>* Umur 16 hari keatas akan dibulatkan menjadi 1 bulan</i></small>
                         </div>
-                        <div class="row">
+                        <div class="">
+                            <p class="mb-2"><strong>Lihat KMS dalam bentuk:</strong></p>
+                            <div class="d-flex justify-content-start">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button id="button-graphic" type="button" class="btn btn-primary" onclick="changeKmsMode('graphic')">Grafik</button>
+                                    <button id="button-table" type="button" class="btn btn-secondary" onclick="changeKmsMode('table')">Tabel</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="graphic" class="row">
                             <div class="col-12 mt-5">
                                 <figure id="weight-container"></figure>
                             </div>
@@ -86,6 +143,87 @@
                                     <small><i>* usia < 24 bulan menggunakan panjang badan</i></small>
                                 </div>
                             </div>
+                        </div>
+                        <div id="table" class="d-none">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Usia</th>
+                                            <th>Berat Badan</th>
+                                            <th>Status Berat Badan</th>
+                                            <th>Tinggi Badan</th>
+                                            <th>Status Tinggi Badan</th>
+                                            <th>Tanggal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($histories as $history)
+                                        <tr>
+                                            <td>{{ $history->usia }}</td>
+                                            <td>{{ $history->bb }}</td>
+                                            <td>
+                                                @php
+                                                $style = [];
+                                                if (strtolower($history->bb_status) === 'normal') {
+                                                $style = [
+                                                'textColor' => 'text-success',
+                                                'badgeColor' => 'text-bg-success'
+                                                ];
+                                                } elseif (strtolower($history->bb_status) === 'sangat kurang') {
+                                                $style = [
+                                                'textColor' => 'text-danger-dark',
+                                                'badgeColor' => 'text-bg-danger-dark'
+                                                ];
+                                                } elseif (strtolower($history->bb_status) === 'kurang') {
+                                                $style = [
+                                                'textColor' => 'text-danger',
+                                                'badgeColor' => 'text-bg-danger'
+                                                ];
+                                                } else {
+                                                $style = [
+                                                'textColor' => 'text-warning',
+                                                'badgeColor' => 'text-bg-warning'
+                                                ];
+                                                }
+                                                @endphp
+                                                <span class="badge badge-sm rounded-pill {{ $style['badgeColor'] }}">{{ strtoupper($history->bb_status) }}</span>
+                                            </td>
+                                            <td>{{ $history->tb }}</td>
+                                            <td>
+                                                @php
+                                                $style = [];
+                                                if (strtolower($history->tb_status) === 'normal') {
+                                                $style = [
+                                                'textColor' => 'text-success',
+                                                'badgeColor' => 'text-bg-success'
+                                                ];
+                                                } elseif (strtolower($history->tb_status) === 'sangat pendek') {
+                                                $style = [
+                                                'textColor' => 'text-danger-dark',
+                                                'badgeColor' => 'text-bg-danger-dark'
+                                                ];
+                                                } elseif (strtolower($history->tb_status) === 'pendek') {
+                                                $style = [
+                                                'textColor' => 'text-danger',
+                                                'badgeColor' => 'text-bg-danger'
+                                                ];
+                                                } else {
+                                                $style = [
+                                                'textColor' => 'text-primary',
+                                                'badgeColor' => 'text-bg-primary'
+                                                ];
+                                                }
+                                                @endphp
+                                                <span class="badge badge-sm rounded-pill {{ $style['badgeColor'] }}">{{ strtoupper($history->tb_status) }}</span>
+                                            </td>
+                                            <td>{{ $history->created_at }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            {{ $histories->links() }}
                         </div>
                     </div>
                 </div>
@@ -98,6 +236,16 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script>
+    function changeKmsMode(value) {
+        const graphicMode = value === 'graphic';
+
+        $('#graphic').toggleClass('d-none', !graphicMode);
+        $('#table').toggleClass('d-none', graphicMode);
+
+        $('#button-graphic').toggleClass('btn-secondary', !graphicMode).toggleClass('btn-primary', graphicMode);
+        $('#button-table').toggleClass('btn-secondary', graphicMode).toggleClass('btn-primary', !graphicMode);
+    }
+
     let data = {};
     if ("{{ $profile->jenis_kelamin }}" === 'lk') {
         data = {

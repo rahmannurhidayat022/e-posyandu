@@ -43,13 +43,16 @@ class KMSController extends Controller
         $day = $age->d;
         $ageString = $year . " tahun " . $month . " bulan " . $day . " hari";
 
+        $histories = PenimbanganAnak::where('anak_id', $id)->paginate(10);
+
         return view('kms', [
             'id' => $id,
             'profile' => $profile,
             'age' => $ageString,
             'latest' => $latest,
             'antropometri_bb' => $antropometri_bb,
-            'antropometri_tb' => $antropometri_tb
+            'antropometri_tb' => $antropometri_tb,
+            'histories' => $histories,
         ]);
     }
 }
