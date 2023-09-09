@@ -115,7 +115,7 @@
 <body>
     <div id="forbidden">
         <div class="forbidden">
-            <img class="forbidden-403" src="{{ mix('assets/images/403.png' )}}" alt="forbidden icon">
+            <img class="forbidden-403" src="{{ asset('assets/images/403.png' )}}" alt="forbidden icon">
             <h1>403</h1>
             <h2>Oops! Akses Dilarang</h2>
             <p>Maaf, halaman yang Anda cari memerlukan hak akses tertentu</p>

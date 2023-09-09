@@ -39,6 +39,7 @@
                                 <span class="hide-menu">Dashboard</span>
                             </a>
                         </li>
+                        @if (Auth::user()->role === "admin")
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ route('gallery.index') }}" aria-expanded="false">
                                 <span>
@@ -55,6 +56,7 @@
                                 <span class="hide-menu">Artikel</span>
                             </a>
                         </li>
+                        @endif
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                             <span class="hide-menu">Pelayanan Posyandu</span>

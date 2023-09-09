@@ -28,7 +28,7 @@
                     <img src="{{ asset('storage/article/'.$data->image) }}" alt="{{ $data->image }}" style="width: 100%; object-position: center; object-fit: cover; max-height: 400px">
                 </div>
                 <p class="text-left lh-lg" style="font-size: 16px">
-                    {{ $data->content }}
+                    {!! $data->content !!}
                 </p>
             </div>
             <div class="col-12 col-md-4">

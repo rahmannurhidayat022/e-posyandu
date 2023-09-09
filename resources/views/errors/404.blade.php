@@ -115,7 +115,7 @@
 <body>
     <div id="notfound">
         <div class="notfound">
-            <img class="notfound-404" src="{{ mix('assets/images/404.png' )}}" alt="not found icon">
+            <img class="notfound-404" src="{{ asset('assets/images/404.png' )}}" alt="not found icon">
             <h1>404</h1>
             <h2>Oops! Halaman Tidak Ditemukan</h2>
             <p>Maaf, halaman yang Anda cari tidak ada dan telah dihapus. Nama diubah atau sementara tidak tersedia</p>

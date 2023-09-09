@@ -54,7 +54,7 @@ class ArticleController extends Controller
             $validated = Validator::make($request->all(), [
                 'title' => 'required',
                 'content' => 'required',
-                'image' => 'required|image|mimes:jpeg,png,jpg',
+                'image' => 'required|image|mimes:jpeg,png,jpg,webp',
             ]);
 
             if ($validated->fails()) {
@@ -112,7 +112,7 @@ class ArticleController extends Controller
             $validated = Validator::make($request->all(), [
                 'title' => 'required',
                 'content' => 'required',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,webp',
             ]);
 
             if ($validated->fails()) {

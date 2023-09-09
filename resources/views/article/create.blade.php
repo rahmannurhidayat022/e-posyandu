@@ -2,7 +2,6 @@
 @section("title", "Tambah Artikel")
 @section("content")
 @push('head')
-<link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 @endpush
 <section>
     <div class="row">
@@ -52,11 +51,7 @@
     </div>
 </section>
 @push('script')
-<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
 <script>
-    var quill = new Quill('#content', {
-        theme: 'snow'
-    });
 </script>
 @endpush
 @endsection
