@@ -145,5 +145,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::put('/{id}/update', 'ArticleController@update')->name('article.update');
             Route::delete('/{id}/destroy', 'ArticleController@destroy')->name('article.destroy');
         });
+
+        Route::prefix('vaksin')->group(function () {
+            Route::get('/get', 'VaksinController@getVaksin')->name('get-vaksin');
+            Route::get('/', 'VaksinController@index')->name('vaksin.index');
+            Route::get('/create', 'VaksinController@create')->name('vaksin.create');
+            Route::get('/{id}/edit', 'VaksinController@edit')->name('vaksin.edit');
+            Route::post('/store', 'VaksinController@store')->name('vaksin.store');
+            Route::put('/{id}/update', 'VaksinController@update')->name('vaksin.update');
+            Route::delete('/{id}/destroy', 'VaksinController@destroy')->name('vaksin.destroy');
+        });
     });
 });

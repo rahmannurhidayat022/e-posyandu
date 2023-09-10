@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label" for="jenis_vaksin">Jenis Vaksin</label>
-                                        <input id="jenis_vaksin" class="form-control form-sm" name="jenis_vaksin" type="text" value="{{ $imunisasi->jenis_vaksin }}">
+                                        <select id="jenis_vaksin" class="select2 form-control form-sm" name="jenis_vaksin" type="text"></select>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -88,6 +88,25 @@
                 $('#petugas_id').html(html);
             }
         });
+    });
+
+    $(document).ready(function() {
+        $.ajax({
+            url: "{{ route('get-vaksin') }}",
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                let html = '<option selected>Pilih</option>';
+                $.each(response, function(index, data) {
+                    let selected = '';
+                    if (data.name == '{{ $imunisasi->jenis_vaksin }}') {
+                        selected = 'selected';
+                    }
+                    html += `<option value="${data.name}" ${selected}>${data.name}</option>`
+                });
+                $('#jenis_vaksin').html(html);
+            }
+        })
     });
 </script>
 @endpush

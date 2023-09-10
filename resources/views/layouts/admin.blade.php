@@ -104,6 +104,14 @@
                             <span class="hide-menu">DATA MASTER</span>
                         </li>
                         <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('vaksin.index') }}" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-vaccine"></i>
+                                </span>
+                                <span class="hide-users">Vaksin</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ route('ibu.index') }}" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-empathize"></i>
