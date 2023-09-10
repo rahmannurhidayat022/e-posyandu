@@ -128,12 +128,12 @@
                             <p class="mb-2"><strong>Lihat KMS dalam bentuk:</strong></p>
                             <div class="d-flex justify-content-start">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button id="button-graphic" type="button" class="btn btn-primary" onclick="changeKmsMode('graphic')">Grafik</button>
-                                    <button id="button-table" type="button" class="btn btn-secondary" onclick="changeKmsMode('table')">Tabel</button>
+                                    <button id="button-table" type="button" class="btn btn-primary" onclick="changeKmsMode('table')">Tabel</button>
+                                    <button id="button-graphic" type="button" class="btn btn-secondary" onclick="changeKmsMode('graphic')">Grafik</button>
                                 </div>
                             </div>
                         </div>
-                        <div id="graphic" class="row">
+                        <div id="graphic" class="row d-none">
                             <div class="col-12 mt-5">
                                 <figure id="weight-container"></figure>
                             </div>
@@ -144,7 +144,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="table" class="d-none">
+                        <div id="table">
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
@@ -161,7 +161,7 @@
                                         @foreach($histories as $history)
                                         <tr>
                                             <td>{{ $history->usia }}</td>
-                                            <td>{{ $history->bb }}</td>
+                                            <td>{{ $history->bb }} Kg</td>
                                             <td>
                                                 @php
                                                 $style = [];
@@ -189,7 +189,7 @@
                                                 @endphp
                                                 <span class="badge badge-sm rounded-pill {{ $style['badgeColor'] }}">{{ strtoupper($history->bb_status) }}</span>
                                             </td>
-                                            <td>{{ $history->tb }}</td>
+                                            <td>{{ $history->tb }} Cm</td>
                                             <td>
                                                 @php
                                                 $style = [];
