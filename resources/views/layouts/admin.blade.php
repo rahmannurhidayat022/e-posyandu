@@ -119,14 +119,14 @@
                                 <span class="hide-users">Ibu</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('kader.index') }}" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-heart-handshake"></i>
-                                </span>
-                                <span class="hide-users">Kader</span>
-                            </a>
-                        </li>
+                        <!-- <li class="sidebar-item"> -->
+                        <!--     <a class="sidebar-link" href="{{ route('kader.index') }}" aria-expanded="false"> -->
+                        <!--         <span> -->
+                        <!--             <i class="ti ti-heart-handshake"></i> -->
+                        <!--         </span> -->
+                        <!--         <span class="hide-users">Kader</span> -->
+                        <!--     </a> -->
+                        <!-- </li> -->
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ route('petugas.index') }}" aria-expanded="false">
                                 <span>
@@ -141,7 +141,7 @@
                                 <span>
                                     <i class="ti ti-user"></i>
                                 </span>
-                                <span class="hide-menu">Akun</span>
+                                <span class="hide-menu">Kader & Pengguna</span>
                             </a>
                         </li>
                         @endif

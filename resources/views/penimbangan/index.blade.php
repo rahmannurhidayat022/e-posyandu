@@ -29,6 +29,7 @@
                                     <th>BB Status</th>
                                     <th>TB</th>
                                     <th>TB Status</th>
+                                    <th>Status Gizi</th>
                                     <th>Tanggal</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -202,6 +203,45 @@
                             }
                             return `<span class="badge badge-sm rounded-pill ${style.badgeColor}">${data.toUpperCase()}</span>`;
                         }
+                    },
+                    {
+                        name: 'gizi_status',
+                        data: 'gizi_status',
+                        render: (data, type, row) => {
+                            let style = {};
+                            if (row.gizi_status.toLowerCase() === 'gizi buruk') {
+                                style = {
+                                    badgeColor: 'gt--min-2'
+                                }
+                            } else if (row.gizi_status.toLowerCase() === 'gizi kurang') {
+                                style = {
+                                    badgeColor: 'gt--min-1'
+                                }
+                            } else if (row.gizi_status.toLowerCase() === 'gizi normal') {
+                                style = {
+                                    badgeColor: 'gt--min-0'
+                                }
+                            } else if (row.gizi_status.toLowerCase() === 'berisiko gizi lebih') {
+                                style = {
+                                    badgeColor: 'gt--plus-1'
+                                }
+                            } else if (row.gizi_status.toLowerCase() === 'gizi lebih') {
+                                style = {
+                                    badgeColor: 'gt--plus-2'
+                                }
+                            } else if (row.gizi_status.toLowerCase() === 'obesitas') {
+                                style = {
+                                    badgeColor: 'gt--plus-3'
+                                }
+                            } else {
+                                // Default style jika status tidak sesuai
+                                style = {
+                                    badgeColor: 'bg-secondary'
+                                }
+                            }
+                            return `<span class="badge badge-sm rounded-pill ${style.badgeColor}">${data.toUpperCase()}</span>`;
+                        }
+
                     },
                     {
                         name: 'created_at',

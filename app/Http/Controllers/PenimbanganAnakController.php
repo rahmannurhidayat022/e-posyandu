@@ -125,8 +125,30 @@ class PenimbanganAnakController extends Controller
                 $tb_status = null;
             }
 
+            $bmi = $this->indexMasaTubuh($request->input('bb'), $request->input('tb'));
+            $antropometri_imt = Antropometri::where('jenis_kelamin', $jenisKelamin)
+                ->where('bulan', $bulan)
+                ->where('tipe', 'imt')
+                ->first();
+            if ($antropometri_imt && $bmi < $antropometri_imt->minus_3_sd) {
+                $gizi_status = 'Gizi Buruk';
+            } else if ($antropometri_imt && $bmi >= $antropometri_imt->minus_3_sd && $bmi <= $antropometri_imt->minus_2_sd) {
+                $gizi_status = 'Gizi Kurang';
+            } else if ($antropometri_imt && $bmi >= $antropometri_imt->minus_2_sd && $bmi <= $antropometri_imt->plus_1_sd) {
+                $gizi_status = 'Gizi Normal';
+            } else if ($antropometri_imt && $bmi >= $antropometri_imt->plus_1_sd && $bmi <= $antropometri_imt->plus_2_sd) {
+                $gizi_status = 'Berisiko Gizi Lebih';
+            } else if ($antropometri_imt && $bmi >= $antropometri_imt->plus_2_sd && $bmi <= $antropometri_imt->plus_3_sd) {
+                $gizi_status = 'Gizi Lebih';
+            } else if ($antropometri_imt && $bmi > $antropometri_imt->plus_3_sd) {
+                $gizi_status = 'Obesitas';
+            } else {
+                $gizi_status = null;
+            }
+
             $penimbangan->bb_status = $bb_status;
             $penimbangan->tb_status = $tb_status;
+            $penimbangan->gizi_status = $gizi_status;
             $penimbangan->save();
 
             Alert::success('Berhasil', 'Berhasil menambahkan data penimbangan anak');
@@ -135,6 +157,13 @@ class PenimbanganAnakController extends Controller
             Alert::error('Gagal', 'Gagal menambahkan data penimbangan anak')->autoclose(3000);
             return redirect()->back()->withInput($request->all());
         }
+    }
+
+    private function indexMasaTubuh($bb, $tb)
+    {
+        $heightMeter =  $tb / 100;
+        $bmi = $bb / ($heightMeter * $heightMeter);
+        return $bmi;
     }
 
     public function update(Request $request, $id)
@@ -198,8 +227,30 @@ class PenimbanganAnakController extends Controller
                 $tb_status = null;
             }
 
+            $bmi = $this->indexMasaTubuh($request->input('bb'), $request->input('tb'));
+            $antropometri_imt = Antropometri::where('jenis_kelamin', $jenisKelamin)
+                ->where('bulan', $bulan)
+                ->where('tipe', 'imt')
+                ->first();
+            if ($antropometri_imt && $bmi < $antropometri_imt->minus_3_sd) {
+                $gizi_status = 'Gizi Buruk';
+            } else if ($antropometri_imt && $bmi >= $antropometri_imt->minus_3_sd && $bmi <= $antropometri_imt->minus_2_sd) {
+                $gizi_status = 'Gizi Kurang';
+            } else if ($antropometri_imt && $bmi >= $antropometri_imt->minus_2_sd && $bmi <= $antropometri_imt->plus_1_sd) {
+                $gizi_status = 'Gizi Normal';
+            } else if ($antropometri_imt && $bmi >= $antropometri_imt->plus_1_sd && $bmi <= $antropometri_imt->plus_2_sd) {
+                $gizi_status = 'Berisiko Gizi Lebih';
+            } else if ($antropometri_imt && $bmi >= $antropometri_imt->plus_2_sd && $bmi <= $antropometri_imt->plus_3_sd) {
+                $gizi_status = 'Gizi Lebih';
+            } else if ($antropometri_imt && $bmi > $antropometri_imt->plus_3_sd) {
+                $gizi_status = 'Obesitas';
+            } else {
+                $gizi_status = null;
+            }
+
             $penimbangan->bb_status = $bb_status;
             $penimbangan->tb_status = $tb_status;
+            $penimbangan->gizi_status = $gizi_status;
             $penimbangan->save();
 
             Alert::success('Berhasil', 'Berhasil perbaharui data penimbangan anak');

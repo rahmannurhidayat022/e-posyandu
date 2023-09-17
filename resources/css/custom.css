@@ -157,3 +157,29 @@
     opacity: .5;
     font-size: 14px;
 }
+
+
+.gt--min-2 {
+    background-color: #FF0000;
+    color: #fff !important;
+}
+.gt--min-1 {
+    background-color: #FFA500;
+    color: #fff !important;
+}
+.gt--min-0 {
+    background-color: #008000;
+    color: #fff !important;
+}
+.gt--plus-1 {
+    background-color: #FFFF00;
+    color: #333 !important;
+}
+.gt--plus-2 {
+    background-color: #0000FF;
+    color: #fff !important;
+}
+.gt--plus-3 {
+    background-color: #800080;
+    color: #fff !important;
+}

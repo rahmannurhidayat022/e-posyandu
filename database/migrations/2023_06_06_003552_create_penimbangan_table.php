@@ -39,6 +39,7 @@ return new class extends Migration
             $table->decimal('tb', 4, 1);
             $table->string('bb_status')->nullable();
             $table->string('tb_status')->nullable();
+            $table->string('gizi_status')->nullable();
             $table->text('keluhan')->nullable();
             $table->text('catatan')->nullable();
             $table->timestamps();

@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Akun</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Kder & Pengguna</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Edit</li>
                         </ol>
                     </nav>
@@ -17,7 +17,7 @@
                             <span class="badge-circle">
                                 <i class="ti ti-user"></i>
                             </span>
-                            Edit Akun Admin
+                            Edit Kader & Pengguna
                         </div>
                     </h2>
                     <div class="mt-4">

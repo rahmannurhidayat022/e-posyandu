@@ -106,6 +106,39 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>Status Gizi:</td>
+                                    <td>
+                                        @php
+                                        $badgeClass = 'bg-secondary'; // Default style jika status tidak sesuai
+                                        $giziStatus = strtolower($latest->gizi_status);
+
+                                        switch ($giziStatus) {
+                                        case 'gizi buruk':
+                                        $badgeClass = 'gt--min-2';
+                                        break;
+                                        case 'gizi kurang':
+                                        $badgeClass = 'gt--min-1';
+                                        break;
+                                        case 'gizi normal':
+                                        $badgeClass = 'gt--min-0';
+                                        break;
+                                        case 'berisiko gizi lebih':
+                                        $badgeClass = 'gt--plus-1';
+                                        break;
+                                        case 'gizi lebih':
+                                        $badgeClass = 'gt--plus-2';
+                                        break;
+                                        case 'obesitas':
+                                        $badgeClass = 'gt--plus-3';
+                                        break;
+                                        }
+                                        @endphp
+
+                                        <span class="badge badge-sm rounded-pill {{ $badgeClass }}">{{ strtoupper($latest->gizi_status) }}</span>
+
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>Penimbangan terakhir:</td>
                                     <td>{{ $latest->created_at }}</td>
                                 </tr>
@@ -147,6 +180,7 @@
                                         <th>Status Berat Badan</th>
                                         <th>Tinggi Badan</th>
                                         <th>Status Tinggi Badan</th>
+                                        <th>Status Gizi</th>
                                         <th>Tanggal</th>
                                     </tr>
                                 </thead>
@@ -209,6 +243,35 @@
                                             }
                                             @endphp
                                             <span class="badge badge-sm rounded-pill {{ $style['badgeColor'] }}">{{ strtoupper($history->tb_status) }}</span>
+                                        </td>
+                                        <td>
+                                            @php
+                                            $badgeClass = 'bg-secondary'; // Default style jika status tidak sesuai
+                                            $giziStatus = strtolower($latest->gizi_status);
+
+                                            switch ($giziStatus) {
+                                            case 'gizi buruk':
+                                            $badgeClass = 'gt--min-2';
+                                            break;
+                                            case 'gizi kurang':
+                                            $badgeClass = 'gt--min-1';
+                                            break;
+                                            case 'gizi normal':
+                                            $badgeClass = 'gt--min-0';
+                                            break;
+                                            case 'berisiko gizi lebih':
+                                            $badgeClass = 'gt--plus-1';
+                                            break;
+                                            case 'gizi lebih':
+                                            $badgeClass = 'gt--plus-2';
+                                            break;
+                                            case 'obesitas':
+                                            $badgeClass = 'gt--plus-3';
+                                            break;
+                                            }
+                                            @endphp
+
+                                            <span class="badge badge-sm rounded-pill {{ $badgeClass }}">{{ strtoupper($latest->gizi_status) }}</span>
                                         </td>
                                         <td>{{ $history->created_at }}</td>
                                     </tr>

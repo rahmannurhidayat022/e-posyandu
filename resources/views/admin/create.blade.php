@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Akun</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Kader & Pengguna</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Create</li>
                         </ol>
                     </nav>
@@ -17,7 +17,7 @@
                             <span class="badge-circle">
                                 <i class="ti ti-user"></i>
                             </span>
-                            Tambah Akun Admin
+                            Tambah Kader & Akun
                         </div>
                     </h2>
                     <div class="mt-4">

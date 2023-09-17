@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title fw-semibold mb-4">Manajemen akun</h2>
+                    <h2 class="card-title fw-semibold mb-4">Manajemen Kader & Akun Pengguna</h2>
                     <div class="mt-4">
                         <table id="admin-table" class="display nowrap" style="width:100%">
                             <thead>
