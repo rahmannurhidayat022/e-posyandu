@@ -352,12 +352,13 @@
                     enabled: false
                 },
                 yAxis: {
+                    gridLineWidth: 0,
                     title: {
                         text: 'Berat Badan (Kg)'
                     }
                 },
                 xAxis: {
-                    gridLineWidth: 1,
+                    gridLineWidth: 0,
                     title: {
                         text: 'Umur (Bulan)'
                     }
@@ -417,12 +418,13 @@
                     enabled: false
                 },
                 yAxis: {
+                    gridLineWidth: 0,
                     title: {
                         text: 'Tinggi Badan (Cm)'
                     }
                 },
                 xAxis: {
-                    gridLineWidth: 1,
+                    gridLineWidth: 0,
                     title: {
                         text: 'Umur (Bulan)'
                     }
