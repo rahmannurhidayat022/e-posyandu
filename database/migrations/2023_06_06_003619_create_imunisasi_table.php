@@ -36,6 +36,8 @@ return new class extends Migration
             $table->string('id_layanan')->unique();
             $table->integer('usia');
             $table->string('jenis_vaksin');
+            $table->bigInteger('batch_number');
+            $table->date('expired_date');
             $table->text('keluhan')->nullable();
             $table->text('catatan')->nullable();
             $table->timestamps();

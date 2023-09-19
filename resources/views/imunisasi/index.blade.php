@@ -23,6 +23,8 @@
                                     <th>No.Layanan</th>
                                     <th>Usia</th>
                                     <th>Jenis Vaksin</th>
+                                    <th>Nomor Batch</th>
+                                    <th>Tanggak Kedaluarsa</th>
                                     <th>Tanggal</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -83,6 +85,14 @@
                     {
                         data: 'jenis_vaksin',
                         name: 'jenis_vaksin',
+                    },
+                    {
+                        data: 'batch_number',
+                        name: 'batch_number',
+                    },
+                    {
+                        data: 'expired_date',
+                        name: 'expired_date',
                     },
                     {
                         name: 'created_at',

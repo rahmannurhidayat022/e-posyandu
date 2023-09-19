@@ -38,6 +38,15 @@
                                         <label class="form-label" for="jenis_vaksin">Jenis Vaksin</label>
                                         <select id="jenis_vaksin" class="select2 form-control form-sm" name="jenis_vaksin" type="text"></select>
                                     </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-3">
+                                        <label class="form-label" for="batch_number">Nomor Batch</label>
+                                        <input id="batch_number" class="form-control" name="batch_number" type="number" value="{{ $imunisasi->batch_number }}" required>
+
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-lg-3">
+                                        <label class="form-label" for="expired_date">Tanggal Kedaluarsa</label>
+                                        <input id="expired_date" class="form-control" name="expired_date" type="date" value="{{ $imunisasi->expired_date }}" required>
+                                    </div>
                                 </div>
                                 <div class="row mb-3">
                                     <h6><b>Tambahan</b></h6>

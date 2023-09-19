@@ -37,10 +37,7 @@ class VaksinController extends Controller
     {
         $validated = Validator::make($request->all(), [
             'name' => 'required',
-            'type' => 'required',
             'variant' => 'required',
-            'batch_number' => 'required',
-            'expired_date' => 'required',
         ]);
 
         if ($validated->fails()) {
@@ -52,10 +49,7 @@ class VaksinController extends Controller
         try {
             $data = new Vaksin();
             $data->name = $request->name;
-            $data->type = $request->type;
             $data->variant = $request->variant;
-            $data->batch_number = $request->batch_number;
-            $data->expired_date = $request->expired_date;
             $data->save();
 
             Alert::success('Berhasil', 'Berhasil menambahkan data vaksin');
@@ -76,10 +70,7 @@ class VaksinController extends Controller
     {
         $validated = Validator::make($request->all(), [
             'name' => 'required',
-            'type' => 'required',
             'variant' => 'required',
-            'batch_number' => 'required',
-            'expired_date' => 'required',
         ]);
 
         if ($validated->fails()) {
@@ -91,10 +82,7 @@ class VaksinController extends Controller
         try {
             $data = Vaksin::findOrFail($id);
             $data->name = $request->name;
-            $data->type = $request->type;
             $data->variant = $request->variant;
-            $data->batch_number = $request->batch_number;
-            $data->expired_date = $request->expired_date;
             $data->update();
 
             Alert::success('Berhasil', 'Berhasil memperbaharui data vaksin');

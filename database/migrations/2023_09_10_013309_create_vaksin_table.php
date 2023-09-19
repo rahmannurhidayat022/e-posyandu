@@ -14,10 +14,7 @@ return new class extends Migration
         Schema::create('vaksin', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('type');
             $table->string('variant');
-            $table->bigInteger('batch_number');
-            $table->date('expired_date');
             $table->timestamps();
         });
     }

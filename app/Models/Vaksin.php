@@ -9,5 +9,5 @@ class Vaksin extends Model
 {
     use HasFactory;
     protected $table = 'vaksin';
-    protected $fillable = ['name', 'type', 'variant', 'batch_number', 'expired_date'];
+    protected $fillable = ['name', 'variant'];
 }

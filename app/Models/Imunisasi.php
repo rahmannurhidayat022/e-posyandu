@@ -20,6 +20,8 @@ class Imunisasi extends Model
         'id_layanan',
         'usia',
         'jenis_vaksin',
+        'batch_number',
+        'expired_date',
         'keluhan',
         'catatan',
     ];

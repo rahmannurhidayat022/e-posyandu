@@ -15,10 +15,7 @@
                                     <th></th>
                                     <th></th>
                                     <th>Nama</th>
-                                    <th>Jenis</th>
                                     <th>Varian</th>
-                                    <th>Nomor Batch</th>
-                                    <th>Kedaluarsa</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -48,22 +45,9 @@
                         name: 'name'
                     },
                     {
-                        data: 'type',
-                        name: 'type',
-                    },
-                    {
                         data: 'variant',
                         name: 'variant',
                     },
-                    {
-                        data: 'batch_number',
-                        name: 'batch_number',
-                    },
-                    {
-                        data: 'expired_date',
-                        name: 'expired_date',
-                    },
-
                 ]
             },
             printConfiguration: {

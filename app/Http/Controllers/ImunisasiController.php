@@ -67,6 +67,8 @@ class ImunisasiController extends Controller
             'anak_id' => 'required|exists:anak,id',
             'usia' => 'required',
             'jenis_vaksin' => 'required',
+            'batch_number' => 'required',
+            'expired_date' => 'required',
             'keluhan' => 'nullable',
             'catatan' => 'nullable',
         ]);
@@ -98,6 +100,8 @@ class ImunisasiController extends Controller
             'anak_id' => 'required|exists:anak,id',
             'usia' => 'required',
             'jenis_vaksin' => 'required',
+            'batch_number' => 'required',
+            'expired_date' => 'required',
             'keluhan' => 'nullable',
             'catatan' => 'nullable',
         ]);

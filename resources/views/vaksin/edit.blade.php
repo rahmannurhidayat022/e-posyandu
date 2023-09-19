@@ -30,20 +30,8 @@
                                     <input id="name" class="form-control" name="name" type="text" value="{{ $data->name }}" required>
                                 </div>
                                 <div class="mb-2">
-                                    <label class="form-label" for="type">Jenis Vaksin</label>
-                                    <input id="type" class="form-control" name="type" type="text" value="{{ $data->type }}" required>
-                                </div>
-                                <div class="mb-2">
                                     <label class="form-label" for="variant">Varian Vaksin</label>
                                     <input id="variant" class="form-control" name="variant" type="text" value="{{ $data->variant }}" required>
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label" for="batch_number">Nomor Batch</label>
-                                    <input id="batch_number" class="form-control" name="batch_number" type="number" value="{{ $data->batch_number }}" required>
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label" for="expired_date">Tanggal Kedaluarsa</label>
-                                    <input id="expired_date" class="form-control" name="expired_date" type="date" value="{{ $data->expired_date }}" required>
                                 </div>
                             </div>
                             <div class="d-flex gap-2 mt-4">
